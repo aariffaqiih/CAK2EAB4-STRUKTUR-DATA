@@ -1,13 +1,15 @@
-# <h1 align="center">Laporan Praktikum Modul 1 <br> Nama Modul</h1>
+<h1 align="center">Laporan Praktikum Modul 1 <br> Nama Modul</h1>
 <p align="center">'Aarif R. J. Faqiih - 103112430182</p>
 
 ## Dasar Teori
 
-yang panjang dikit
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 
 ## Unguided
 
 ### Soal 1
+
+Buatlah program yang menerima input-an dua buah bilangan bertipe float, kemudian memberikan output-an hasil penjumlahan, pengurangan, perkalian, dan pembagian dari dua bilangan tersebut.
 
 ```cpp
 #include <iostream>
@@ -66,5 +68,15 @@ int main() {
 ```
 
 > Output
->
+> 
 > ![Screenshot Output Unguided 1](output/ss_unguided_1.jpg)
+
+program ini bertujuan untuk menampilkan hasil penjumlahan, pengurangan, perkalian, dan pembagian dari 2 angka bertipe float.
+
+prosedur readNumbers di awal program bertujuan untuk menerima 2 input angka dari variabel a dan b yang nantinya akan masuk ke proses perhitungan.
+
+setelah itu ada 4 fungsi utama yang menjadi core di program ini, yaitu addition, subtraction, multiplication, dan division. 4 fungsi ini memiliki 2 parameter yang sama yaitu angka bertipe float dari variabel a dan b.
+
+fungsi addition bekerja dengan cara menjumlahkan nilai dari variabel a dan b, kemudian fungsi subtraction bekerja dengan cara mengurangi nilai dari variabel a dengan variabel b, setelah itu fungsi multiplication bekerja dengan cara mengalikan nilai dari variabel a dengan variabel b, dan fungsi division bekerja dengan cara membagi nilai dari variabel a dengan variabel b.
+
+terakhir, fungsi main bertugas untuk mendeklarasikan variabel, memanggil fungsi, dan menampilkan hasil.
