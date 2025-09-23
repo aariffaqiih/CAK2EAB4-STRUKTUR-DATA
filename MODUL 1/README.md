@@ -67,4 +67,4 @@ int main() {
 
 > Output
 >
-> ![Screenshot Output Unguided 1](/output/ss_unguided_1.jpg)
+> ![Screenshot Output Unguided 1](output/ss_unguided_1.jpg)
