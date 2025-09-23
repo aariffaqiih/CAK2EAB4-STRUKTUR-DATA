@@ -64,3 +64,6 @@ int main() {
    return 0;
 }
 ```
+
+> Output
+> ![Screenshot bagian x](output/unguided_1.jpg)
