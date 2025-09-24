@@ -80,3 +80,57 @@ setelah itu ada 4 fungsi utama yang menjadi core di program ini, yaitu addition,
 fungsi addition bekerja dengan cara menjumlahkan nilai dari variabel a dan b, kemudian fungsi subtraction bekerja dengan cara mengurangi nilai dari variabel a dengan variabel b, setelah itu fungsi multiplication bekerja dengan cara mengalikan nilai dari variabel a dengan variabel b, dan fungsi division bekerja dengan cara membagi nilai dari variabel a dengan variabel b.
 
 terakhir, fungsi main bertugas untuk mendeklarasikan variabel, memanggil fungsi, dan menampilkan hasil.
+
+### Soal 3
+
+Buatlah program yang dapat memberikan input dan output sebagai berikut.
+
+<pre>
+input  : 3
+output :
+321*123
+ 21*12
+  1*1
+   *
+</pre>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+   int n;
+   cout << "enter n : ";
+   cin >> n;
+
+   for (int i = n; i >= 1; i--) {
+      for (int k = 0; k < n - i; k++) {
+         cout << " ";
+     }
+
+      for (int j = i; j >= 1; j--) {
+         cout << j;
+      }
+
+      cout << "*";
+
+      for (int j = 1; j <= i; j++) {
+         cout << j;
+      }
+      cout << endl;
+   }
+   for (int k = 0; k < n; k++) {
+      cout << " ";
+  }
+
+   cout << "*";
+
+   return 0;
+}
+```
+
+> Output
+> 
+> ![Screenshot Output Unguided 1](output/ss_unguided_3.jpg)
+
+pxxx
