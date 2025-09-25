@@ -25,7 +25,7 @@ Konsep yang digunakan:
 
 ### Soal 1
 
-g1111111111111111.
+membaca dan menampilkan satu karakter yang dimasukkan.
 
 ```cpp
 #include <iostream>
@@ -45,13 +45,17 @@ int main()
 > 
 > ![Screenshot Output Guided 1](output/ss_guided_1.jpg)
 
-g1111111111111111111111.
+program ini bertujuan untuk menerima input berupa satu karakter dan menampilkannya kembali.
+
+di awal program, ada variabel bertipe string bernama ch yang digunakan untuk menyimpan karakter yang dimasukkan oleh pengguna. kemudian, getchar() digunakan untuk membaca satu karakter dari input pengguna. meskipun menggunakan cin >> ch; juga bisa, tapi disini getchar() digunakan agar kita bisa membaca satu karakter saja, bukan string penuh.
+
+cara kerjanya adalah getchar() akan mengambil karakter pertama yang dimasukkan pengguna dan menyimpannya ke dalam variabel ch. setelah itu, program menampilkan karakter yang telah dimasukkan.
 
 ---
 
 ### Soal 2
 
-g222222222222222222222222222222222222.
+membaca input panjang dan lebar, lalu menghitung serta menampilkan luas dan keliling dengan menggunakan fungsi dan prosedur.
 
 ```cpp
 #include <iostream>
@@ -107,13 +111,21 @@ int main()
 > 
 > ![Screenshot Output Guided 2](output/ss_guided_2.jpg)
 
-g2222222222222222222222222222.
+program ini bertujuan untuk menghitung luas dan keliling dari sebuah persegi panjang, menggunakan baik fungsi maupun prosedur.
+
+pertama, ada dua fungsi yang digunakan untuk menghitung, yaitu hitungLuas dan hitungKeliling. keduanya menerima dua parameter, yaitu panjang dan lebar, dan masing-masing mengembalikan nilai hasil perhitungan.
+
+hitungLuas menghitung luas persegi panjang dengan rumus p * l dan mengembalikan nilai luas. hitungKeliling menghitung keliling persegi panjang dengan rumus 2 * (p + l) dan mengembalikan nilai keliling. setelah nilai luas dan keliling dihitung dengan fungsi, hasilnya ditampilkan di layar.
+
+selanjutnya, prosedur tampilkanHasil digunakan untuk menampilkan hasil perhitungan yang sama, tetapi tanpa mengembalikan nilai. prosedur ini menerima dua parameter, yaitu panjang dan lebar, dan menampilkan panjang, lebar, luas, dan keliling.
+
+di dalam main, program pertama-tama meminta input dari pengguna untuk panjang dan lebar. kemudian, program memanggil fungsi untuk menghitung luas dan keliling, dan menampilkan hasilnya. setelah itu, prosedur tampilkanHasil dipanggil untuk menampilkan hasil yang sama dengan cara yang berbeda.
 
 ---
 
 ### Soal 3
 
-g33333333333333333333333333333333.
+membaca jumlah perulangan dan menampilkan teks dengan format tertentu menggunakan perulangan do-while.
 
 ```cpp
 #include <iostream>
@@ -150,13 +162,19 @@ int main()
 > 
 > ![Screenshot Output Guided 3](output/ss_guided_3.jpg)
 
-g333333333333333333333333333333333.
+program ini bertujuan untuk mencetak tulisan "bahlil ke-" sebanyak n kali, menggunakan perulangan do while.
+
+pertama, program meminta input angka dari user dan menyimpannya ke dalam variabel jum. kemudian, program menggunakan perulangan do while dengan variabel i yang dimulai dari 1.
+
+di dalam perulangan, cout akan mencetak teks "bahlil ke-" ditambah dengan nilai (i + 1), artinya akan mulai dari 2, karena i dimulai dari 1. lalu, i++ akan menambah nilai i setiap kali perulangan dijalankan.
+
+perulangan akan terus berjalan selama i < jum. artinya, jika jum yang dimasukkan adalah 5, maka output akan mulai dari "bahlil ke-2" hingga "bahlil ke-5".
 
 ---
 
 ### Soal 4
 
-g44444444444444444444444444444444444.
+menentukan apakah sebuah hari termasuk hari kerja atau hari libur berdasarkan kode angka yang dimasukkan.
 
 ```cpp
 ##include <iostream>
@@ -220,13 +238,19 @@ int main()
 > 
 > ![Screenshot Output Guided 4](output/ss_guided_4.jpg)
 
-g444444444444444444444444444444444.
+program ini bertujuan untuk menentukan apakah sebuah hari termasuk hari kerja atau hari libur berdasarkan input kode hari dari user.
+
+pertama, program akan menampilkan informasi kepada user tentang kode angka yang mewakili hari. misalnya, 1 untuk senin, 2 untuk selasa, dan seterusnya hingga 7 untuk minggu.
+
+kemudian user diminta untuk memasukkan kode hari (angka dari 1 sampai 7), dan nilainya akan disimpan di variabel kode_hari. struktur switch digunakan untuk menentukan kategori hari berdasarkan nilai kode_hari.
+
+jika kode_hari bernilai 1 sampai 5, maka program mencetak "hari kerja". jika kode_hari bernilai 6 atau 7, maka program mencetak "hari libur". jika nilainya di luar 1-7, maka masuk ke default dan program mencetak "kode masukan salah!!!" sebagai penanganan input yang tidak valid.
 
 ---
 
 ### Soal 5
 
-g55555555555555555555555555555.
+menghitung dan menampilkan hasil pembagian dari jumlah dua bilangan dengan jumlah dua bilangan lainnya dalam bentuk desimal.
 
 ```cpp
 #include <iostream>
@@ -248,13 +272,17 @@ int main()
 > 
 > ![Screenshot Output Guided 5](output/ss_guided_5.jpg)
 
-g5555555555555555555555555.
+program ini bertujuan untuk menghitung nilai dari variabel z berdasarkan operasi aritmatika dari beberapa variabel bertipe int.
+
+di awal, ada tiga variabel bertipe int yaitu w, x, dan y, lalu satu variabel z bertipe float. x diberi nilai 7, y diberi nilai 3, w diberi nilai 1, dan nilai z dihitung dengan rumus (x + y) / (y + w).
+
+berarti, (7 + 3) / (3 + 1) → 10 / 4 hasilnya adalah 2 jika dalam integer, tapi karena z bertipe float, maka hasilnya akan tetap 2, bukan 2.5, karena operasi dilakukan antar int (x, y, dan w semua bertipe int), dan hasil dari pembagian int / int tetap dianggap integer sebelum dimasukkan ke dalam float.
 
 ---
 
 ### Soal 6
 
-g666666666666666666666.
+menginput dan menampilkan data mahasiswa berupa nama, nim, dan ipk menggunakan struct.
 
 ```cpp
 #include <iostream>
@@ -293,7 +321,11 @@ int main() {
 > 
 > ![Screenshot Output Guided 6](output/ss_guided_6.jpg)
 
-g66666666666666666.
+program ini bertujuan untuk menyimpan dan menampilkan data dari satu orang mahasiswa, menggunakan struct sebagai wadah penyimpanan data. pertama, didefinisikan sebuah struct dengan nama mahasiswa, yang berisi tiga anggota yaitu nama bertipe string, nim bertipe string, dan ipk bertipe float di dalam fungsi main.
+
+dibuat satu variabel bernama mhs1 bertipe mahasiswa. kemudian program akan meminta input dari user untuk tiga data, yaitu nama mahasiswa dibaca menggunakan getline agar bisa membaca spasi, nim mahasiswa dibaca dengan cin, dan ipk mahasiswa dibaca juga dengan cin.
+
+setelah data dimasukkan, program akan menampilkan ulang data tersebut ke layar, sesuai format.
 
 ---
 
