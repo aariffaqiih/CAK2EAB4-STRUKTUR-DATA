@@ -99,30 +99,40 @@ output :
 using namespace std;
 
 int main() {
+   // declare n
    int n;
+   // read n values from user
    cout << "enter n : ";
    cin >> n;
 
+   // outer for to create rows
    for (int i = n; i >= 1; i--) {
+      // inner for to print space before numbers
       for (int k = 0; k < n - i; k++) {
          cout << " ";
-     }
+      }
 
+      // inner for to print descending numbers
       for (int j = i; j >= 1; j--) {
          cout << j;
       }
 
+      // print * as a mirror
       cout << "*";
 
+      // inner for to print ascending numbers
       for (int j = 1; j <= i; j++) {
          cout << j;
       }
       cout << endl;
    }
+
+   // 2nd outer for to print space before last *
    for (int k = 0; k < n; k++) {
       cout << " ";
-  }
+   }
 
+   // * tail
    cout << "*";
 
    return 0;
@@ -133,4 +143,24 @@ int main() {
 > 
 > ![Screenshot Output Unguided 1](output/ss_unguided_3.jpg)
 
-pxxx
+program ini bertujuan untuk menampilkan urutan angka secara descending dan ada bintang di tengahnya seperti cermin, kemudian di sisi kanan bintang ada kebalikan dari urutan angka di sisi kiri, angka di sisi kanan diurutkan secara ascending.
+
+pertama, masukan jumlah n. masuk di perulangan pertama, yaitu for (int i = n; i >= 1; i--), ini berfungsi untuk melakukan pengulangan jumlah baris.
+
+perulangan kedua, yaitu for (int k = 0; k < n - i; k++), berfungsi untuk memberikan spasi sebelum mencetak angka, kenapa perlu spasi? agar bisa rata di tengah, jumlah spasinya mengikuti urutan perulangan.
+
+perulangan ketiga, yaitu for (int j = i; j >= 1; j--), berfungsi untuk menampilkan urutan angka di sisi kiri, yaitu angka yang diurutkan secara descending karena j--.
+
+sebagai cermin antara sisi kiri dan kanan, kita perlu menambahkan cout << "*";.
+
+perulangan keempat, yaitu for (int j = 1; j <= i; j++), berfungsi untuk menampilkan urutan angka di sisi kanan, yaitu angka yang diurutkan secara ascending karena j++.
+
+karena di bagian paling bawah terdapat 1 bintang tambahan dan bintang itu juga akan dibuat rata tengah, maka kita perlu spasi terlebih dahulu menggunakan for (int k = 0; k < n; k++).
+
+terakhir, cetak bintang di paling bawah dengan cout << "*";.
+
+## Referensi
+
+1. https://www.w3schools.com/cpp/cpp_functions.asp (diakses Selasa, 23 September 2025)
+2. https://www.w3schools.com/cpp/cpp_for_loop.asp (diakses Rabu, 24 September 2025)
+3. https://www.w3schools.com/cpp/cpp_for_loop_nested.asp (diakses Rabu, 24 September 2025)
