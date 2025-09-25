@@ -3,7 +3,23 @@
 
 ## Dasar Teori
 
-zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+### Program Operasi Aritmatika
+Konsep penting yang digunakan:
+- **Fungsi (function):** kode yang dapat dipanggil untuk tugas tertentu.
+- **Parameter & Return Value:** mengirim data ke fungsi dan pengembalian hasil.
+- **Input/Output:** menggunakan `cin` untuk input dari pengguna dan `cout` untuk menampilkan hasil.
+
+### Program Konversi Angka ke Teks (0–100)
+Konsep yang dipakai:
+- **Array:** digunakan untuk menyimpan tulisan satuan (`satuan[]`) dan puluhan (`puluhan[]`).
+- **Percabangan (if-else):** menentukan tulisan yang sesuai untuk setiap rentang angka (satuan, belasan, puluhan, seratus, dan nol).
+- **Operator Modulus (`%`) & Pembagian (`/`):** untuk memisahkan angka puluhan dan satuan.
+
+### Program Pola Angka dengan For Loop
+Konsep yang digunakan:
+- **Perulangan Bersarang (nested for loop):** digunakan untuk membuat baris dan kolom secara bersamaan.
+
+---
 
 ## Unguided
 
@@ -80,6 +96,8 @@ setelah itu ada 4 fungsi utama yang menjadi core di program ini, yaitu addition,
 fungsi addition bekerja dengan cara menjumlahkan nilai dari variabel a dan b, kemudian fungsi subtraction bekerja dengan cara mengurangi nilai dari variabel a dengan variabel b, setelah itu fungsi multiplication bekerja dengan cara mengalikan nilai dari variabel a dengan variabel b, dan fungsi division bekerja dengan cara membagi nilai dari variabel a dengan variabel b.
 
 terakhir, fungsi main bertugas untuk mendeklarasikan variabel, memanggil fungsi, dan menampilkan hasil.
+
+---
 
 ### Soal 2
 
@@ -158,6 +176,8 @@ kemudian untuk mengambil bagian satuannya, kita ambil modulus 10, atau sisa bagi
 jika angka antara 11-19, maka untuk angka 11 perlu ditulis manual, karena itu angka spesial, kemudian gunakan array satuan tapi dengan modulus 10, kenapa? sama seperti di kasus angka puluhan tadi, kita hanya perlu ambil bagian belakangnya saja untuk mengakses index pada array satuan, kemudian di bagian belakang ditambahkan tulisan belas.
 
 untuk angka 0 dan 100, ini diberi tulisan manual saja, yaitu nol dan seratus. jika angka di luar range 1 sampai 100, maka program menampilkan angka di luar 0-100.
+
+---
 
 ### Soal 3
 
@@ -242,3 +262,5 @@ terakhir, cetak bintang di paling bawah dengan cout << "*";.
 1. https://www.w3schools.com/cpp/cpp_functions.asp (diakses Selasa, 23 September 2025)
 2. https://www.w3schools.com/cpp/cpp_for_loop.asp (diakses Rabu, 24 September 2025)
 3. https://www.w3schools.com/cpp/cpp_for_loop_nested.asp (diakses Rabu, 24 September 2025)
+4. https://www.w3schools.com/cpp/cpp_arrays.asp (diakses Kamis, 25 September 2025)
+5. https://www.w3schools.com/cpp/cpp_arrays_loop.asp (diakses Kamis, 25 Septmber 2025)
