@@ -81,6 +81,84 @@ fungsi addition bekerja dengan cara menjumlahkan nilai dari variabel a dan b, ke
 
 terakhir, fungsi main bertugas untuk mendeklarasikan variabel, memanggil fungsi, dan menampilkan hasil.
 
+### Soal 2
+
+Buatlah sebuah program yang menerima menerima masukan angka dan mengeluarkan output nilai angka tersebut dalam bentuk tulisan. Angka yang akan di-input-kan user adalah bilangan bulat positif mulai dari 0 s.d 100
+
+<pre>79 : tujuh puluh sembilan</pre>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+   // array 1-10
+   string satuan[]  = {"", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh"};
+   // array 20, 30, 40, ..., 90
+   string puluhan[] = {"", "", "dua puluh", "tiga puluh", "empat puluh", "lima puluh", "enam puluh", "tujuh puluh", "delapan puluh", "sembilan puluh"};
+
+   // declare n
+   int n;
+   // read n values from user
+   cout << "enter number 0-100 : ";
+   cin >> n;
+
+   // 1 -10
+   if (n >= 1 && n <= 10) {
+      cout << satuan[n];
+   }
+
+   // 20 - 99
+   else if (n >= 20 && n <= 99) {
+      cout << puluhan[n/10] << " " << satuan[n%10];
+   }
+
+   // 11 - 19
+   else if (n >= 11 && n <= 19) {
+      if (n == 11) {
+         cout << "sebelas";
+      } else {
+         cout << satuan[n % 10] << " belas";
+      }
+   }
+
+   // 0
+   else if (n == 0) {
+      cout << "nol";
+   }
+
+   // 100
+   else if (n == 100) {
+      cout << "seratus";
+   }
+
+   // not 0-100
+   else {
+      cout << "angka di luar 0-100";
+   }
+
+   return 0;
+}
+```
+
+> Output
+> 
+> ![Screenshot Output Unguided 2](output/ss_unguided_2.jpg)
+
+program ini bertujuan untuk menampilkan tulisan dari sebuah input angka dalam range 1 sampai 100.
+
+agar tidak 'hard-coded' dan agar efisien, kita butuh array yang menyimpan tulisan dari angka, tidak perlu semua, cukup satuan dan puluhan saja.
+
+jika angka yang diinput antara 1-10, maka menggunakan array satuan sebagai outputnya, cara kerjanya adalah mengambil index ke-n pada array berdasarkan angka yang diinput.
+
+jika angka antara 20-99, maka menggunakan array puluhan sebagai outputnya, tapi bedanya kita perlu membagi n dengan 10 agar kita mendapat satu angka puluhannya, misalkan 79 menjadi 7, kenapa? karena untuk mendapatkan index ke-7 yaitu tujuh puluh, kita hanya perlu input 7 saja.
+
+kemudian untuk mengambil bagian satuannya, kita ambil modulus 10, atau sisa bagi jika dibagi 10, kita mendapatkan sisa 9, 9 ini akan mengakses array satuan pada index ke-9, yaitu sembilan.
+
+jika angka antara 11-19, maka untuk angka 11 perlu ditulis manual, karena itu angka spesial, kemudian gunakan array satuan tapi dengan modulus 10, kenapa? sama seperti di kasus angka puluhan tadi, kita hanya perlu ambil bagian belakangnya saja untuk mengakses index pada array satuan, kemudian di bagian belakang ditambahkan tulisan belas.
+
+untuk angka 0 dan 100, ini diberi tulisan manual saja, yaitu nol dan seratus. jika angka di luar range 1 sampai 100, maka program menampilkan angka di luar 0-100.
+
 ### Soal 3
 
 Buatlah program yang dapat memberikan input dan output sebagai berikut.
@@ -141,7 +219,7 @@ int main() {
 
 > Output
 > 
-> ![Screenshot Output Unguided 1](output/ss_unguided_3.jpg)
+> ![Screenshot Output Unguided 3](output/ss_unguided_3.jpg)
 
 program ini bertujuan untuk menampilkan urutan angka secara descending dan ada bintang di tengahnya seperti cermin, kemudian di sisi kanan bintang ada kebalikan dari urutan angka di sisi kiri, angka di sisi kanan diurutkan secara ascending.
 
