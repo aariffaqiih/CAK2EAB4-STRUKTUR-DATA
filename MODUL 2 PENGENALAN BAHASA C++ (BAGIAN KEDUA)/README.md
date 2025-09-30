@@ -11,7 +11,7 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ### Soal 1
 
-XXXXXXXXXXXXXXXXXXXXXXXX
+program untuk mengiterasi dan menampilkan nilai-nilai dalam array beserta indeksnya.
 
 ```cpp
 #include <iostream>
@@ -38,7 +38,7 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ### Soal 2
 
-XXXXXXXXXXXXXXXXXXXXXXXX
+program untuk menampilkan elemen-elemen dalam matriks 3x3.
 
 ```cpp
 #include <iostream>
@@ -70,7 +70,7 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ### Soal 3
 
-XXXXXXXXXXXXXXXXXXXXXXXX
+program yang digunakan untuk menampilkan nilai, alamat memori, dan isi pointer dari sebuah variabel.
 
 ```cpp
 #include <iostream>
@@ -101,7 +101,7 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ### Soal 4
 
-XXXXXXXXXXXXXXXXXXXXXXXX
+program yang digunakan untuk mengakses dan menampilkan elemen array dengan cara biasa dan menggunakan pointer.
 
 ```cpp
 #include <iostream>
@@ -137,7 +137,7 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ### Soal 5
 
-XXXXXXXXXXXXXXXXXXXXXXXX
+program yang digunakan untuk menunjukkan perbedaan antara string sebagai array dan string sebagai pointer.
 
 ```cpp
 #include <iostream>
@@ -172,7 +172,7 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ### Soal 6
 
-XXXXXXXXXXXXXXXXXXXXXXXX
+program yang digunakan untuk menghitung dan menampilkan hasil penjumlahan dua angka.
 
 ```cpp
 #include <iostream>
@@ -208,7 +208,7 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ### Soal 7
 
-XXXXXXXXXXXXXXXXXXXXXXXX
+program yang digunakan untuk menukar nilai dua variabel menggunakan pointer.
 
 ```cpp
 #include <iostream>
@@ -242,7 +242,7 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ### Soal 8
 
-XXXXXXXXXXXXXXXXXXXXXXXX
+program yang digunakan untuk menukar nilai dua variabel menggunakan referensi.
 
 ```cpp
 #include <iostream>
