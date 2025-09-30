@@ -218,6 +218,7 @@ Nilai setelah dikuadratkan: 25
 #include <iostream>
 using namespace std;
 
+// call by reference using &
 void kuadratkan(int &n) {
    n = n * n;
 }
