@@ -15,6 +15,17 @@ XXXXXXXXXXXXXXXXXXXXXXXX
 
 ```cpp
 #include <iostream>
+using namespace std;
+
+int main() {
+   int nilai[] = {1, 2, 3, 4, 5};
+
+   for(int i = 0; i < 5; i++) {
+      cout << "elemen ke-" << i << " = " << nilai[i] << endl;
+   }
+
+   return 0;
+}
 ```
 
 > Output
@@ -31,6 +42,22 @@ XXXXXXXXXXXXXXXXXXXXXXXX
 
 ```cpp
 #include <iostream>
+using namespace std;
+int main() {
+   int matrix[3][3] = {
+      {1, 2, 3},
+      {4, 5, 6},
+      {7, 8, 9}};
+
+      for (int i = 0; i < 3; i++) {
+         for (int j = 0; j < 3; j++) {
+            cout << matrix[i][j];
+         }
+         cout << endl;
+      }
+
+   return 0;
+}
 ```
 
 > Output
@@ -47,6 +74,21 @@ XXXXXXXXXXXXXXXXXXXXXXXX
 
 ```cpp
 #include <iostream>
+using namespace std;
+int main() {
+   int umur = 25;
+   int *p_umur;
+
+   p_umur = &umur;
+
+   cout << "nilai 'umur' : " << umur << endl;
+   cout << "alamat memori 'umur' : " << &umur << endl;
+   cout << "nilai 'p_umur' (alamat) : " << p_umur << endl;
+   cout << "nilai yang diakses 'p_umur' : " << *p_umur << endl;
+   cout << "alamat memori dari pointer 'p_umur' itu sendiri : " << &p_umur << endl;
+
+   return 0;
+}
 ```
 
 > Output
@@ -134,6 +176,26 @@ XXXXXXXXXXXXXXXXXXXXXXXX
 
 ```cpp
 #include <iostream>
+using namespace std;
+
+int hitungJumllah(int a, int b) {
+   return a + b;
+}
+
+void tampilkanHasil(int hasil){
+   cout << "hasil penjumlahan adalah : " << hasil << endl;
+}
+
+int main() {
+   int angka1 = 15;
+   int angka2 = 10;
+   int hasilJumlah;
+
+   hasilJumlah = hitungJumllah(angka1, angka2);
+   tampilkanHasil(hasilJumlah);
+
+   return 0;
+}
 ```
 
 > Output
@@ -150,6 +212,24 @@ XXXXXXXXXXXXXXXXXXXXXXXX
 
 ```cpp
 #include <iostream>
+using namespace std;
+
+void tukar(int *px, int *py)
+{
+    int temp = *px;
+    *px = *py;
+    *py = temp;
+}
+
+int main()
+{
+    int a = 10, b = 20;
+    cout << "Sebelum ditukar: a = " << a << ", b = " << b << endl;
+    tukar(&a, &b);
+    cout << "Setelah ditukar: a = " << a << ", b = " << b << endl;
+
+    return 0;
+}
 ```
 
 > Output
@@ -166,6 +246,23 @@ XXXXXXXXXXXXXXXXXXXXXXXX
 
 ```cpp
 #include <iostream>
+using namespace std;
+
+void tukar(int &x, int &y)
+{
+    int temp = x;
+    x = y;
+    y = temp;
+}
+
+int main()
+{
+    int a = 10, b = 20;
+    cout << "Sebelum ditukar: a = " << a << ", b = " << b << endl;
+    tukar(a, b);
+    cout << "Setelah ditukar: a = " << a << ", b = " << b << endl;
+    return 0;
+}
 ```
 
 > Output
