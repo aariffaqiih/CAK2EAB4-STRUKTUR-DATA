@@ -63,6 +63,26 @@ XXXXXXXXXXXXXXXXXXXXXXXX
 
 ```cpp
 #include <iostream>
+using namespace std;
+
+int main() {
+   int data[5] = {10, 20, 30, 40, 50};
+   int *p_data = data;
+
+   cout << "mengakses elemen array cara normal : " << endl;
+
+   for (int i = 0; i < 5; ++i) {
+      cout << "nilai elemen ke-" << i << " : " << data[i] << endl;
+   }
+
+   cout << "mengakses elemen array menggunakan pointer : " << endl;
+
+   for (int i = 0; i < 5; ++i) {
+      cout << "nilai elemen ke-" << i << " : " << *(p_data + i) << endl;
+   }
+
+   return 0;
+}
 ```
 
 > Output
@@ -79,6 +99,25 @@ XXXXXXXXXXXXXXXXXXXXXXXX
 
 ```cpp
 #include <iostream>
+using namespace std;
+
+int main() {
+   char pesan_array[] = "nasi padang";
+   char *pesan_pointer = "ayam bakar 23";
+
+   cout << "string array : " << pesan_array << endl;
+   cout << "string pointer : " << pesan_pointer << endl;
+
+   // mengubah karakter dalam array diperbolehkan
+   pesan_array[0] = 'h';
+   cout << "string array setelah diubah : " << pesan_array << endl;
+
+   // pointer dapat diubah untuk menunjuk ke string lain
+   pesan_pointer = "sariman";
+   cout << "string pointer setelah menunjuk ke string lain : " << pesan_pointer << endl;
+
+   return 0;
+}
 ```
 
 > Output
