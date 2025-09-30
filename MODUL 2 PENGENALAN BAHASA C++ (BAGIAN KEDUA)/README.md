@@ -32,7 +32,9 @@ int main() {
 > 
 > ![Screenshot Output Guided 1](output/ss_guided_1.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+terdapat deklarasi array bernama nilai. array ini bertipe int dan langsung diisi dengan angka 1 sampai 5. program kemudian menggunakan perulangan for untuk menampilkan isi array.
+
+variabel i digunakan sebagai penghitung dan berjalan dari 0 sampai kurang dari 5. setiap iterasi, program menampilkan teks "elemen ke-" diikuti dengan nilai i dan isi array pada indeks ke-i.
 
 ---
 
@@ -64,7 +66,9 @@ int main() {
 > 
 > ![Screenshot Output Guided 2](output/ss_guided_2.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+dalam fungsi main dibuat array dua dimensi dengan nama matrix. array ini bertipe int dan berukuran 3x3. isinya adalah angka 1 sampai 9 yang disusun dalam bentuk matriks. selanjutnya program menggunakan nested loop.
+
+perulangan luar dengan variabel i berjalan dari 0 sampai 2. perulangan dalam dengan variabel j juga berjalan dari 0 sampai 2. setiap iterasi akan menampilkan elemen matrix[i][j]. setelah satu baris selesai, cout << endl dipakai untuk pindah ke baris baru.
 
 ---
 
@@ -95,7 +99,9 @@ int main() {
 > 
 > ![Screenshot Output Guided 3](output/ss_guided_3.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+terdapat sebuah variabel int bernama umur yang bernilai 25. lalu ada pointer dengan nama p_umur yang bertipe int*. pointer ini kemudian diisi dengan alamat dari variabel umur menggunakan operator &. setelah itu program menampilkan beberapa hal.
+
+pertama nilai variabel umur. kemudian alamat memori dari variabel umur. selanjutnya nilai pointer p_umur yang isinya adalah alamat dari umur. setelah itu ditampilkan nilai yang diakses pointer p_umur dengan operator *. terakhir ditampilkan alamat memori dari pointer p_umur itu sendiri.
 
 ---
 
@@ -131,7 +137,11 @@ int main() {
 > 
 > ![Screenshot Output Guided 4](output/ss_guided_4.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+terdapat array dengan nama data. array ini bertipe int dan berisi lima elemen yaitu 10, 20, 30, 40, dan 50. kemudian dibuat sebuah pointer bernama p_data yang langsung menunjuk ke array data.
+
+program pertama menampilkan isi array dengan cara normal. digunakan perulangan for dengan variabel i dari 0 sampai 4. setiap iterasi akan menampilkan teks "nilai elemen ke-" ditambah nilai i dan isi array data[i].
+
+selanjutnya program menampilkan isi array menggunakan pointer. tetap memakai perulangan for dengan variabel i dari 0 sampai 4. namun kali ini akses elemen dilakukan dengan *(p_data + i). tanda * dipakai untuk dereference pointer sehingga nilai yang ditunjuk bisa ditampilkan.
 
 ---
 
@@ -166,7 +176,13 @@ int main() {
 > 
 > ![Screenshot Output Guided 5](output/ss_guided_5.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+terdapat deklarasi string dengan dua cara. pertama adalah pesan_array yang bertipe char array dan diisi dengan teks "nasi padang". kedua adalah pesan_pointer yang bertipe char pointer dan menunjuk ke string literal "ayam bakar 23".
+
+program lalu menampilkan isi dari pesan_array dan pesan_pointer. hasilnya adalah string array dan string pointer ditampilkan sesuai isinya. selanjutnya ada bagian untuk mengubah karakter dalam array.
+
+pada baris ini karakter pertama dari pesan_array diganti menjadi 'h'. karena berupa array, perubahan ini diperbolehkan.
+
+setelah itu string array ditampilkan kembali dan terlihat sudah berubah. berikutnya pointer pesan_pointer diubah untuk menunjuk ke string literal lain yaitu "sariman". setelah itu isi dari pesan_pointer ditampilkan lagi dan terlihat bahwa pointer sudah menunjuk ke string baru.
 
 ---
 
@@ -202,7 +218,9 @@ int main() {
 > 
 > ![Screenshot Output Guided 6](output/ss_guided_6.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+terdapat sebuah fungsi dengan nama hitungJumllah. fungsi ini menerima dua parameter bertipe int yaitu a dan b. fungsi ini mengembalikan hasil penjumlahan dari a + b. lalu ada fungsi tampilkanHasil. fungsi ini menerima parameter bertipe int dengan nama hasil. di dalamnya terdapat perintah cout untuk menampilkan teks "hasil penjumlahan adalah :" diikuti nilai hasil.
+
+di fungsi main dibuat tiga variabel int yaitu angka1 dengan nilai 15, angka2 dengan nilai 10, dan hasilJumlah tanpa nilai awal. program kemudian memanggil fungsi hitungJumllah dengan argumen angka1 dan angka2. hasil dari pemanggilan fungsi tersebut disimpan di variabel hasilJumlah. setelah itu fungsi tampilkanHasil dipanggil dengan argumen hasilJumlah.
 
 ---
 
@@ -236,7 +254,13 @@ int main()
 > 
 > ![Screenshot Output Guided 7](output/ss_guided_7.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+terdapat sebuah fungsi dengan nama tukar. fungsi ini menerima dua parameter pointer yaitu px dan py. di dalam fungsi tukar, nilai yang ditunjuk px disimpan terlebih dahulu ke variabel temp. kemudian nilai yang ditunjuk px diganti dengan nilai yang ditunjuk py.
+
+nilai yang ditunjuk py diganti dengan nilai temp. dengan cara ini maka nilai dari dua variabel yang dipassing akan saling bertukar. di dalam fungsi main dibuat dua variabel int yaitu a dengan nilai 10 dan b dengan nilai 20.
+
+program lalu menampilkan nilai a dan b sebelum dipanggil fungsi tukar. selanjutnya fungsi tukar dipanggil dengan argumen alamat dari a dan b. karena parameter fungsi berupa pointer, maka nilai variabel a dan b benar-benar ditukar.
+
+setelah itu program menampilkan kembali nilai a dan b. kali ini nilainya sudah tertukar.
 
 ---
 
@@ -269,7 +293,11 @@ int main()
 > 
 > ![Screenshot Output Guided 8](output/ss_guided_8.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+terdapat sebuah fungsi dengan nama tukar. fungsi ini menggunakan parameter reference yaitu x dan y. di dalam fungsi tukar nilai x disimpan dulu ke variabel temp. kemudian x diganti dengan y, dan y diganti dengan temp.
+
+dengan cara ini maka nilai dua variabel yang dikirim ke fungsi akan saling bertukar. di dalam fungsi main dibuat dua variabel int yaitu a dengan nilai 10 dan b dengan nilai 20. program kemudian menampilkan nilai a dan b sebelum dipanggil fungsi tukar.
+
+selanjutnya fungsi tukar dipanggil dengan argumen a dan b. karena parameter berupa reference maka nilai a dan b benar-benar tertukar. setelah itu program menampilkan kembali nilai a dan b. hasilnya terlihat bahwa nilai a dan b sudah saling bertukar.
 
 ---
 
@@ -335,7 +363,13 @@ int main() {
 > 
 > ![Screenshot Output Unguided 1](output/ss_unguided_1.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+terdapat deklarasi array dua dimensi dengan ukuran 3x3. array tersebut bernama matrix dan sudah langsung diisi dengan angka 1 sampai 9. kemudian dibuat juga array baru bernama transpose dengan ukuran yang sama, yaitu 3x3.
+
+program lalu menampilkan matrix awal. proses ini menggunakan nested loop, yaitu for di dalam for. loop pertama dengan variabel i berjalan dari 0 sampai 2. di dalamnya ada loop kedua dengan variabel j yang juga berjalan dari 0 sampai 2.
+
+setelah satu baris selesai maka dilakukan cout << endl untuk pindah ke baris berikutnya. bagian selanjutnya adalah proses transpose. transpose dilakukan dengan cara menukar baris menjadi kolom. perintahnya adalah transpose[i][j] = matrix[j][i].
+
+nested loop kembali dipakai agar semua elemen bisa diproses. setelah proses transpose selesai, program menampilkan matrix hasil transpose. caranya sama seperti saat menampilkan matrix awal, menggunakan nested loop dengan cout. hasilnya adalah tampilan matrix yang sudah ditukar antara baris dan kolom.
 
 ---
 
@@ -374,7 +408,9 @@ int main() {
 > 
 > ![Screenshot Output Guided 2](output/ss_guided_2.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+terdapat sebuah fungsi dengan nama kuadratkan. fungsi ini menerima parameter dengan tipe int menggunakan tanda &. tanda & berarti parameter tersebut dipassing dengan cara call by reference. di dalam fungsi kuadratkan terdapat perintah n = n * n yang artinya nilai n dikalikan dengan dirinya sendiri.
+
+di fungsi main terdapat sebuah variabel n yang diinisialisasi dengan nilai 5. setelah itu fungsi kuadratkan dipanggil dengan argumen n. karena dipassing dengan reference, maka nilai variabel n di main akan berubah. setelah fungsi kuadratkan selesai dijalankan, program menampilkan nilai n lagi. kali ini nilainya sudah berubah menjadi 25 karena sebelumnya sudah dikuadratkan.
 
 ## Referensi
 
