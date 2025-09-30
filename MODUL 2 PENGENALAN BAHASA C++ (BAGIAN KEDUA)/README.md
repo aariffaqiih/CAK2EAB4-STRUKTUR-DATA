@@ -3,7 +3,36 @@
 
 ## Dasar Teori
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+### 1. array dan perulangan
+
+array dipakai untuk menyimpan data berurutan, lalu diakses dengan loop (for). array menyediakan indeks untuk mengakses elemen.
+
+### 2. pointer
+
+- mengakses nilai dengan dereference *p,
+- mengubah nilai asli variabel dari luar,
+- pointer bertipe int* hanya bisa menyimpan alamat variabel int.
+
+### 3. reference (call by reference)
+
+soal kuadratkan dan tukar menggunakan parameter &. ini menjelaskan reference. reference adalah alias dari variabel lain. dengan reference, fungsi bisa mengubah nilai variabel aslinya tanpa harus return value.
+
+### 4. fungsi (function)
+
+beberapa contoh (hitungjumlah, tampilkanhasil, tukar) memperlihatkan fungsi sebagai blok kode yang bisa dipanggil ulang. fungsi dipakai untuk modularisasi, memecah program besar menjadi unit kecil yang reusable. parameter bisa dikirim by value, by pointer, atau by reference. return value dipakai untuk mengembalikan hasil.
+
+### 5. string (array vs pointer)
+
+string di c++ disimpan di memory read-only. kalau disimpan ke pointer, tidak bisa diubah isinya, hanya alamatnya yang bisa dipindahkan. sedangkan array char bisa dimodifikasi isinya. contoh: "nasi padang" akan tersimpan sebagai string biasa, sedangkan char pesan_array[] = "nasi padang"; menyalin ke array.
+
+### 6. kesimpulan
+
+- deklarasi dan manipulasi array.
+- pointer (*) untuk call by pointer.
+- reference (&) untuk call by reference.
+- fungsi: deklarasi, parameter, return.
+
+dengan function pointer, kita bisa memanggil fungsi secara tidak langsung, menggunakannya sebagai parameter, atau bahkan sebagai nilai balik dari fungsi lain. sintaksnya mirip dengan pointer ke variabel, hanya saja formatnya menyesuaikan dengan tipe return dan parameter fungsi yang dituju. selain itu, ada juga konsep reference ke fungsi yang bertindak sebagai alias permanen. manfaatnya, function pointer membuat kode lebih fleksibel, misalnya untuk callback.
 
 ---
 
