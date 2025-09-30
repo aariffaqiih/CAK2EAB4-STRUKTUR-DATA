@@ -378,4 +378,15 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ## Referensi
 
-1. https://www.w3schools.com/cpp/cpp_functions.asp (diakses XXXXXXXXXXXX)
+1. https://www.w3schools.com/cpp/cpp_arrays_loop.asp (diakses Selasa, 30 September 2025)
+2. https://www.w3schools.com/cpp/cpp_references.asp (diakses Selasa, 30 September 2025)
+3. https://www.w3schools.com/cpp/cpp_references_memory.asp (diakses Selasa, 30 September 2025)
+4. https://www.w3schools.com/cpp/cpp_pointers.asp (diakses Selasa, 30 September 2025)
+5. https://www.w3schools.com/cpp/cpp_pointers_dereference.asp (diakses Selasa, 30 September 2025)
+6. https://www.w3schools.com/cpp/cpp_pointers_modify.asp (diakses Selasa, 30 September 2025)
+7. https://www.w3schools.com/cpp/cpp_functions.asp (diakses Selasa, 30 September 2025)
+8. https://www.w3schools.com/cpp/cpp_function_param.asp (diakses Selasa, 30 September 2025)
+9. https://www.w3schools.com/cpp/cpp_function_multiple.asp (diakses Selasa, 30 September 2025)
+10. https://www.w3schools.com/cpp/cpp_function_return.asp (diakses Selasa, 30 September 2025)
+11. https://www.w3schools.com/cpp/cpp_function_reference.asp (diakses Selasa, 30 September 2025)
+12. https://www.scaler.com/topics/cpp/function-pointer-cpp/ (diakses Selasa, 30 September 2025)
