@@ -143,6 +143,20 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 Buatlah sebuah program untuk melakukan transpose pada sebuah matriks persegi berukuran 3x3. Operasi transpose adalah mengubah baris menjadi kolom dan sebaliknya. Inisialisasi matriks awal di dalam kode, kemudian buat logika untuk melakukan transpose dan simpan hasilnya ke dalam matriks baru. Terakhir, tampilkan matriks awal dan matriks hasil transpose.
 
+<pre>
+Contoh Output:
+
+Matriks Awal:
+1 2 3
+4 5 6
+7 8 9
+
+Matriks Hasil Transpose:
+1 4 7
+2 5 8
+3 6 9
+</pre>
+
 ```cpp
 #include <iostream>
 using namespace std;
@@ -192,6 +206,13 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ### Soal 2
 
 Buatlah program yang menunjukkan penggunaan call by reference. Buat sebuah prosedur bernama kuadratkan yang menerima satu parameter integer secara referensi (&). Prosedur ini akan mengubah nilai asli variabel yang dilewatkan dengan nilai kuadratnya. Tampilkan nilai variabel di main() sebelum dan sesudah memanggil prosedur untuk membuktikan perubahannya.
+
+<pre>
+Contoh Output:
+
+Nilai awal: 5
+Nilai setelah dikuadratkan: 25
+</pre>
 
 ```cpp
 #include <iostream>
