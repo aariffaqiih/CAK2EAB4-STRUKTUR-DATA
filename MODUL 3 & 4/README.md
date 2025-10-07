@@ -13,8 +13,57 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 XXXXXXXXXXXXXXXXXXXXXXXX
 
+<code>mahasiswa.h</code>
+
+```cpp
+#ifndef MAHASISWA_H_INCLUDED
+#define MAHASISWA_H_INCLUDED
+struct mahasiswa
+{
+   char nim[10];
+   int nilai1, nilai2;
+};
+
+void inputMhs(mahasiswa &m);
+float rata2(mahasiswa m);
+#endif
+```
+
+<code>mahasiswa.cpp</code>
+
+```cpp
+#include "mahasiswa.h"
+#include <iostream>
+using namespace std;
+
+void inputMhs(mahasiswa &m) {
+   cout << "input nama = ";
+   cin >> (m).nim;
+   cout << "input nilai1 = ";
+   cin >> (m).nilai1;
+   cout << "input nilai2 = ";
+   cin >> (m).nilai2;
+}
+
+float rata2(mahasiswa m) {
+   return float(m.nilai1 + m.nilai2) / 2;
+}
+```
+
+<code>main.cpp</code>
+
 ```cpp
 #include <iostream>
+#include "mahasiswa.h"
+using namespace std;
+
+int main()
+{
+    mahasiswa mhs;
+    inputMhs(mhs);
+    cout << "rata-rata: " << rata2(mhs) << endl;
+    return 0;
+}
 ```
 
 > Output
