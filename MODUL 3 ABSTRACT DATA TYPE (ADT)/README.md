@@ -156,8 +156,77 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 XXXXXXXXXXXXXXXXXXXXXXXX
 
+<code>pelajaran.h</code>
+
+```cpp
+#ifndef PELAJARAN_H_INCLUDED
+#define PELAJARAN_H_INCLUDED
+
+#include <string>
+using namespace std;
+
+// struct pelajaran
+// berisi dua field: namaMapel dan kodeMapel
+// ini adalah tipe data baru (ADT) yang mewakili 1 pelajaran
+struct pelajaran {
+    string namaMapel;
+    string kodeMapel;
+};
+
+// function untuk membuat data pelajaran baru
+// menerima dua parameter string, lalu mengembalikan struct pelajaran
+pelajaran create_pelajaran(string namapel, string kodepel);
+
+// procedure untuk menampilkan isi data pelajaran
+void tampil_pelajaran(pelajaran pel);
+
+#endif
+```
+
+<code>pelajaran.cpp</code>
+
+```cpp
+#include "pelajaran.h"
+#include <iostream>
+using namespace std;
+
+// function create_pelajaran()
+// fungsinya untuk mengisi field namaMapel dan kodeMapel
+// lalu mengembalikan struct pelajaran yang sudah terisi
+pelajaran create_pelajaran(string namapel, string kodepel) {
+    pelajaran p;
+    p.namaMapel = namapel;
+    p.kodeMapel = kodepel;
+    return p;
+}
+
+// procedure tampil_pelajaran()
+// fungsinya untuk menampilkan data pelajaran ke layar
+void tampil_pelajaran(pelajaran pel) {
+    cout << "Nama Mata Pelajaran : " << pel.namaMapel << endl;
+    cout << "Kode Mata Pelajaran : " << pel.kodeMapel << endl;
+}
+```
+
+<code>main.cpp</code>
+
 ```cpp
 #include <iostream>
+#include "pelajaran.h"
+using namespace std;
+
+int main() {
+    string namapel = "Struktur Data";
+    string kodepel = "STD";
+
+    // buat objek pelajaran dengan memanggil function create_pelajaran()
+    pelajaran pel = create_pelajaran(namapel, kodepel);
+
+    // tampilkan data pelajaran
+    tampil_pelajaran(pel);
+
+    return 0;
+}
 ```
 
 > Output
