@@ -479,7 +479,13 @@ int main() {
 > 
 > ![Screenshot Output Guided 2](output/ss_unguided_2.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+pertama-tama ada prosedur bikin_node, prosedur ini gunanya untuk menambahkan node baru ke dalam linked list. parameternya ada dua, yaitu head yang menunjuk ke awal linked list, dan nilai yang mau dimasukin ke dalam node baru. di dalam fungsi ini pertama dibuat dulu node baru menggunakan operator new, lalu diisi datanya, dan next-nya diset ke null karena ini node terakhir. setelah itu dicek apakah linked list masih kosong (head masih null), kalau kosong berarti node yang baru langsung jadi head. kalau tidak kosong, artinya sudah ada node sebelumnya, jadi perlu perulangan while untuk mencari node terakhir (node yang next-nya null), dan setelah ketemu node terakhir, node baru dihubungkan ke situ.
+
+kemudian ada prosedur print_node yang gunanya buat menampilkan isi dari linked list. caranya cukup dengan membuat pointer sementara bernama temp yang mulai dari head, lalu selama temp belum null, cetak data yang ada di dalam temp, lalu geser temp ke node selanjutnya, dan terus diulang sampai semua node selesai ditampilkan.
+
+setelah itu ada fungsi mbalik_node yang jadi inti dari program ini. fungsi ini berfungsi untuk membalik urutan linked list. prinsip kerjanya adalah dengan membalik arah panah antar node satu per satu. ada tiga pointer bantu yang dipakai, yaitu prev, current, dan next. prev awalnya null karena belum ada node sebelumnya. current mulai dari head, yaitu node pertama. kemudian selama current belum null, simpan dulu node berikutnya ke dalam next, lalu ubah arah panah dari current ke prev, setelah itu geser prev ke current, dan current ke next. langkah ini terus diulang sampai semua node selesai diproses. setelah semua node dibalik, head diubah agar menunjuk ke node terakhir (yang sekarang jadi paling depan setelah dibalik).
+
+di bagian main, pertama dibuat head yang masih null. lalu dibuat tiga node berurutan dengan nilai 1, 2, dan 3 menggunakan fungsi bikin_node. setelah itu tampilkan list sebelum dibalik menggunakan print_node. lalu panggil mbalik_node untuk membalik urutan node, dan terakhir cetak lagi list setelah dibalik untuk melihat hasil akhirnya. hasilnya, list yang tadinya 1 2 3 akan jadi 3 2 1.
 
 ---
 
