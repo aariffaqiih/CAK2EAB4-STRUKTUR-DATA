@@ -489,4 +489,10 @@ di bagian main, pertama dibuat head yang masih null. lalu dibuat tiga node berur
 
 ## Referensi
 
-1. https://www.w3schools.com/cpp/cpp_functions.asp (diakses XXXXXXXXXXXX)
+1. https://www.w3schools.com/cpp/cpp_pointers.asp (diakses 13 Oktober 2025)
+2. https://www.w3schools.com/cpp/cpp_pointers_dereference.asp (diakses 13 Oktober 2025)
+3. https://www.w3schools.com/cpp/cpp_pointers_modify.asp (diakses 13 Oktober 2025)
+4. https://www.scaler.com/topics/cpp/function-pointer-cpp/ (diakses 14 Oktober 2025)
+5. https://youtu.be/VVemCxif9vg?si=uGEh0uEfT05ADV9y (diakses diakses 14 Oktober 2025)
+6. https://youtu.be/ycoM07QQjHo?si=4DJuqj76p7Auu4os (diakses diakses 14 Oktober 2025)
+7. https://youtu.be/4AeTdylYtwE?si=wvcX6EdBJQdiNOdF (diakses diakses 15 Oktober 2025)
