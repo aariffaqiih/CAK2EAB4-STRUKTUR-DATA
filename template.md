@@ -1,5 +1,5 @@
-<h1 align="center">Laporan Praktikum Modul XXX <br> Modul XXXXXXXXXXXX</h1>
-<p align="center">'Aarif R. J. Faqiih - 103112430182</p>
+<h1 align="center">Laporan Praktikum Modul XXX <br> XXXXXXXXXXXX</h1>
+<p align="center">'Aarif Rahmaan Jalaluddin Faqiih - 103112430182</p>
 
 ## Dasar Teori
 
