@@ -393,11 +393,77 @@ buatlah program kode untuk membalik (reverse) singly linked list (1-2-3 menjadi 
 
 ```cpp
 #include <iostream>
+using namespace std;
+
+struct Node {
+   int data;
+   Node* next;
+};
+
+void bikin_node(Node*& head, int nilai) {
+   Node* baru = new Node();
+   baru->data = nilai;
+   baru->next = nullptr;
+
+   if (head == nullptr) {
+      head = baru;
+   } else {
+      Node* temp = head;
+      while (temp->next != nullptr) {
+         temp = temp->next;
+      }
+      temp->next = baru;
+   }
+}
+
+void print_node(Node* head) {
+   Node* temp = head;
+   while (temp != nullptr) {
+      cout << temp->data << " ";
+      temp = temp->next;
+   }
+   cout << endl;
+}
+
+// fungsi buat membalik urutan linked list
+void mbalik_node(Node*& head) {
+   Node* prev = nullptr;     // pointer sebelumnya yang masih kosong
+   Node* current = head;     // pointer yang lagi di posisi sekarang
+   Node* next = nullptr;     // pointer bantu buat nyimpan node berikutnya
+
+   // selama masih ada node berikutnya
+   while (current != nullptr) {
+      next = current->next;  // simpan node setelah current
+      current->next = prev;  // arah panah dibalik, dari current ke prev
+      prev = current;        // geser prev ke current
+      current = next;        // geser current ke node berikutnya
+   }
+
+   head = prev; // ubah head biar jadi node terakhir
+}
+
+int main() {
+   Node* head = nullptr;
+
+   bikin_node(head, 1);
+   bikin_node(head, 2);
+   bikin_node(head, 3);
+
+   cout << "list sebelum dibalik: ";
+   print_node(head);
+
+   mbalik_node(head);
+
+   cout << "list setelah dibalik: ";
+   print_node(head);
+
+   return 0;
+}
 ```
 
 > Output
 > 
-> ![Screenshot Output Guided 2](output/ss_guided_2.jpg)
+> ![Screenshot Output Guided 2](output/ss_unguided_2.jpg)
 
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
