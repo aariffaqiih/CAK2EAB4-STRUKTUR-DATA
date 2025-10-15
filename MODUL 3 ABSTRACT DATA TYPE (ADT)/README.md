@@ -231,7 +231,7 @@ int main() {
 
 > Output
 > 
-> ![Screenshot Output Guided 2](output/ss_guided_2.jpg)
+> ![Screenshot Output Guided 2](output/ss_unguided_2.jpg)
 
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
@@ -335,7 +335,7 @@ int main() {
 
 > Output
 > 
-> ![Screenshot Output Guided 3](output/ss_guided_3.jpg)
+> ![Screenshot Output Guided 3](output/ss_unguided_3.jpg)
 
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
