@@ -343,9 +343,8 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ## Referensi
 
-1. https://www.w3schools.com/cpp/cpp_for_loop.asp (diakses XXXXXXXXXXXX)
-2. https://www.w3schools.com/cpp/cpp_for_loop_nested.asp
-3. https://www.w3schools.com/cpp/cpp_arrays_loop.asp
-4. https://www.w3schools.com/cpp/cpp_arrays.asp
-5. https://www.w3schools.com/cpp/cpp_references.asp
-6. https://www.w3schools.com/cpp/cpp_references.asp
+1. https://www.w3schools.com/cpp/cpp_for_loop.asp (diakses 13 Oktober 2025)
+2. https://www.w3schools.com/cpp/cpp_for_loop_nested.asp (diakses 13 Oktober 2025)
+3. https://www.w3schools.com/cpp/cpp_arrays_loop.asp (diakses 13 Oktober 2025)
+4. https://www.w3schools.com/cpp/cpp_arrays.asp (diakses 13 Oktober 2025)
+5. https://www.w3schools.com/cpp/cpp_references.asp (diakses 14 Oktober 2025)
