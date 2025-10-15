@@ -3,7 +3,30 @@
 
 ## Dasar Teori
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+## Dasar Teori
+
+- **Struct:**  
+  Struct digunakan untuk menyimpan berbagai data dalam satu kesatuan. Contohnya di praktikum ini, struct `Node` untuk membuat elemen-elemen dari linked list. Struct ini memiliki dua elemen utama:  
+    - `data`: untuk menyimpan informasi (misalnya nama, pesanan, atau data lainnya).
+    - `next`: sebuah pointer yang menunjuk ke node berikutnya dalam list, atau null jika tidak ada node setelahnya.
+
+- **Fungsi (Function):**  
+  - `tambah_node`: untuk membuat dan mengembalikan node baru yang berisi data nama dan pesanan.
+  - `tambah_antrian`: untuk menambahkan antrian baru ke belakang linked list.
+  - `layani_antrian`: untuk menghapus dan melayani antrian paling depan.
+  - `tampilkan_antrian`: untuk menampilkan seluruh antrian yang ada dalam linked list.
+
+- **Parameter:**  
+  Parameter digunakan dalam fungsi untuk menerima nilai yang dimasukkan oleh pengguna dan memanipulasi data yang diberikan. Sebagai contoh, pada fungsi `tambah_node`, parameter yang digunakan adalah `nama` dan `pesanan` untuk membuat node baru yang berisi informasi tersebut.
+
+- **Perulangan (Looping):**  
+  Perulangan digunakan untuk memproses setiap elemen dalam linked list. Sebagai contoh, dalam fungsi `tampilkan_antrian`, perulangan digunakan untuk menelusuri setiap node dalam list, mulai dari node pertama (head) hingga node terakhir (tail).
+
+- **Pointer:**  
+  Pointer digunakan untuk menunjuk ke alamat memori suatu variabel atau objek. Dalam linked list, pointer digunakan untuk menunjuk ke node berikutnya dalam list. Sebagai contoh, `Node* next` adalah pointer yang digunakan untuk menunjuk ke node selanjutnya dalam list. Selain itu, pointer juga digunakan untuk menunjuk ke node pertama (head) atau node terakhir (tail) dalam list.
+
+- **Pertukaran Nilai (Swapping):**  
+  Nilai antara dua variabel atau node dapat ditukar menggunakan variabel sementara (temp). Misalnya, dalam operasi update pada data yang ada dalam linked list, kita dapat menggunakan variabel sementara untuk menyimpan sementara nilai yang ada sebelum diproses.
 
 ---
 
