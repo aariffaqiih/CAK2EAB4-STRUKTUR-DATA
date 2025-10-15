@@ -1,9 +1,15 @@
 <h1 align="center">Laporan Praktikum Modul 3 <br> ABSTRACT DATA TYPE (ADT)</h1>
-<p align="center">'Aarif R. J. Faqiih - 103112430182</p>
+<p align="center">'Aarif Rahmaan Jalaluddin Faqiih - 103112430182</p>
 
 ## Dasar Teori
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+- **Struct:** untuk membuat tipe data baru `mahasiswa` yang menyimpan nim dan dua nilai (nilai1 dan nilai2), `mahasiswa` dengan field nama, nim, uts, uas, tugas, dan nilai_akhir, dan `pelajaran` yang menyimpan `namaMapel` dan `kodeMapel`.
+- **Fungsi (function):** `inputMhs` untuk input data mahasiswa, `rata2` untuk menghitung rata-rata nilai, `create_pelajaran` untuk membuat dan mengembalikan objek struct pelajaran yang terisi, dan `input_data_mahasiswa` untuk input data, `hitung_nilai_akhir` untuk menghitung nilai akhir berdasarkan bobot nilai uts (30%), uas (40%), dan tugas (30%), serta `tampilkan_nilai_akhir` untuk menampilkan hasil.
+- **Parameter:** parameter `mahasiswa &m` digunakan agar input data langsung tersimpan di objek yang dipanggil.
+- **Array:** untuk menyimpan data banyak mahasiswa (maksimal 10), dan array berukuran 3x3 untuk menyimpan data dan ditampilkan.
+- **Perulangan:** untuk menginput data mahasiswa dan menampilkan hasil.
+- **Pointer:** variabel yang menyimpan alamat memori, digunakan untuk menunjuk elemen array dan variabel lain.
+- **Pertukaran Nilai:** menggunakan variabel sementara (`temp`) untuk menukar isi tanpa kehilangan data.
 
 ---
 
