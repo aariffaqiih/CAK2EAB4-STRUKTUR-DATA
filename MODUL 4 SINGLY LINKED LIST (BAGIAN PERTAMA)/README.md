@@ -383,7 +383,21 @@ int main() {
 > 
 > ![Screenshot Output Unguided 1](output/ss_unguided_1.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+program ini bertujuan untuk mengelola antrian pembeli dengan menggunakan konsep linked list. ada beberapa bagian penting di dalamnya, yaitu struktur data node, dan beberapa fungsi untuk menambah, melayani, serta menampilkan antrian.
+
+struktur node di sini punya tiga elemen: nama, pesanan, dan next. next adalah pointer yang digunakan untuk menyambungkan setiap node, membentuk sebuah linked list. jadi, node yang pertama akan menunjuk ke node berikutnya, dan seterusnya sampai akhir.
+
+pertama, ada pointer head dan tail yang menandakan antrian paling depan dan paling belakang. keduanya awalnya kosong (nullptr), karena belum ada data.
+
+fungsi tambah_node digunakan untuk membuat node baru yang berisi nama dan pesanan dari pembeli. node baru ini kemudian akan disambungkan ke antrian di belakangnya. dalam hal ini, fungsi ini akan mengembalikan pointer ke node baru yang telah dibuat.
+
+fungsi tambah_antrian bertugas untuk menambahkan antrian baru. pertama, fungsi ini memanggil tambah_node untuk membuat node baru. setelah itu, kalau antrian masih kosong (head kosong), maka node baru ini akan menjadi head sekaligus tail. kalau antrian sudah ada, maka tail->next akan diubah untuk menunjuk ke node baru, dan pointer tail diperbarui ke node baru tersebut.
+
+fungsi layani_antrian digunakan untuk melayani antrian paling depan, yang berarti menghapus node pertama (head). setelah melayani, head akan digeser ke node berikutnya. kalau setelah dipindahkan head kosong, berarti antrian sudah habis, jadi tail juga dikosongkan.
+
+fungsi tampilkan_antrian berfungsi untuk menampilkan semua antrian yang ada, mulai dari head dan terus sampai akhir (selama temp != nullptr). setiap node akan menampilkan urutan antrian, nama pembeli, dan pesanan.
+
+di dalam fungsi main, ada menu utama yang memungkinkan user untuk memilih opsi: menambah antrian, melayani antrian, atau menampilkan antrian. menu ini terus berulang sampai user memilih opsi untuk keluar.
 
 ---
 
