@@ -183,7 +183,19 @@ int main() {
 > 
 > ![Screenshot Output Unguided 1](output/ss_unguided_1.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+program ini bertujuan untuk mengelola antrian pembeli dengan menggunakan struktur data linked list. setiap pembeli yang mendaftar antrian akan disimpan dalam node yang berisi dua informasi, yaitu nama pembeli dan pesanan mereka. node tersebut akan saling terhubung dengan pointer next untuk membentuk antrian.
+
+fungsi pertama, tambah_node, berfungsi untuk membuat node baru yang berisi informasi nama dan pesanan pembeli. fungsi ini mengembalikan pointer ke node baru yang siap ditambahkan ke dalam antrian.
+
+fungsi tambah_antrian digunakan untuk menambahkan pembeli ke dalam antrian. jika antrian masih kosong (head == nullptr), maka node baru akan menjadi head dan tail antrian. jika antrian sudah ada isinya, node baru akan ditempatkan di akhir antrian dengan memperbarui pointer next pada tail dan menjadikan node baru sebagai tail.
+
+fungsi layani_antrian digunakan untuk melayani pembeli yang pertama dalam antrian. jika antrian kosong, maka fungsi akan memberi pesan bahwa antrian kosong. jika tidak kosong, pembeli yang ada di head akan dilayani, kemudian head diperbarui ke node berikutnya dan node yang lama dihapus (dengan perintah delete temp). jika setelahnya antrian kosong, tail juga akan di-set ke nullptr.
+
+fungsi tampilkan_antrian berfungsi untuk menampilkan semua pembeli yang ada dalam antrian beserta pesanan mereka. jika antrian kosong, maka program akan memberi pesan bahwa antrian kosong. jika tidak, program akan menampilkan daftar pembeli dan pesanan mereka satu per satu, dimulai dari head antrian.
+
+fungsi cari_pembeli berfungsi untuk mencari apakah ada pembeli dengan nama tertentu dalam antrian. jika pembeli ditemukan, program akan menampilkan posisi pembeli tersebut dalam antrian serta pesanan mereka. jika tidak ditemukan, program akan memberi tahu bahwa pembeli tersebut tidak ada dalam antrian.
+
+fungsi main merupakan menu utama yang memberikan pilihan kepada user untuk menambah antrian, melayani antrian, menampilkan antrian, atau mencari pembeli berdasarkan nama. pilihan 0 akan mengakhiri program. setiap pilihan akan diproses sesuai dengan kasus yang dipilih, dengan input yang bisa mengandung spasi berkat penggunaan getline untuk membaca nama dan pesanan pembeli.
 
 ---
 
@@ -393,7 +405,21 @@ int main() {
 > 
 > ![Screenshot Output Guided 2](output/ss_unguided_2.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+program ini bertujuan untuk mengelola daftar buku menggunakan linked list, yang memungkinkan operasi seperti menambah, menghapus, memperbarui, mencari, dan menampilkan buku-buku berdasarkan isbn, judul, atau penulis.
+
+pertama, kita mendefinisikan struktur Node yang berisi data isbn, judul, penulis, dan pointer next yang menunjuk ke node berikutnya. pointer head digunakan untuk menunjuk ke node pertama dari linked list.
+
+fungsi buat_node berfungsi untuk membuat sebuah node baru yang berisi data isbn, judul, dan penulis, serta menginisialisasi pointer next ke nullptr. fungsi ini dipanggil dalam fungsi tambah_buku untuk menambahkan buku baru ke dalam linked list. jika linked list masih kosong (head == nullptr), maka node baru menjadi head. jika tidak, kita akan berjalan ke akhir linked list dan menambahkan node baru setelah node terakhir.
+
+fungsi hapusNode berfungsi untuk menghapus node berdasarkan isbn. pertama, kita memeriksa apakah head kosong, jika ya maka akan menampilkan pesan "list kosong!". kemudian, kita mencari node dengan isbn yang sesuai. jika node pertama adalah node yang akan dihapus, maka kita update head menjadi node berikutnya. jika node yang ingin dihapus bukan node pertama, kita mencari node tersebut dan menghubungkan node sebelumnya dengan node setelahnya.
+
+fungsi updateNode digunakan untuk memperbarui data buku berdasarkan isbn. kita mencari node dengan isbn lama, jika ditemukan, data node tersebut akan diperbarui dengan isbn, judul, dan penulis baru.
+
+fungsi tampilkanList digunakan untuk menampilkan seluruh daftar buku yang ada di linked list. jika linked list kosong, akan ditampilkan pesan "list kosong!". jika tidak, kita akan mencetak isbn, judul, dan penulis dari setiap node dalam linked list.
+
+fungsi cariBuku memungkinkan pengguna mencari buku berdasarkan pilihan, yaitu isbn, judul, atau penulis. kita akan berjalan melalui linked list dan mencocokkan data sesuai dengan pilihan pengguna. jika buku ditemukan, maka informasi buku akan ditampilkan, jika tidak, pesan "data tidak ditemukan!" akan ditampilkan.
+
+di dalam fungsi main, terdapat menu interaktif untuk memilih operasi yang ingin dilakukan, seperti menambah buku, menghapus buku berdasarkan isbn, memperbarui buku, menampilkan daftar buku, dan mencari buku. program ini akan terus berjalan hingga pengguna memilih untuk keluar.
 
 ---
 
