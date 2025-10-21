@@ -243,7 +243,7 @@ void hapusNode(int isbn) {
       temp = temp->next;
    }
    if (temp == nullptr) {
-      cout << "isbn " << isbn << " nggak ditemukan!\n";
+      cout << "isbn " << isbn << " tidak ditemukan!\n";
       return;
    }
    prev->next = temp->next;
@@ -255,7 +255,7 @@ void updateNode(int isbnLama, int isbnBaru, string judulBaru, string penulisBaru
    Node* temp = head;
    while (temp != nullptr && temp->isbn != isbnLama) temp = temp->next;
    if (temp == nullptr) {
-      cout << "isbn " << isbnLama << " nggak ditemukan!\n";
+      cout << "isbn " << isbnLama << " tidak ditemukan!\n";
    } else {
       temp->isbn = isbnBaru;
       temp->judul = judulBaru;
