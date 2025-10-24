@@ -563,7 +563,7 @@ perulangan keempat, yaitu for (int j = 1; j <= i; j++), berfungsi untuk menampil
 
 karena di bagian paling bawah terdapat 1 bintang tambahan dan bintang itu juga akan dibuat rata tengah, maka kita perlu spasi terlebih dahulu menggunakan for (int k = 0; k < n; k++).
 
-terakhir, cetak bintang di paling bawah dengan cout << "*";.
+terakhir, cetak bintang di paling bawah dengan cout << "*";
 
 ## Referensi
 
