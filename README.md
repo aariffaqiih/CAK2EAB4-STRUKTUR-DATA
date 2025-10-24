@@ -1,2 +1,6 @@
 <h1 align="center">🌲 CAK2EAB4 STRUKTUR DATA 🌲</h1>
-<p align="center">'Aarif Rahmaan Jalaluddin Faqiih • 103112430182 • IF-12-07</p>
+<pre>
+<b>Nama  : </b>'Aarif Rahmaan Jalaluddin Faqiih
+<b>Kelas : </b>IF-12-07
+<b>NIM   : </b>103112430182
+</pre>
