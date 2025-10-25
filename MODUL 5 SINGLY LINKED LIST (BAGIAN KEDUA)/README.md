@@ -3,7 +3,43 @@
 
 ## Dasar Teori
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+**a. Pengertian Linked List**
+Linked List adalah struktur data linear yang terdiri dari sekumpulan elemen (disebut *node*) di mana setiap node berisi dua bagian utama:
+1. **Data field** untuk menyimpan informasi atau nilai yang ingin disimpan.
+2. **Pointer (next)** untuk menyimpan alamat memori dari node berikutnya dalam list.
+
+Tidak seperti array, linked list tidak menyimpan elemen secara berurutan di memori. Karena itu, ukurannya dapat bertambah atau berkurang secara dinamis tanpa perlu mengalokasikan ulang memori.
+
+**b. Operasi Dasar pada Singly Linked List**
+1. **Insertion (penambahan)** untuk menambahkan node baru di awal, tengah, atau akhir list.
+   - Buat node baru dan isi data yang diinginkan.
+   - Jika list kosong, jadikan node baru sebagai head.
+   - Jika ingin menambah di awal, arahkan pointer node baru ke head, lalu ubah head ke node baru.
+   - Jika di tengah atau akhir, telusuri list sampai posisi yang diinginkan, ubah pointer node sebelumnya agar menunjuk ke node baru, dan node baru menunjuk ke node berikutnya.
+
+2. **Deletion (penghapusan)** untuk menghapus node berdasarkan posisi atau nilai.
+   - Periksa apakah list kosong. Jika ya, hentikan proses.
+   - Jika node yang akan dihapus adalah head, ubah head ke node berikutnya.
+   - Jika di tengah atau akhir, telusuri list sampai menemukan node sebelum node yang ingin dihapus.
+   - Ubah pointer node sebelumnya agar melewati node yang dihapus dan menunjuk ke node berikutnya.
+   - Hapus node yang tidak lagi digunakan dari memori.
+
+3. **Traversal** untuk menelusuri seluruh node untuk membaca data.  
+   - Mulai dari node head.
+   - Selama pointer *next* tidak `NULL`, baca data dari node saat ini.
+   - Lanjutkan ke node berikutnya menggunakan pointer *next*.
+   - Proses berhenti saat node terakhir (pointer *next* = `NULL`).
+
+4. **Searching** untuk mencari node berdasarkan nilai tertentu.
+   - Mulai dari node head.
+   - Bandingkan data di setiap node dengan nilai yang dicari.
+   - Jika ditemukan, kembalikan posisi atau pointer node tersebut.
+   - Jika mencapai akhir list tanpa menemukan nilai yang sesuai, berarti data tidak ada dalam list.
+
+5. **Update** untuk mengubah data dalam node yang sudah ada.
+   - Lakukan pencarian terhadap node yang akan diubah (seperti proses *searching*).
+   - Setelah ditemukan, ubah isi *data field* dengan nilai baru.
+   - Tidak perlu mengubah pointer karena struktur list tidak berubah.
 
 ---
 
@@ -11,17 +47,217 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ### Soal 1
 
-XXXXXXXXXXXXXXXXXXXXXXXX
+program untuk mengelola data buku dengan tambahan serching berdasarkan isbn.
 
 ```cpp
 #include <iostream>
+using namespace std;
+
+struct Node {
+   int    isbn;
+   string judul;
+   string penulis;
+   Node*  next;
+};
+
+Node* head = nullptr;
+
+Node* buat_node(int isbn, string judul, string penulis) {
+   Node* newNode    = new Node();
+
+   newNode->isbn    = isbn;
+   newNode->judul   = judul;
+   newNode->penulis = penulis;
+
+   newNode->next    = nullptr;
+
+   return newNode;
+}
+
+void tambah_buku(int isbn, string judul, string penulis) {
+   Node* newNode = buat_node(isbn, judul, penulis);
+
+   if (head == nullptr) {
+      head = newNode;
+   } else {
+      Node* temp = head;
+      while (temp->next != nullptr) {
+         temp = temp->next;
+      }
+      temp->next = newNode;
+   }
+
+   cout << "buku \"" << judul << "\" oleh " << penulis << " dengan isbn " << isbn << " berhasil ditambahkan.\n";
+}
+
+void hapusNode(int isbn) {
+   if (head == nullptr) {
+      cout << "list kosong!\n";
+      return;
+   }
+
+   Node* temp = head;
+   Node* prev = nullptr;
+
+   if (temp != nullptr && temp->isbn == isbn) {
+      head = temp->next;
+      delete temp;
+      cout << "buku dengan isbn " << isbn << 
+      " berhasil dihapus.\n";
+      return;
+   }
+
+   while (temp != nullptr && temp->isbn != isbn) {
+      prev = temp;
+      temp = temp->next;
+   }
+
+   if (temp == nullptr) {
+      cout << "isbn " << isbn << " nggak ditemukan!\n";
+      return;
+   }
+
+   prev->next = temp->next;
+   delete temp;
+   cout << "buku dengan isbn " << isbn << " berhasil dihapus.\n";
+}
+
+void updateNode(int isbnLama, int isbnBaru, string judulBaru, string penulisBaru) {
+   Node* temp = head;
+
+   while (temp != nullptr && temp->isbn != isbnLama) {
+      temp = temp->next;
+   }
+
+   if (temp == nullptr) {
+      cout << "isbn " << isbnLama << " nggak ditemukan!\n";
+   } else {
+      temp->isbn = isbnBaru;
+      temp->judul = judulBaru;
+      temp->penulis = penulisBaru;
+      cout << "buku berhasil diupdate jadi: "
+           << judulBaru << " oleh " << penulisBaru 
+           << " (isbn " << isbnBaru << ")\n";
+   }
+}
+
+void tampilkanList() {
+   if (head == nullptr) {
+      cout << "list kosong!\n";
+      return;
+   }
+
+   Node* temp = head;
+   cout << "isi linked list:\n";
+
+   while (temp != nullptr) {
+      cout << "isbn: " << temp->isbn 
+           << ", judul: " << temp->judul 
+           << ", penulis: " << temp->penulis << endl;
+      temp = temp->next;
+   }
+}
+
+void cari_buku_berdasarkan_isbn(int isbn) {
+   Node* temp = head;
+
+   while (temp != nullptr) {
+      if (temp->isbn == isbn) {
+         cout << "buku ditemukan: "
+              << temp->judul << " oleh " << temp->penulis 
+              << " (isbn " << temp->isbn << ")\n";
+         return;
+      }
+      temp = temp->next;
+   }
+
+   cout << "buku dengan isbn " << isbn << " tidak ditemukan!\n";
+}
+
+int main() {
+   int pilihan, isbn, isbnBaru;
+   string judul, penulis, judulBaru, penulisBaru;
+
+   do {
+      cout << "\n=== menu single linked list buku ===\n";
+      cout << "1. insert belakang\n";
+      cout << "2. hapus isbn\n";
+      cout << "3. update buku\n";
+      cout << "4. tampilkan list\n";
+      cout << "5. cari buku berdasarkan isbn\n";
+      cout << "0. keluar\n";
+      cout << "pilih: ";
+      cin >> pilihan;
+
+      switch (pilihan) {
+         case 1:
+            cout << "masukkan isbn: ";
+            cin >> isbn;
+            cin.ignore();
+            cout << "masukkan judul: ";
+            getline(cin, judul);
+            cout << "masukkan penulis: ";
+            getline(cin, penulis);
+            tambah_buku(isbn, judul, penulis);
+            break;
+         case 2:
+            cout << "masukkan isbn yang ingin dihapus: ";
+            cin >> isbn;
+            hapusNode(isbn);
+            break;
+         case 3:
+            cout << "masukkan isbn lama: ";
+            cin >> isbn;
+            cout << "masukkan isbn baru: ";
+            cin >> isbnBaru;
+            cin.ignore();
+            cout << "masukkan judul baru: ";
+            getline(cin, judulBaru);
+            cout << "masukkan penulis baru: ";
+            getline(cin, penulisBaru);
+            updateNode(isbn, isbnBaru, judulBaru, penulisBaru);
+            break;
+         case 4:
+            tampilkanList();
+            break;
+         case 5:
+            cout << "masukkan isbn yang dicari: ";
+            cin >> isbn;
+            cari_buku_berdasarkan_isbn(isbn);
+            break;
+         case 0:
+            cout << "program selesai.\n";
+            break;
+         default:
+            cout << "pilihan nggak valid!\n";
+      }
+   } while (pilihan != 0);
+
+   return 0;
+}
 ```
 
 > Output
 > 
 > ![Screenshot Output Guided 1](output/ss_guided_1.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+program ini bertujuan untuk mengelola data buku menggunakan struktur data single linked list. setiap buku memiliki tiga atribut yaitu isbn, judul, dan penulis. setiap kali kita menambahkan data buku baru, program akan membuat node baru yang berisi tiga data tersebut dan menambahkannya ke dalam list.
+
+pertama, dibuat struct Node yang berisi tiga variabel utama yaitu isbn, judul, dan penulis, serta satu pointer next yang digunakan untuk menunjuk ke node berikutnya. pointer head digunakan untuk menandai awal dari linked list, dan di awal program nilainya adalah nullptr karena list masih kosong.
+
+fungsi buat_node digunakan untuk membuat node baru. fungsi ini menerima tiga parameter yaitu isbn, judul, dan penulis, lalu mengisi nilai pada node yang baru dibuat, dan mengembalikan node tersebut.
+
+fungsi tambah_buku digunakan untuk menambahkan buku baru ke bagian akhir linked list. pertama fungsi akan memanggil buat_node untuk membuat node baru. jika list masih kosong, maka head langsung menunjuk ke node baru. jika tidak, program akan mencari node terakhir dengan perulangan while, dan setelah node terakhir ditemukan, node baru akan ditambahkan di belakangnya. setelah itu ditampilkan pesan bahwa buku berhasil ditambahkan.
+
+fungsi hapusNode digunakan untuk menghapus buku berdasarkan isbn. pertama, program akan mengecek apakah list kosong atau tidak. jika kosong maka akan muncul pesan list kosong. jika tidak kosong, program akan mencari node dengan isbn yang cocok. jika isbn ditemukan di node pertama, maka head akan digeser ke node berikutnya, dan node pertama dihapus. jika tidak ada di node pertama, maka dilakukan pencarian sampai ketemu. jika ketemu, node tersebut dihapus dengan cara menghubungkan node sebelumnya ke node setelahnya. jika tidak ditemukan, maka akan muncul pesan bahwa isbn tidak ditemukan.
+
+fungsi updateNode digunakan untuk memperbarui data buku yang sudah ada berdasarkan isbn lama. program akan mencari node dengan isbn lama, dan jika ditemukan maka nilai isbn, judul, dan penulis di node tersebut akan diperbarui sesuai input baru. jika isbn lama tidak ditemukan maka akan muncul pesan bahwa isbn tidak ditemukan.
+
+fungsi tampilkanList digunakan untuk menampilkan seluruh isi dari linked list. jika list kosong maka akan muncul pesan list kosong. jika tidak, program akan menampilkan semua node satu per satu mulai dari head hingga node terakhir dengan menampilkan isbn, judul, dan penulis setiap buku.
+
+fungsi cari_buku_berdasarkan_isbn digunakan untuk mencari buku tertentu berdasarkan isbn. program akan melakukan pencarian satu per satu mulai dari head. jika ditemukan, maka akan menampilkan data buku tersebut, jika tidak maka akan muncul pesan buku tidak ditemukan.
+
+di dalam fungsi main terdapat menu pilihan yaitu insert belakang, hapus isbn, update buku, tampilkan list, cari buku berdasarkan isbn, dan keluar. program akan menjalankan fungsi sesuai pilihan tersebut. proses ini dilakukan berulang kali menggunakan perulangan do-while hingga pengguna memilih menu keluar dengan memasukkan angka 0.
 
 ---
 
@@ -425,4 +661,6 @@ di dalam fungsi main, terdapat menu interaktif untuk memilih operasi yang ingin 
 
 ## Referensi
 
-1. https://www.w3schools.com/cpp/cpp_functions.asp (diakses XXXXXXXXXXXX)
+1. elfanmauludi. (2023, April 2). Linked list bahasa C++ beserta fungsi dan penjelasannya. penelitian.id. https://www.penelitian.id/2023/04/linked-list-bahasa-c-.html#google_vignette. Diakses pada 23 Oktober 2025.
+2. GeeksforGeeks. (2025, July 23). C++ program for searching an element in a linked list. https://www.geeksforgeeks.org/cpp-program-for-searching-an-element-in-a-linked-list/. Diakses pada 23 Oktober 2025.
+3. Universitas Pelita Jaya. (n.d.). Handout TIF104 – Modul Praktikum Struktur Data [PDF]. OCW UPJ. https://www.ocw.upj.ac.id/files/Handout-TIF104-Modul-Praltikum-Struktur-Data.pdf. Diakses pada 23 Oktober 2025.
