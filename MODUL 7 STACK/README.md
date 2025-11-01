@@ -17,20 +17,22 @@ program untuk push, pop, dan menampilkan isi stack.
 #include <iostream>
 using namespace std;
 
-// stack itu linked list yang cuma bisa diakses dari atas
-// maksudnya gini, misal kita punya stack kayak gini
+// stack itu kaya box yang ditumpuk ke atas
+// stack itu linked list tapi cuma bisa diakses dari belakang
+// maksudnya gini, misal ada stack kaya gini
 // | 30 | <- top
 // | 20 |
 // | 10 |
-// nah kita cuma bisa nambahin data di atas (push) atau ngambil data di atas (pop)
-// ngga bisa ngambil data di tengah atau di bawah
+// nah, kita cuma bisa nambahin di atas (push) atau ngambil dari atas (pop)
+// ngga bisa ngambil di tengah atau di bawah
+// bayangin aja tumpukan box, kalo diambil bagian tengah atau bawah pasti yang diatas bakal jatuh, makannya cuma diakses dari atas
 struct Node {
    int   data;
    Node* next;
 };
 
-// cek dulu stacknya kosong apa ngga
-// kalo kosong, topnya nullptr karena ngga ada node sama sekali
+// cek dulu stacknya kosong ngga?
+// kalo kosong, topnya nullptr
 bool apakah_kosong(Node *top) {
    return top == nullptr;
 };
@@ -52,11 +54,12 @@ int pop(Node*& top) {
    }
 
    int data_dikeluarkan = top->data;
-   // temp itu maksudnya buat nyimpen node paling dulu biar bisa dihapus nanti
+   // temp itu tempat penyimpanan node sementara untuk dihapus nanti
+   // anggap aja kaya buat nandain yang mau dihapus
    Node* temp = top;
    // terus topnya digeser ke node berikutnya
    top = top->next;
-   // nah baru deh node paling atas yang lama dihapus
+   // nah baru deh node yang paling atas (yang tadi di temp) dihapus
    delete temp;
    return data_dikeluarkan;
 };
@@ -116,86 +119,6 @@ fungsi pop digunakan untuk mengeluarkan data dari atas stack. pertama, dicek dul
 fungsi tampilkan_stack digunakan untuk menampilkan isi stack dari atas ke bawah. kalau stack kosong, program akan menampilkan pesan bahwa stack kosong. kalau tidak, program akan menelusuri node dari top sampai ke node terakhir dengan menggunakan pointer sementara temp, dan menampilkan setiap data yang ada di dalamnya secara berurutan dari atas ke bawah.
 
 di dalam fungsi main, pertama-tama dibuat pointer stack yang diinisialisasi dengan nullptr karena belum ada data sama sekali. kemudian dilakukan beberapa operasi push untuk menambahkan data 10, 20, dan 30 secara berurutan. setelah itu, program menampilkan isi stack menggunakan fungsi tampilkan_stack. lalu dilakukan operasi pop untuk mengeluarkan satu data dari atas stack, dan hasilnya ditampilkan. terakhir, program menampilkan lagi isi stack setelah satu data teratas dikeluarkan.
-
----
-
-### Soal 2
-
-XXXXXXXXXXXXXXXXXXXXXXXX
-
-```cpp
-#include <iostream>
-```
-
-> Output
-> 
-> ![Screenshot Output Guided 2](output/ss_guided_2.jpg)
-
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
----
-
-### Soal 3
-
-XXXXXXXXXXXXXXXXXXXXXXXX
-
-```cpp
-#include <iostream>
-```
-
-> Output
-> 
-> ![Screenshot Output Guided 3](output/ss_guided_3.jpg)
-
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
----
-
-### Soal 4
-
-XXXXXXXXXXXXXXXXXXXXXXXX
-
-```cpp
-#include <iostream>
-```
-
-> Output
-> 
-> ![Screenshot Output Guided 4](output/ss_guided_4.jpg)
-
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
----
-
-### Soal 5
-
-XXXXXXXXXXXXXXXXXXXXXXXX
-
-```cpp
-#include <iostream>
-```
-
-> Output
-> 
-> ![Screenshot Output Guided 5](output/ss_guided_5.jpg)
-
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
----
-
-### Soal 6
-
-XXXXXXXXXXXXXXXXXXXXXXXX
-
-```cpp
-#include <iostream>
-```
-
-> Output
-> 
-> ![Screenshot Output Guided 6](output/ss_guided_6.jpg)
-
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ---
 
