@@ -358,54 +358,6 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ---
 
-### Soal 4
-
-XXXXXXXXXXXXXXXXXXXXXXXX
-
-```cpp
-#include <iostream>
-```
-
-> Output
-> 
-> ![Screenshot Output Guided 4](output/ss_unguided_4.jpg)
-
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
----
-
-### Soal 5
-
-XXXXXXXXXXXXXXXXXXXXXXXX
-
-```cpp
-#include <iostream>
-```
-
-> Output
-> 
-> ![Screenshot Output Guided 5](output/ss_unguided_5.jpg)
-
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
----
-
-### Soal 6
-
-XXXXXXXXXXXXXXXXXXXXXXXX
-
-```cpp
-#include <iostream>
-```
-
-> Output
-> 
-> ![Screenshot Output Guided 6](output/ss_unguided_6.jpg)
-
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
----
-
 ## Referensi
 
 1. XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
