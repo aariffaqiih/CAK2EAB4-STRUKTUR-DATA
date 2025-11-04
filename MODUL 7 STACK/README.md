@@ -7,7 +7,125 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ---
 
-## Guided
+# **Dasar Teori**
+
+## 1. Pengertian Stack
+
+Stack adalah salah satu struktur data **linear** yang mengikuti prinsip **LIFO (Last In, First Out)**, yaitu elemen yang terakhir dimasukkan ke dalam stack akan menjadi elemen pertama yang dikeluarkan. Konsep ini mirip dengan tumpukan benda fisik seperti tumpukan piring atau kotak, di mana elemen yang berada paling atas hanya dapat ditambahkan atau diambil terlebih dahulu.
+
+Stack memiliki dua operasi utama, yaitu:
+- **Push** -> Menambahkan elemen baru ke bagian atas stack.  
+- **Pop** -> Menghapus elemen paling atas dari stack.
+
+Selain itu, terdapat juga operasi tambahan seperti:
+- **Peek / Top** -> Melihat elemen teratas tanpa menghapusnya.
+- **IsEmpty** -> Mengecek apakah stack kosong.
+- **IsFull** -> Mengecek apakah stack sudah penuh (jika menggunakan array dengan kapasitas tetap).
+
+Struktur data stack sering digunakan dalam berbagai aplikasi seperti:
+- Pemanggilan fungsi secara rekursif (Function Call Stack)
+- Pembalikan urutan data (misalnya pembalikan string)
+- Algoritma notasi postfix dan evaluasi ekspresi aritmatika
+- Undo/Redo pada aplikasi teks atau editor
+
+---
+
+## 2. Representasi Stack
+
+### a. Stack Menggunakan **Array**
+Stack dapat diimplementasikan menggunakan **array statis**, di mana elemen-elemen stack disimpan dalam sebuah array dengan ukuran maksimum tertentu. Dalam implementasi ini, digunakan sebuah variabel `top` untuk menandai posisi elemen teratas dari stack.
+
+Jika dilakukan `push(40)`, maka top akan bergeser ke index 3 dan nilai 40 akan dimasukkan di posisi tersebut. Sebaliknya, saat dilakukan `pop()`, data 40 akan dihapus dan top bergeser ke index sebelumnya (index 2).
+
+---
+
+### b. Stack Menggunakan **Linked List**
+Selain menggunakan array, stack juga bisa diimplementasikan dengan **linked list**, yaitu struktur data dinamis yang terdiri dari node-node yang saling terhubung. Setiap node berisi dua bagian:
+- **Data** -> Nilai yang disimpan.
+- **Pointer next** -> Menunjuk ke node berikutnya.
+
+Dalam implementasi stack dengan linked list, elemen teratas (top) selalu berada di awal (head) dari linked list.  
+Operasi `push` dilakukan dengan menambahkan node baru di bagian depan, sedangkan `pop` dilakukan dengan menghapus node teratas (head).
+
+Kelebihan:
+- Ukuran stack dinamis, tidak dibatasi kapasitas tetap.
+- Tidak perlu menggeser elemen saat penambahan atau penghapusan.
+
+Kekurangan:
+- Membutuhkan memori tambahan untuk pointer.
+- Akses sedikit lebih lambat karena manipulasi pointer.
+
+---
+
+## 3. Operasi Dasar pada Stack
+
+Berikut ini penjelasan dari operasi dasar yang digunakan pada program:
+
+### a. **CreateStack**
+Membuat stack kosong dengan menginisialisasi nilai `top` menjadi -1 (jika array) atau `nullptr` (jika linked list). Nilai tersebut menandakan bahwa belum ada elemen dalam stack.
+
+### b. **Push**
+Menambahkan elemen baru ke atas stack.  
+Langkah-langkahnya:
+1. Periksa apakah stack penuh.
+2. Jika belum penuh, naikkan nilai `top` (pada array) atau buat node baru (pada linked list).
+3. Masukkan data ke posisi top.
+4. Update pointer atau indeks top agar menunjuk ke elemen baru tersebut.
+
+### c. **Pop**
+Menghapus elemen paling atas dari stack.  
+Langkah-langkahnya:
+1. Periksa apakah stack kosong.
+2. Jika tidak kosong, ambil nilai dari elemen teratas.
+3. Turunkan nilai `top` (array) atau geser pointer `top` ke node berikutnya (linked list).
+4. Hapus node atau abaikan elemen yang sudah tidak digunakan.
+
+### d. **PrintInfo / Display**
+Menampilkan isi stack dari elemen paling atas ke paling bawah. Operasi ini tidak mengubah isi stack, hanya membaca dan mencetak nilainya.
+
+### e. **BalikStack**
+Operasi untuk membalik urutan isi stack. Pada implementasi menggunakan array, pembalikan dilakukan dengan menukar elemen dari posisi awal dan akhir hingga seluruh data tertukar tempatnya.
+
+### f. **PushAscending**
+Operasi tambahan yang memastikan data dimasukkan ke dalam stack secara **berurutan dari kecil ke besar (ascending)**.  
+Algoritmanya menggunakan stack sementara (`temp`) untuk menyimpan elemen yang lebih besar dari data baru. Setelah posisi yang sesuai ditemukan, data baru dimasukkan, lalu elemen di stack sementara dikembalikan ke stack utama.
+
+### g. **GetInputStream**
+Operasi ini memungkinkan pengguna memasukkan sejumlah data secara langsung melalui input terminal. Selama input yang dimasukkan berupa angka, data tersebut akan di-push ke stack. Input berhenti ketika pengguna mengetikkan karakter non-numerik.
+
+---
+
+## 4. Prinsip LIFO (Last In, First Out)
+
+Konsep utama stack adalah **LIFO**, yaitu elemen yang terakhir masuk akan menjadi yang pertama keluar.  
+Contoh urutan operasi:
+
+| Operasi | Isi Stack (atas → bawah) |
+|----------|--------------------------|
+| Push(10) | 10 |
+| Push(20) | 20 -> 10 |
+| Push(30) | 30 -> 20 -> 10 |
+| Pop()    | 20 -> 10 |
+
+Pada contoh di atas, elemen `30` adalah yang terakhir dimasukkan namun menjadi yang pertama diambil (pop).
+
+---
+
+## 5. Aplikasi Stack dalam Kehidupan Nyata
+
+Beberapa contoh penerapan stack dalam dunia nyata dan pemrograman antara lain:
+1. **Undo/Redo pada aplikasi teks atau gambar**, di mana setiap tindakan disimpan ke dalam stack.
+2. **Penyusunan ekspresi matematika** seperti konversi infix ke postfix.
+3. **Pemanggilan fungsi (Function Call Stack)** dalam bahasa pemrograman.
+4. **Pengecekan tanda kurung (Bracket Matching)** pada ekspresi matematika atau kode program.
+5. **Algoritma Depth First Search (DFS)** dalam pencarian graf.
+
+---
+
+## 6. Kesimpulan
+
+Stack merupakan struktur data sederhana namun sangat penting dalam dunia pemrograman. Dengan prinsip LIFO, stack memungkinkan pengelolaan data secara efisien pada situasi di mana elemen terakhir yang dimasukkan harus dikeluarkan terlebih dahulu.  
+Baik implementasi menggunakan **array** maupun **linked list**, keduanya memiliki kelebihan dan kekurangan masing-masing, serta dapat disesuaikan dengan kebutuhan aplikasi yang dibuat.
 
 ### Soal 1 : program untuk push, pop, dan menampilkan isi stack.
 
@@ -264,7 +382,23 @@ int main() {
 > 
 > ![Screenshot Output Unguided 1](output/ss_unguided_1.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+program ini tujuannya untuk membuat struktur data stack menggunakan array, dimana kita bisa melakukan operasi dasar seperti menambah data (push), menghapus data (pop), menampilkan isi stack (printInfo), dan membalik urutan stack (balikStack).
+
+di file stack.h terdapat deklarasi tipe data dan fungsi yang digunakan di seluruh program. tipe data stack disusun dari array bertipe int dengan ukuran maksimum 20 elemen, serta satu variabel top untuk menandai posisi paling atas dari stack. semua fungsi utama seperti createStack, push, pop, printInfo, dan balikStack dideklarasikan agar bisa digunakan di file lain.
+
+fungsi createStack bertugas untuk membuat stack kosong dengan mengatur nilai top menjadi -1. kenapa -1? karena array dimulai dari index 0, jadi -1 menandakan bahwa belum ada data sama sekali di dalam stack.
+
+fungsi push digunakan untuk menambahkan data ke dalam stack. sebelum menambah data, program akan mengecek dulu apakah stack sudah penuh atau belum. kalau belum penuh, maka nilai top akan dinaikkan 1, lalu data baru disimpan ke posisi paling atas (index top).
+
+fungsi pop berfungsi untuk menghapus data paling atas dari stack. sebelum menghapus, program mengecek apakah stack kosong atau tidak. jika kosong, maka program akan menampilkan pesan “stack kosong, tidak ada yang bisa di-pop”. kalau tidak kosong, maka data di posisi top diambil, lalu top diturunkan 1, dan data yang diambil dikembalikan sebagai hasil fungsi.
+
+fungsi printInfo digunakan untuk menampilkan isi stack dari atas ke bawah. jika stack kosong maka akan menampilkan pesan “stack kosong”. tapi kalau ada datanya, maka program akan menampilkan isi stack mulai dari index paling atas hingga ke bawah, dengan format [TOP] di depan agar jelas posisi atasnya.
+
+fungsi balikStack bertugas untuk membalik isi stack. cara kerjanya yaitu menukar data dari posisi awal dan akhir menggunakan dua variabel, i dan j. selama i masih lebih kecil dari j, kedua elemen di posisi tersebut akan ditukar tempatnya. setelah selesai, isi stack jadi kebalik urutannya.
+
+fungsi main di file main.cpp bertugas untuk menjalankan semua fungsi di atas. pertama membuat stack kosong, lalu melakukan serangkaian operasi push dan pop, kemudian menampilkan hasilnya dengan printInfo. setelah itu stack dibalik dengan balikStack dan hasilnya ditampilkan lagi.
+
+program ini menampilkan hasil akhir berupa urutan data di stack dari atas ke bawah sebelum dan sesudah dibalik.
 
 ---
 
@@ -316,13 +450,19 @@ void pushAscending(Stack &S, infotype x) {
 > 
 > ![Screenshot Output Unguided 2](output/ss_unguided_2.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+menambahkan fitur baru pada struktur stack, yaitu pushAscending. fungsinya agar data yang dimasukkan ke dalam stack tersusun secara ascending (dari kecil ke besar).
+
+fungsi pushAscending bekerja dengan cara memeriksa dulu apakah stack sudah penuh. kalau penuh, maka program akan menampilkan pesan “stack penuh, tidak bisa menambah data lagi”. jika masih ada ruang, maka program membuat stack sementara (temp) yang berfungsi sebagai tempat penyimpanan sementara.
+
+kemudian selama data paling atas di stack utama lebih besar dari data baru yang ingin dimasukkan, program akan memindahkan data tersebut ke stack temp. hal ini dilakukan agar posisi data baru bisa dimasukkan di tempat yang tepat sesuai urutan ascending. setelah posisi yang sesuai ditemukan, data baru (x) dimasukkan ke stack utama.
+
+setelah itu, semua data yang tadi disimpan di stack temp akan dikembalikan ke stack utama dengan cara di-pop dari temp lalu di-push kembali ke stack utama.
+
+hasil akhirnya adalah isi stack akan selalu dalam urutan dari nilai terkecil di bawah hingga nilai terbesar di atas.
 
 ---
 
 ### Soal 3 : Tambahkan prosedur getInputStream(in/out S : Stack)
-
-XXXXXXXXXXXXXXXXXXXXXXXX
 
 <code>stack.h</code>
 
@@ -354,10 +494,23 @@ void getInputStream(Stack &S) {
 > 
 > ![Screenshot Output Guided 3](output/ss_unguided_3.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+menambahkan prosedur getInputStream, yaitu prosedur yang bisa menerima input dari user secara langsung dan memasukkannya ke dalam stack.
+
+fungsi getInputStream bekerja dengan cara meminta user untuk mengetikkan angka satu per satu. selama input yang dimasukkan bertipe angka (integer), setiap angka tersebut langsung dimasukkan ke dalam stack menggunakan fungsi push.
+
+proses input akan berhenti jika user mengetikkan karakter selain angka, misalnya huruf atau simbol lain. begitu proses input selesai, program akan menampilkan pesan “input sudah ada di stack!” sebagai tanda bahwa semua data yang dimasukkan sudah tersimpan di dalam stack.
+
+fungsi ini mempermudah user karena tidak perlu memanggil fungsi push berkali-kali untuk setiap data, cukup memasukkan semua angka sekaligus di satu sesi input.
 
 ---
 
 ## Referensi
 
-1. XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+1. GeeksforGeeks. C++ Program to Implement Stack using Array. Diakses pada 30 Oktober 2025, dari https://www.geeksforgeeks.org/cpp/cpp-program-to-implement-stack-using-array/
+2. W3Resource. C++ Stack Exercise 1. Diakses pada 31 Oktober 2025, dari https://www.w3resource.com/cpp-exercises/stack/cpp-stack-exercise-1.php
+3. Dremendo. C++ Stack Using Linked List. Diakses pada 2 November 2025, dari https://www.dremendo.com/cpp-programming-tutorial/cpp-stack-using-linked-list
+4. GeeksforGeeks. Stack Using Linked List in C. Diakses pada 1 November 2025, dari https://www.geeksforgeeks.org/c/stack-using-linked-list-in-c/
+5. GeeksforGeeks. Sort Stack Using Temporary Stack. Diakses pada 3 November 2025, dari https://www.geeksforgeeks.org/dsa/sort-stack-using-temporary-stack/
+6. GeeksforGeeks. Sort a Stack Using Recursion. Diakses pada 31 Oktober 2025, dari https://www.geeksforgeeks.org/dsa/sort-a-stack-using-recursion/
+7. Dremendo. C++ Stack Tutorial. Diakses pada 30 Oktober 2025, dari https://www.dremendo.com/cpp-programming-tutorial/cpp-stack
+8. Teachics. Stack in C – Array and Linked List Operations. Diakses pada 2 November 2025, dari https://teachics.org/data-structure-c-tutorial/stack-array-linked-list-operations/
