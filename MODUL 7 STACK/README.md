@@ -1,9 +1,9 @@
 <h1 align="center">Laporan Praktikum Modul 7<br>STACK</h1>
 <p align="center">'Aarif Rahmaan Jalaluddin Faqiih - 103112430182</p>
 
-# **Dasar Teori**
+## **Dasar Teori**
 
-## 1. Pengertian Stack
+### 1. Pengertian Stack
 
 Stack adalah salah satu struktur data **linear** yang mengikuti prinsip **LIFO (Last In, First Out)**, yaitu elemen yang terakhir dimasukkan ke dalam stack akan menjadi elemen pertama yang dikeluarkan. Konsep ini mirip dengan tumpukan benda fisik seperti tumpukan piring atau kotak, di mana elemen yang berada paling atas hanya dapat ditambahkan atau diambil terlebih dahulu.
 
@@ -24,7 +24,7 @@ Struktur data stack sering digunakan dalam berbagai aplikasi seperti:
 
 ---
 
-## 2. Representasi Stack
+### 2. Representasi Stack
 
 ### a. Stack Menggunakan **Array**
 Stack dapat diimplementasikan menggunakan **array statis**, di mana elemen-elemen stack disimpan dalam sebuah array dengan ukuran maksimum tertentu. Dalam implementasi ini, digunakan sebuah variabel `top` untuk menandai posisi elemen teratas dari stack.
@@ -33,7 +33,7 @@ Jika dilakukan `push(40)`, maka top akan bergeser ke index 3 dan nilai 40 akan d
 
 ---
 
-### b. Stack Menggunakan **Linked List**
+#### b. Stack Menggunakan **Linked List**
 Selain menggunakan array, stack juga bisa diimplementasikan dengan **linked list**, yaitu struktur data dinamis yang terdiri dari node-node yang saling terhubung. Setiap node berisi dua bagian:
 - **Data** -> Nilai yang disimpan.
 - **Pointer next** -> Menunjuk ke node berikutnya.
@@ -51,14 +51,14 @@ Kekurangan:
 
 ---
 
-## 3. Operasi Dasar pada Stack
+### 3. Operasi Dasar pada Stack
 
 Berikut ini penjelasan dari operasi dasar yang digunakan pada program:
 
-### a. **CreateStack**
+#### a. **CreateStack**
 Membuat stack kosong dengan menginisialisasi nilai `top` menjadi -1 (jika array) atau `nullptr` (jika linked list). Nilai tersebut menandakan bahwa belum ada elemen dalam stack.
 
-### b. **Push**
+#### b. **Push**
 Menambahkan elemen baru ke atas stack.  
 Langkah-langkahnya:
 1. Periksa apakah stack penuh.
@@ -66,7 +66,7 @@ Langkah-langkahnya:
 3. Masukkan data ke posisi top.
 4. Update pointer atau indeks top agar menunjuk ke elemen baru tersebut.
 
-### c. **Pop**
+#### c. **Pop**
 Menghapus elemen paling atas dari stack.  
 Langkah-langkahnya:
 1. Periksa apakah stack kosong.
@@ -74,22 +74,22 @@ Langkah-langkahnya:
 3. Turunkan nilai `top` (array) atau geser pointer `top` ke node berikutnya (linked list).
 4. Hapus node atau abaikan elemen yang sudah tidak digunakan.
 
-### d. **PrintInfo / Display**
+#### d. **PrintInfo**
 Menampilkan isi stack dari elemen paling atas ke paling bawah. Operasi ini tidak mengubah isi stack, hanya membaca dan mencetak nilainya.
 
-### e. **BalikStack**
+#### e. **BalikStack**
 Operasi untuk membalik urutan isi stack. Pada implementasi menggunakan array, pembalikan dilakukan dengan menukar elemen dari posisi awal dan akhir hingga seluruh data tertukar tempatnya.
 
-### f. **PushAscending**
+#### f. **PushAscending**
 Operasi tambahan yang memastikan data dimasukkan ke dalam stack secara **berurutan dari kecil ke besar (ascending)**.  
 Algoritmanya menggunakan stack sementara (`temp`) untuk menyimpan elemen yang lebih besar dari data baru. Setelah posisi yang sesuai ditemukan, data baru dimasukkan, lalu elemen di stack sementara dikembalikan ke stack utama.
 
-### g. **GetInputStream**
+#### g. **GetInputStream**
 Operasi ini memungkinkan pengguna memasukkan sejumlah data secara langsung melalui input terminal. Selama input yang dimasukkan berupa angka, data tersebut akan di-push ke stack. Input berhenti ketika pengguna mengetikkan karakter non-numerik.
 
 ---
 
-## 4. Prinsip LIFO (Last In, First Out)
+### 4. Prinsip LIFO (Last In, First Out)
 
 Konsep utama stack adalah **LIFO**, yaitu elemen yang terakhir masuk akan menjadi yang pertama keluar.  
 Contoh urutan operasi:
@@ -105,21 +105,7 @@ Pada contoh di atas, elemen `30` adalah yang terakhir dimasukkan namun menjadi y
 
 ---
 
-## 5. Aplikasi Stack dalam Kehidupan Nyata
-
-Beberapa contoh penerapan stack dalam dunia nyata dan pemrograman antara lain:
-1. **Undo/Redo pada aplikasi teks atau gambar**, di mana setiap tindakan disimpan ke dalam stack.
-2. **Penyusunan ekspresi matematika** seperti konversi infix ke postfix.
-3. **Pemanggilan fungsi (Function Call Stack)** dalam bahasa pemrograman.
-4. **Pengecekan tanda kurung (Bracket Matching)** pada ekspresi matematika atau kode program.
-5. **Algoritma Depth First Search (DFS)** dalam pencarian graf.
-
----
-
-## 6. Kesimpulan
-
-Stack merupakan struktur data sederhana namun sangat penting dalam dunia pemrograman. Dengan prinsip LIFO, stack memungkinkan pengelolaan data secara efisien pada situasi di mana elemen terakhir yang dimasukkan harus dikeluarkan terlebih dahulu.  
-Baik implementasi menggunakan **array** maupun **linked list**, keduanya memiliki kelebihan dan kekurangan masing-masing, serta dapat disesuaikan dengan kebutuhan aplikasi yang dibuat.
+## Guided
 
 ### Soal 1 : program untuk push, pop, dan menampilkan isi stack.
 
