@@ -3,7 +3,89 @@
 
 ## Dasar Teori
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+### **1. definisi queue**
+
+queue adalah struktur data linear yang menerapkan prinsip **fifo (first in, first out)**.
+elemen yang lebih dulu masuk akan menjadi elemen pertama yang keluar.
+
+**implikasi:**
+
+* urutan operasi sangat penting.
+* tidak bisa langsung mengambil elemen tengah seperti array biasa.
+
+---
+
+### **2. komponen utama**
+
+setiap queue berbasis array yang memiliki dua penunjuk utama:
+
+* **head** -> posisi elemen yang akan dikeluarkan (dequeue).
+* **tail** -> posisi elemen yang ditambahkan (enqueue).
+
+---
+
+### **3. operasi dasar queue**
+
+**a. enqueue (menambah elemen)**
+menempatkan elemen baru ke posisi tail.
+
+**b. dequeue (menghapus elemen)**
+mengambil elemen di head.
+
+**c. isempty**
+true jika tidak ada elemen (head = tail = -1).
+
+**d. isfull**
+true jika array sudah tidak memiliki slot data.
+
+---
+
+### **4. tiga metode implementasi queue berbasis array**
+
+---
+
+#### **a. alternatif 1 : head tetap diam, tail bergerak**
+
+* head selalu di posisi 0.
+* elemen baru masuk di tail.
+* jika dequeue dilakukan, **semua elemen digeser ke kiri**.
+* operasi dequeue memakan waktu **o(n)** karena pergeseran.
+* implementasi mudah, tapi kurang efisien.
+
+---
+
+#### **b. alternatif 2 : head bergerak, tail bergerak, tapi linear (tanpa putaran)**
+
+* head naik setiap dequeue.
+* tail naik setiap enqueue.
+* ketika tail mencapai ujung array tetapi masih ada ruang di depan (head > 0), array digeser ke depan.
+* mengurangi jumlah geseran dibanding alternatif 1.
+
+---
+
+#### **c. alternatif 3 : circular queue (head & tail berputar)**
+
+* menggunakan operasi modulo: `(index + 1) % max`.
+* jika tail mencapai ujung, ia kembali ke 0.
+* tidak ada pergeseran elemen.
+* semua operasi (enqueue/dequeue) menjadi **o(1)**.
+* memanfaatkan array secara maksimal tanpa membuang ruang.
+
+---
+
+### **5. karakteristik queue**
+
+* fifo
+* tidak dapat diakses secara acak seperti array atau list
+* antrian selalu bergerak seiring bertambah/berkurangnya elemen
+* cocok untuk kasus real-time dan scheduling
+
+---
+
+### **6. contoh penerapan queue**
+
+* **print queue**
+* **simulasi antrian** (bank, kasir, rumah sakit)
 
 ---
 
@@ -126,7 +208,7 @@ int main() {
 
 > Output
 > 
-> ![Screenshot Output Guided 1](output/ss_guided_1.jpg)
+> ![](output/ss_guided_1.jpg)
 
 program ini bertujuan untuk mempelajari struktur data queue atau antrian menggunakan array.
 
@@ -316,9 +398,9 @@ int main() {
 
 > Output
 > 
-> ![Screenshot Output Unguided 1](output/ss_unguided_1.jpg)
+> ![](output/ss_unguided_1.jpg)
 
-program ini bertujuan untuk menampilkan cara kerja struktur data queue menggunakan array dengan kapasitas maksimal 5 elemen.
+program ini bertujuan untuk menampilkan proses penambahan dan penghapusan data pada sebuah queue dengan menggunakan alternatif 1.
 
 prosedur createQueue tujuannya untuk menginisialisasi queue dalam kondisi kosong. caranya adalah dengan memberi nilai head dan tail sebesar -1.
 
@@ -336,39 +418,311 @@ terakhir, fungsi main bertugas untuk membuat queue, memanggil fungsi, menambah d
 
 ### Soal 2 : Buatlah implementasi ADT Queue pada file “queue.cpp” dengan menerapkan mekanisme queue  Alternatif 2 (head bergerak, tail bergerak).
 
+<code>queue.h</code>
+
 ```cpp
+#ifndef QUEUE_H
+#define QUEUE_H
+
 #include <iostream>
+using namespace std;
+
+typedef int infotype;
+#define MAX 5
+
+struct Queue {
+   infotype info[MAX];
+   int head;
+   int tail;
+};
+
+void createQueue(Queue &Q);
+bool isEmptyQueue(Queue Q);
+bool isFullQueue(Queue Q);
+void enqueue(Queue &Q, infotype x);
+infotype dequeue(Queue &Q);
+void printInfo(Queue Q);
+
+#endif
+```
+
+<code>queue.cpp</code>
+
+```cpp
+#include "queue.h"
+
+void createQueue(Queue &Q) {
+   Q.head = -1;
+   Q.tail = -1;
+}
+
+bool isEmptyQueue(Queue Q) {
+   return (Q.head == -1 && Q.tail == -1);
+}
+
+bool isFullQueue(Queue Q) {
+   return (Q.tail == MAX - 1);
+}
+
+void enqueue(Queue &Q, infotype x) {
+   if (isFullQueue(Q) && Q.head > 0) {
+      // geser semua elemen ke depan
+      int j = 0;
+      for (int i = Q.head; i <= Q.tail; i++) {
+         Q.info[j] = Q.info[i];
+         j++;
+      }
+
+      Q.tail = j - 1;
+      Q.head = 0;
+   }
+
+   if (isFullQueue(Q)) {
+      cout << "queue penuh (beneran penuh), ga bisa nambah data" << endl;
+      return;
+   }
+
+   if (isEmptyQueue(Q)) {
+      Q.head = 0;
+      Q.tail = 0;
+      Q.info[Q.tail] = x;
+   } else {
+      Q.tail++;
+      Q.info[Q.tail] = x;
+   }
+}
+
+infotype dequeue(Queue &Q) {
+   if (isEmptyQueue(Q)) {
+      cout << "queue kosong, ga ada yang bisa dihapus" << endl;
+      return -1;
+   }
+
+   infotype hasil = Q.info[Q.head];
+
+   if (Q.head == Q.tail) {
+      Q.head = -1;
+      Q.tail = -1;
+   } else {
+      Q.head++;
+   }
+
+   return hasil;
+}
+
+void printInfo(Queue Q) {
+   if (isEmptyQueue(Q)) {
+      cout << Q.head << "  - " << Q.tail << "  | empty queue" << endl;
+   } else {
+      cout << " " << Q.head << "  -  " << Q.tail << "  | ";
+      for (int i = Q.head; i <= Q.tail; i++) {
+         cout << Q.info[i] << " ";
+      }
+      cout << endl;
+   }
+}
+```
+
+<code>main.cpp</code>
+
+```cpp
+#include "queue.h"
+
+int main() {
+   cout << "Hello world!" << endl;
+
+   cout<<"-----------------------"<<endl;
+   cout<<" H  -  T  | Queue Info"<<endl;
+   cout<<"-----------------------"<<endl;
+
+   Queue Q;
+   createQueue(Q);
+
+   printInfo(Q);
+   enqueue(Q,5); printInfo(Q);
+   enqueue(Q,2); printInfo(Q);
+   enqueue(Q,7); printInfo(Q);
+   dequeue(Q); printInfo(Q);
+   enqueue(Q,4); printInfo(Q);
+   dequeue(Q); printInfo(Q);
+   dequeue(Q); printInfo(Q);
+
+   cout<<"-1  - -1  | empty queue"<<endl;
+
+   return 0;
+}
 ```
 
 > Output
 > 
-> ![Screenshot Output Guided 2](output/ss_unguided_2.jpg)
+> ![](output/ss_unguided_2.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+program ini bertujuan untuk menampilkan proses penambahan dan penghapusan data pada sebuah queue dengan menggunakan alternatif 2, yaitu queue dengan head dan tail yang bergerak tanpa berputar, dan hanya melakukan pergeseran elemen jika tail sudah mencapai index paling akhir pada array.
+
+fungsi enqueue bekerja dengan cara menambahkan elemen baru x ke dalam queue. pertama fungsi ini mengecek apakah tail sudah berada di ujung array tetapi head tidak berada di 0. kalau kondisi itu terjadi berarti masih ada ruang kosong di bagian depan array, jadi perlu dilakukan pergeseran elemen. pergeseran dilakukan dengan cara menyalin semua elemen mulai dari index head sampai tail ke posisi paling depan array mulai dari index 0. setelah itu tail disesuaikan menjadi posisi baru, yaitu j-1, dan head kembali menjadi 0.
+
+fungsi dequeue bekerja dengan cara mengambil dan menghapus data paling depan pada queue. pertama dicek apakah queue kosong. kalau kosong maka program menampilkan pesan bahwa tidak ada data yang bisa dihapus. kalau tidak kosong, maka data yang berada di index head disimpan sementara sebagai hasil. jika setelah penghapusan queue menjadi kosong, yaitu ketika head dan tail berada di posisi yang sama, maka keduanya diset kembali menjadi -1. jika tidak kosong, maka head cukup maju satu langkah ke depan.
 
 ---
 
 ### Soal 3 : Buatlah implementasi ADT Queue pada file “queue.cpp” dengan menerapkan mekanisme queue  Alternatif 3 (head dan tail berputar).
 
+<code>queue.h</code>
+
 ```cpp
+#ifndef QUEUE_H
+#define QUEUE_H
+
 #include <iostream>
+using namespace std;
+
+typedef int infotype;
+#define MAX 5
+
+struct Queue {
+   infotype info[MAX];
+   int head;
+   int tail;
+};
+
+void createQueue(Queue &Q);
+bool isEmptyQueue(Queue Q);
+bool isFullQueue(Queue Q);
+void enqueue(Queue &Q, infotype x);
+infotype dequeue(Queue &Q);
+void printInfo(Queue Q);
+
+#endif
+```
+
+<code>queue.cpp</code>
+
+```cpp
+#include "queue.h"
+
+void createQueue(Queue &Q) {
+   Q.head = -1;
+   Q.tail = -1;
+}
+
+bool isEmptyQueue(Queue Q) {
+   return (Q.head == -1 && Q.tail == -1);
+}
+
+bool isFullQueue(Queue Q) {
+   if (isEmptyQueue(Q)) return false;
+   return ((Q.tail + 1) % MAX) == Q.head;
+}
+
+void enqueue(Queue &Q, infotype x) {
+   if (isFullQueue(Q)) {
+      cout << "queue penuh, tidak bisa menambah data" << endl;
+      return;
+   }
+
+   if (isEmptyQueue(Q)) {
+      Q.head = 0;
+      Q.tail = 0;
+   } else {
+      Q.tail = (Q.tail + 1) % MAX;
+   }
+
+   Q.info[Q.tail] = x;
+}
+
+infotype dequeue(Queue &Q) {
+   if (isEmptyQueue(Q)) {
+      cout << "queue kosong, tidak ada yang bisa dihapus" << endl;
+      return -1;
+   }
+
+   infotype hasil = Q.info[Q.head];
+
+   if (Q.head == Q.tail) {
+      Q.head = -1;
+      Q.tail = -1;
+   } else {
+      Q.head = (Q.head + 1) % MAX;
+   }
+
+   return hasil;
+}
+
+void printInfo(Queue Q) {
+   if (isEmptyQueue(Q)) {
+      cout << Q.head << "  - " << Q.tail << "  | empty queue" << endl;
+   } else {
+      cout << " " << Q.head << "  -  " << Q.tail << "  | ";
+
+      int i = Q.head;
+      while (true) {
+         cout << Q.info[i] << " ";
+         if (i == Q.tail) break;
+         i = (i + 1) % MAX;
+      }
+
+      cout << endl;
+   }
+}
+```
+
+<code>main.cpp</code>
+
+```cpp
+#include "queue.h"
+
+int main() {
+   cout << "Hello world!" << endl;
+
+   cout<<"-----------------------"<<endl;
+   cout<<" H  -  T  | Queue Info"<<endl;
+   cout<<"-----------------------"<<endl;
+
+   Queue Q;
+   createQueue(Q);
+
+   printInfo(Q);
+   enqueue(Q,5); printInfo(Q);
+   enqueue(Q,2); printInfo(Q);
+   enqueue(Q,7); printInfo(Q);
+   dequeue(Q); printInfo(Q);
+   enqueue(Q,4); printInfo(Q);
+   dequeue(Q); printInfo(Q);
+   dequeue(Q); printInfo(Q);
+
+   cout<<"-1  - -1  | empty queue"<<endl;
+
+   return 0;
+}
 ```
 
 > Output
 > 
-> ![Screenshot Output Guided 2](output/ss_unguided_3.jpg)
+> ![](output/ss_unguided_3.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+program ini bertujuan untuk mengimplementasikan struktur data queue menggunakan metode circular buffer sesuai dengan alternatif 3, yaitu representasi HEAD dan TAIL yang bergerak melingkar dari index awal sampai index akhir kemudian kembali ke awal tanpa perlu melakukan pergeseran elemen seperti pada alternatif sebelumnya.
+
+fungsi enqueue bekerja dengan cara menambahkan elemen baru ke dalam queue. jika queue sudah berisi, maka tail dimajukan 1 langkah dengan rumus (tail + 1) % MAX agar ketika tail mencapai index MAX-1, langkah berikutnya kembali ke index 0. setelah posisi tail diperbarui, nilai x dimasukkan ke array info pada indeks tail.
+
+fungsi dequeue bekerja dengan cara mengambil dan menghapus elemen pada posisi head. jika jumlah elemen lebih dari satu, maka head dimajukan 1 langkah menggunakan rumus (head + 1) % MAX sehingga ia berputar jika mencapai index MAX-1.
+
+fungsi printInfo bekerja dengan cara menampilkan kondisi queue, yaitu print posisi head dan tail serta seluruh elemen yang sedang ada di dalam queue. jika queue kosong maka program menampilkan tulisan empty queue. jika tidak kosong, program menampilkan semua elemen mulai dari head hingga tail dengan menggunakan pergerakan melingkar, yaitu dengan menaikkan index menggunakan (i + 1) % MAX sampai index mencapai posisi tail.
 
 ---
 
 ## Kesimpulan
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+dari praktikum ini, kita bisa belajar bagaimana struktur data queue dapat diimplementasikan dalam tiga pendekatan berbeda dengan karakteristik dan efisiensinya masing-masing. pada alternatif pertama, operasi dequeue membutuhkan pergeseran elemen sehingga kurang efisien karena kompleksitasnya meningkat seiring jumlah data.
+
+alternatif kedua memperbaiki masalah tersebut dengan menggerakkan head dan tail secara linear, serta hanya melakukan pergeseran ketika benar-benar diperlukan saat tail mencapai batas array tetapi masih ada ruang kosong di depan.
+
+alternatif ketiga menjadi solusi dari dua alternatif sebelumnya melalui penggunaan circular queue, di mana head dan tail dapat berputar menggunakan operasi modulo sehingga tidak ada pergeseran sama sekali. dari ketiga implementasi tersebut dapat disimpulkan bahwa pemilihan mekanisme queue dapat mempengaruhi kinerja program, dan circular queue adalah metode terbaik.
 
 ---
 
 ## Referensi
 
-1. xxx
-2. xxx
+1. GeeksforGeeks. (2025, October 30). *Implementation of Circular Queue Using Array*. Retrieved November 12, 2025, from [https://www.geeksforgeeks.org/dsa/introduction-to-circular-queue/](https://www.geeksforgeeks.org/dsa/introduction-to-circular-queue/)
+2. Mishra, H. (2024, June 3). *Queues, Data Structures*. DEV Community. Retrieved November 14, 2025, from [https://dev.to/harshm03/queues-data-structures-1dd1](https://dev.to/harshm03/queues-data-structures-1dd1)
+3. Mufada, N. *Struktur Data Queue: Pengertian, Jenis, dan Kegunaannya*. Medium. Retrieved November 15, 2025, from [https://medium.com/%40nadhifmufada09/struktur-data-queue-pengertian-jenis-dan-kegunaannya-0494fa6ccc1d](https://medium.com/%40nadhifmufada09/struktur-data-queue-pengertian-jenis-dan-kegunaannya-0494fa6ccc1d)
+4. SoftwareSeni. *Queue Adalah: Pengertian, Tipe, dan Contoh Implementasi*. Retrieved November 16, 2025, from [https://www.softwareseni.co.id/blog/queue-adalah-pengertian-tipe-dan-contoh-implementasi](https://www.softwareseni.co.id/blog/queue-adalah-pengertian-tipe-dan-contoh-implementasi)
