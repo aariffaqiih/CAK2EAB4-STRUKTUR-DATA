@@ -190,15 +190,147 @@ int main() {
 }
 </pre>
 
+<code>queue.h</code>
+
 ```cpp
+#ifndef QUEUE_H
+#define QUEUE_H
+
 #include <iostream>
+using namespace std;
+
+typedef int infotype;
+#define MAX 5
+
+struct Queue {
+   infotype info[MAX];
+   int head;
+   int tail;
+};
+
+void createQueue(Queue &Q);
+bool isEmptyQueue(Queue Q);
+bool isFullQueue(Queue Q);
+void enqueue(Queue &Q, infotype x);
+infotype dequeue(Queue &Q);
+void printInfo(Queue Q);
+
+#endif
+```
+
+<code>queue.cpp</code>
+
+```cpp
+#include "queue.h"
+
+void createQueue(Queue &Q) {
+   Q.head = -1;
+   Q.tail = -1;
+}
+
+bool isEmptyQueue(Queue Q) {
+   return (Q.head == -1 && Q.tail == -1);
+}
+
+bool isFullQueue(Queue Q) {
+   return (Q.tail == MAX - 1);
+}
+
+void enqueue(Queue &Q, infotype x) {
+   if (isFullQueue(Q)) {
+      cout << "queue penuh, tidak bisa menambah data" << endl;
+   } else {
+      if (isEmptyQueue(Q)) {
+         Q.head = 0;
+         Q.tail = 0;
+      } else {
+         Q.tail++;
+      }
+      Q.info[Q.tail] = x;
+   }
+}
+
+infotype dequeue(Queue &Q) {
+   if (isEmptyQueue(Q)) {
+      cout << "queue kosong, tidak ada yang bisa dihapus" << endl;
+      return -1;
+   }
+
+   infotype hasil = Q.info[Q.head];
+
+   if (Q.head == Q.tail) {
+      Q.head = -1;
+      Q.tail = -1;
+   } else {
+      for (int i = Q.head; i < Q.tail; i++) {
+         Q.info[i] = Q.info[i + 1];
+      }
+      Q.tail--;
+   }
+
+   return hasil;
+}
+
+void printInfo(Queue Q) {
+   if (isEmptyQueue(Q)) {
+      cout << Q.head << "  - " << Q.tail << "  | empty queue" << endl;
+   } else {
+      cout << " " << Q.head << "  -  " << Q.tail << "  | ";
+      for (int i = Q.head; i <= Q.tail; i++) {
+         cout << Q.info[i] << " ";
+      }
+      cout << endl;
+   }
+}
+```
+
+<code>main.cpp</code>
+
+```cpp
+#include "queue.h"
+
+int main() {
+   cout << "Hello world!" << endl;
+
+   cout<<"-----------------------"<<endl;
+   cout<<" H  -  T  | Queue Info"<<endl;
+   cout<<"-----------------------"<<endl;
+
+   Queue Q;
+   createQueue(Q);
+
+   printInfo(Q);
+   enqueue(Q,5); printInfo(Q);
+   enqueue(Q,2); printInfo(Q);
+   enqueue(Q,7); printInfo(Q);
+   dequeue(Q); printInfo(Q);
+   enqueue(Q,4); printInfo(Q);
+   dequeue(Q); printInfo(Q);
+   dequeue(Q); printInfo(Q);
+
+   cout<<"-1  - -1  | empty queue"<<endl;
+
+   return 0;
+}
 ```
 
 > Output
 > 
 > ![Screenshot Output Unguided 1](output/ss_unguided_1.jpg)
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+program ini bertujuan untuk menampilkan cara kerja struktur data queue menggunakan array dengan kapasitas maksimal 5 elemen.
+
+prosedur createQueue tujuannya untuk menginisialisasi queue dalam kondisi kosong. caranya adalah dengan memberi nilai head dan tail sebesar -1.
+
+setelah itu ada fungsi isEmptyQueue dan isFullQueue. fungsi isEmptyQueue bekerja dengan cara mengecek apakah head dan tail bernilai -1, kalau iya berarti queue masih kosong. kemudian fungsi isFullQueue bekerja dengan cara mengecek apakah tail sudah mencapai index terakhir yaitu MAX - 1, jika sudah berarti queue penuh dan tidak bisa menambah data lagi.
+
+fungsi enqueue bekerja dengan cara menambahkan data baru ke dalam queue. pertama dicek apakah queue penuh, kalau penuh maka program menampilkan pesan tidak bisa menambah data. jika tidak penuh dan queue masih kosong, maka head dan tail diubah menjadi 0. tapi jika queue sudah terisi, maka tail ditambah 1 agar data baru masuk ke posisi berikutnya. setelah itu nilai x dimasukkan ke array info pada posisi tail.
+
+fungsi dequeue bekerja dengan cara menghapus data paling depan dalam queue, yaitu data pada index head. pertama dicek apakah queue kosong, kalau kosong maka program menampilkan pesan tidak ada yang bisa dihapus dan mengembalikan nilai -1. jika tidak kosong, data paling depan disimpan dulu ke variabel hasil. kemudian dicek apakah head sama dengan tail, artinya hanya ada satu data dalam queue. jika iya, maka queue direset menjadi kosong dengan mengubah head dan tail menjadi -1. tapi kalau datanya lebih dari satu, maka semua elemen digeser ke kiri, setelah itu tail dikurangi 1.
+
+fungsi printInfo bekerja dengan cara menampilkan posisi head, tail, dan isi queue. jika queue kosong maka ditampilkan pesan empty queue. jika tidak kosong, maka program menampilkan angka dari index head sampai index tail sesuai data yang tersimpan dalam queue.
+
+terakhir, fungsi main bertugas untuk membuat queue, memanggil fungsi, menambah data, menghapus data, dan menampilkan perubahan kondisi queue setelah setiap operasi dilakukan.
 
 ---
 
