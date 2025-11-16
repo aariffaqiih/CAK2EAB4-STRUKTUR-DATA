@@ -208,7 +208,7 @@ int main() {
 
 > Output
 > 
-> ![](output/ss_guided_1.jpg)
+> ![](output/ss_guided_1.jpeg)
 
 program ini bertujuan untuk mempelajari struktur data queue atau antrian menggunakan array.
 
@@ -398,7 +398,7 @@ int main() {
 
 > Output
 > 
-> ![](output/ss_unguided_1.jpg)
+> ![](output/ss_unguided_1.jpeg)
 
 program ini bertujuan untuk menampilkan proses penambahan dan penghapusan data pada sebuah queue dengan menggunakan alternatif 1.
 
@@ -555,7 +555,7 @@ int main() {
 
 > Output
 > 
-> ![](output/ss_unguided_2.jpg)
+> ![](output/ss_unguided_2.jpeg)
 
 program ini bertujuan untuk menampilkan proses penambahan dan penghapusan data pada sebuah queue dengan menggunakan alternatif 2, yaitu queue dengan head dan tail yang bergerak tanpa berputar, dan hanya melakukan pergeseran elemen jika tail sudah mencapai index paling akhir pada array.
 
@@ -698,7 +698,7 @@ int main() {
 
 > Output
 > 
-> ![](output/ss_unguided_3.jpg)
+> ![](output/ss_unguided_3.jpeg)
 
 program ini bertujuan untuk mengimplementasikan struktur data queue menggunakan metode circular buffer sesuai dengan alternatif 3, yaitu representasi HEAD dan TAIL yang bergerak melingkar dari index awal sampai index akhir kemudian kembali ke awal tanpa perlu melakukan pergeseran elemen seperti pada alternatif sebelumnya.
 
