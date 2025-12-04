@@ -10,9 +10,9 @@
 
 ---
 
-# 🍽️ **Sistem Manajemen Menu Restoran Mewah**
+# 🍽️ **Sistem Manajemen Menu Restoran**
 
-Proyek ini mengelola data menu pada restoran mewah dengan dua struktur utama:
+Proyek ini mengelola data menu pada restoran dengan dua struktur utama:
 
 * **BST (Binary Search Tree)**
   Menyimpan data menu dengan key berupa `kode_menu`.
