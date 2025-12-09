@@ -1,9 +1,77 @@
 <h1 align="center">Laporan Praktikum Modul 10 <br> TREE</h1>
 <p align="center">'Aarif Rahmaan Jalaluddin Faqiih - 103112430182</p>
 
-## Dasar Teori
+## **Dasar Teori**
 
-xxxxx
+### **1. pengertian tree**
+
+* tree adalah struktur data yang tersusun dari node-node yang saling terhubung melalui relasi parent–child.
+* setiap node memiliki nilai dan pointer yang menunjuk ke node lain.
+
+### **2. binary search tree (bst)**
+
+* jika `x` adalah nilai pada node tertentu:
+
+  * semua nilai di **subtree kiri** < `x`
+  * semua nilai di **subtree kanan** > `x`
+
+### **3. operasi dasar pada bst**
+
+#### **a. insert**
+
+* proses memasukkan nilai baru dilakukan dengan membandingkan nilai yang dimasukkan dengan node saat ini.
+* proses berlanjut rekursif hingga menemukan posisi `null` yang sesuai.
+* insert mematuhi aturan bst, yang lebih kecil ke kiri, sementara yang lebih besar ke kanan.
+
+#### **b. search**
+
+* pencarian menggunakan sifat bst:
+  * lebih kecil -> kiri
+  * lebih besar -> kanan
+
+#### **c. delete**
+
+operasi delete pada bst memiliki tiga kemungkinan kasus:
+
+1. **node tanpa anak (leaf)** -> dihapus langsung.
+2. **node dengan satu anak** -> node diganti dengan child-nya.
+3. **node dengan dua anak** -> nilai node diganti dengan nilai terkecil di subtree kanan, lalu dihapus.
+
+#### **d. update**
+
+* secara konsep, bst tidak menyediakan operasi update.
+* implementasinya seperti ini: **delete nilai lama -> insert nilai baru**, agar aturan bst tetap konsisten.
+
+### **4. traversal pada binary tree**
+
+traversal adalah proses mengunjungi seluruh node dalam urutan tertentu.
+
+#### **a. in-order (left -> node -> right)**
+
+* pada bst, traversal ini **selalu menghasilkan urutan ascending**.
+* karena itu digunakan untuk menampilkan isi tree secara terurut.
+
+#### **b. pre-order (node -> left -> right)**
+
+* digunakan untuk mengekspor struktur tree atau merekonstruksi tree.
+
+#### **c. post-order (left -> right -> node)**
+
+### **5. perhitungan dalam bst**
+
+#### **a. jumlah node**
+
+* dihitung dengan menjumlahkan:
+  `1 + jumlah(subtree kiri) + jumlah(subtree kanan)`
+
+#### **b. total nilai (sum)**
+
+* mengambil `info` setiap node lalu menjumlahkannya secara rekursif.
+
+#### **c. kedalaman (depth / height)**
+
+* depth menunjukkan panjang jalur dari root ke node terdalam.
+* diukur dengan mencari nilai maksimum antara kedalaman subtree kiri dan kanan.
 
 ---
 
@@ -234,99 +302,448 @@ di fungsi main, pertama tree masih kosong. lalu masukan beberapa data menggunaka
 
 ## Unguided
 
-### Soal 1 : xxxxx
+### Soal 1 : Buatlah ADT Binary Search Tree menggunakan Linked list sebagai berikut di dalam file “bstree.h”. Buatlah implementasi ADT Binary Search Tree pada file “bstree.cpp” dan cobalah hasil implementasi ADT pada file “main.cpp”
 
-<code>xxxxx.h</code>
+<code>bstree.h</code>
 
 ```cpp
-xxxxx
+#ifndef BSTREE_H
+#define BSTREE_H
+
+#include <iostream>
+using namespace std;
+
+typedef int infotype;
+
+struct node {
+	infotype info;
+	node *left, *right;
+};
+
+typedef node* address;
+
+#define nil NULL
+
+address alokasi(infotype x);
+void insertnode(address &root, infotype x);
+address findnode(infotype x, address root);
+void inorder(address root);
+
+#endif
 ```
 
-<code>xxxxx.cpp</code>
+<code>bstree.cpp</code>
 
 ```cpp
-xxxxx
+#include "bstree.h"
+
+address alokasi(infotype x) {
+	address p = new node;
+	p->info = x;
+	p->left = nil;
+	p->right = nil;
+	return p;
+}
+
+void insertnode(address &root, infotype x) {
+	if (root == nil) {
+		root = alokasi(x);
+	}
+	else if (x < root->info) {
+		insertnode(root->left, x);
+	}
+	else if (x > root->info) {
+		insertnode(root->right, x);
+	}
+}
+
+address findnode(infotype x, address root) {
+	if (root == nil || root->info == x) {
+		return root;
+	}
+	if (x < root->info) {
+		return findnode(x, root->left);
+	}
+	return findnode(x, root->right);
+}
+
+void inorder(address root) {
+	if (root != nil) {
+		inorder(root->left);
+		cout << root->info << " -> ";
+		inorder(root->right);
+	}
+}
 ```
 
-<code>xxxxx.cpp</code>
+<code>main.cpp</code>
 
 ```cpp
-xxxxx
+#include <iostream>
+#include "bstree.h"
+
+using namespace std;
+
+int main() {
+	cout << "hello world" << endl;
+	address root = nil;
+	insertnode(root,1);
+	insertnode(root,2);
+	insertnode(root,6);
+	insertnode(root,4);
+	insertnode(root,5);
+	insertnode(root,3);
+	insertnode(root,6);
+	insertnode(root,7);
+	inorder(root);
+	return 0;
+}
 ```
 
 > Output
 > 
 > ![](output/ss_unguided_1.jpeg)
 
-xxxxx
+program ini bertujuan untuk membuat sebuah binary search tree (BST), memasukkan beberapa angka ke dalam tree tersebut, kemudian menampilkannya menggunakan traversal inorder agar menghasilkan urutan angka dari yang paling kecil sampai yang paling besar.
+
+pada file header, terdapat struktur data node yang menyimpan info bertipe int serta pointer left dan right sebagai anak kiri dan anak kanan pada tree. kemudian terdapat juga deklarasi fungsi-fungsi yang akan digunakan seperti alokasi, insertnode, findnode, dan inorder. alokasi sendiri bertujuan untuk membuat node baru yang nantinya akan diisi oleh angka yang dimasukkan ke dalam tree.
+
+fungsi alokasi bekerja dengan cara membuat node baru menggunakan operator new, kemudian mengisi bagian info dengan angka yang dikirim sebagai parameter. setelah itu, bagian left dan right diset menjadi NULL karena node baru belum memiliki anak. node yang sudah lengkap ini kemudian dikembalikan agar bisa digunakan pada proses selanjutnya.
+
+fungsi insertnode bekerja dengan cara membandingkan angka yang akan dimasukkan dengan info dari node saat ini. jika root masih kosong atau NULL, maka node pertama akan dibuat menggunakan fungsi alokasi. jika angka yang dimasukkan lebih kecil dari info node saat ini, maka proses dilanjutkan ke subtree kiri. jika lebih besar, maka proses dilanjutkan ke subtree kanan. fungsi ini memastikan bahwa aturan BST tetap terjaga, yaitu semua angka di kiri lebih kecil dan semua angka di kanan lebih besar.
+
+fungsi findnode bekerja dengan cara mencari sebuah angka tertentu pada BST. jika node saat ini kosong atau info dari node sama dengan angka yang dicari, maka node tersebut langsung dikembalikan. jika angka yang dicari lebih kecil, pencarian dilanjutkan ke anak kiri, dan jika lebih besar pencarian dilanjutkan ke anak kanan. proses ini memanfaatkan sifat BST yang membuat pencarian menjadi lebih efisien.
+
+fungsi inorder bekerja dengan cara mengunjungi subtree kiri terlebih dahulu, kemudian menampilkan info dari node saat ini, lalu mengunjungi subtree kanan. karena urutan traversalnya seperti itu, hasil akhirnya adalah angka-angka pada tree akan ditampilkan dalam urutan naik.
+
+fungsi main bertugas untuk mencetak tulisan hello world, membuat root awal tree yang bernilai NULL, kemudian memasukkan beberapa angka menggunakan insertnode.
 
 ---
 
-### Soal 2 : xxxxx
+### Soal 2 : Buatlah fungsi untuk menghitung jumlah node dengan fungsi berikut.
+- fungsi hitungJumlahNode( root:address ) : integer
+  - fungsi mengembalikan integer banyak node yang ada di dalam BST
+- fungsi hitungTotalInfo( root:address, start:integer ) : integer
+  - fungsi mengembalikan jumlah (total) info dari node-node yang ada di dalam BST
+- fungsi hitungKedalaman( root:address, start:integer ) : integer
+  - fungsi rekursif mengembalikan integer kedalaman maksimal dari binary tree
 
-<code>xxxxx.h</code>
+<code>bstree.h</code>
 
 ```cpp
-xxxxx
+#ifndef BSTREE_H
+#define BSTREE_H
+
+#include <iostream>
+using namespace std;
+
+typedef int infotype;
+
+struct node {
+	infotype info;
+	node *left, *right;
+};
+
+typedef node* address;
+
+#define nil NULL
+
+address alokasi(infotype x);
+void insertnode(address &root, infotype x);
+address findnode(infotype x, address root);
+void inorder(address root);
+int hitungjumlahnode(address root);
+int hitungtotalinfo(address root);
+int hitungkedalaman(address root, int start);
+
+#endif
 ```
 
-<code>xxxxx.cpp</code>
+<code>bstree.cpp</code>
 
 ```cpp
-xxxxx
+#include "bstree.h"
+
+address alokasi(infotype x) {
+	address p = new node;
+	p->info = x;
+	p->left = nil;
+	p->right = nil;
+	return p;
+}
+
+void insertnode(address &root, infotype x) {
+	if (root == nil) {
+		root = alokasi(x);
+	}
+	else if (x < root->info) {
+		insertnode(root->left, x);
+	}
+	else if (x > root->info) {
+		insertnode(root->right, x);
+	}
+}
+
+address findnode(infotype x, address root) {
+	if (root == nil || root->info == x) {
+		return root;
+	}
+	if (x < root->info) {
+		return findnode(x, root->left);
+	}
+	return findnode(x, root->right);
+}
+
+void inorder(address root) {
+	if (root != nil) {
+		inorder(root->left);
+		cout << root->info << " -> ";
+		inorder(root->right);
+	}
+}
+
+int hitungjumlahnode(address root) {
+	if (root == nil) {
+		return 0;
+	}
+	return 1 + hitungjumlahnode(root->left) + hitungjumlahnode(root->right);
+}
+
+int hitungtotalinfo(address root) {
+	if (root == nil) {
+		return 0;
+	}
+	return root->info + hitungtotalinfo(root->left) + hitungtotalinfo(root->right);
+}
+
+int hitungkedalaman(address root, int start) {
+	if (root == nil) {
+		return start;
+	}
+	int kiri = hitungkedalaman(root->left, start + 1);
+	int kanan = hitungkedalaman(root->right, start + 1);
+	return (kiri > kanan ? kiri : kanan);
+}
 ```
 
-<code>xxxxx.cpp</code>
+<code>main.cpp</code>
 
 ```cpp
-xxxxx
+#include <iostream>
+#include "bstree.h"
+
+using namespace std;
+
+int main() {
+	cout << "hello world" << endl;
+	address root = nil;
+	insertnode(root,1);
+	insertnode(root,2);
+	insertnode(root,6);
+	insertnode(root,4);
+	insertnode(root,5);
+	insertnode(root,3);
+	insertnode(root,6);
+	insertnode(root,7);
+	inorder(root);
+	cout << endl;
+	cout << "kedalaman : " << hitungkedalaman(root,0) << endl;
+	cout << "jumlah node : " << hitungjumlahnode(root) << endl;
+	cout << "total : " << hitungtotalinfo(root) << endl;
+	return 0;
+}
 ```
 
 > Output
 > 
 > ![](output/ss_unguided_2.jpeg)
 
-xxxxx
+kelanjutan program ini bertujuan untuk menampilkan tiga informasi penting dari sebuah binary search tree, yaitu kedalaman tree, jumlah node yang ada di dalam tree, dan total nilai dari seluruh info pada setiap node.
+
+fungsi hitungjumlahnode bekerja dengan cara menghitung berapa banyak node yang ada di dalam tree. jika root bernilai nil, artinya tidak ada node, maka hasilnya 0. jika tidak, fungsi ini akan menjumlahkan 1 untuk node yang sedang diakses, lalu memanggil dirinya sendiri ke bagian kiri dan bagian kanan sampai seluruh node sudah dihitung. dengan begitu, hasil akhirnya adalah total seluruh node pada tree.
+
+fungsi hitungtotalinfo bekerja dengan cara menjumlahkan seluruh nilai info dari setiap node pada tree. mekanismenya sama seperti hitungjumlahnode, yaitu menggunakan rekursi. jika root bernilai nil, maka hasilnya 0 karena tidak ada nilai yang bisa dijumlahkan. jika tidak, fungsi ini akan mengambil nilai info dari node saat ini, kemudian menambahkan hasil penjumlahan dari subtree kiri dan subtree kanan, sampai semua node selesai diproses.
+
+fungsi hitungkedalaman bekerja dengan cara mencari seberapa dalam tree tersebut. jika root bernilai nil, maka hasilnya adalah nilai start yang dikirim dari parameter, karena itu menandakan bahwa kita sudah mencapai ujung tree. jika tidak, fungsi ini memanggil dirinya sendiri ke subtree kiri dan subtree kanan dengan menambah 1 pada start untuk setiap turun satu level. setelah itu fungsi membandingkan kedalaman kiri dan kanan, dan mengembalikan kedalaman yang paling besar, karena itu adalah kedalaman maksimum dari tree tersebut.
 
 ---
 
-### Soal 3 : xxxxx
+### Soal 3 : Print tree secara pre-order dan post-order.
 
-<code>xxxxx.h</code>
+<code>bstree.h</code>
 
 ```cpp
-xxxxx
+#ifndef BSTREE_H
+#define BSTREE_H
+
+#include <iostream>
+using namespace std;
+
+typedef int infotype;
+
+struct node {
+	infotype info;
+	node *left, *right;
+};
+
+typedef node* address;
+
+#define nil NULL
+
+address alokasi(infotype x);
+void insertnode(address &root, infotype x);
+address findnode(infotype x, address root);
+void inorder(address root);
+int hitungjumlahnode(address root);
+int hitungtotalinfo(address root);
+int hitungkedalaman(address root, int start);
+void preorder(address root);
+void postorder(address root);
+
+#endif
 ```
 
-<code>xxxxx.cpp</code>
+<code>bstree.cpp</code>
 
 ```cpp
-xxxxx
+#include "bstree.h"
+
+address alokasi(infotype x) {
+	address p = new node;
+	p->info = x;
+	p->left = nil;
+	p->right = nil;
+	return p;
+}
+
+void insertnode(address &root, infotype x) {
+	if (root == nil) {
+		root = alokasi(x);
+	}
+	else if (x < root->info) {
+		insertnode(root->left, x);
+	}
+	else if (x > root->info) {
+		insertnode(root->right, x);
+	}
+}
+
+address findnode(infotype x, address root) {
+	if (root == nil || root->info == x) {
+		return root;
+	}
+	if (x < root->info) {
+		return findnode(x, root->left);
+	}
+	return findnode(x, root->right);
+}
+
+void inorder(address root) {
+	if (root != nil) {
+		inorder(root->left);
+		cout << root->info << " -> ";
+		inorder(root->right);
+	}
+}
+
+int hitungjumlahnode(address root) {
+	if (root == nil) {
+		return 0;
+	}
+	return 1 + hitungjumlahnode(root->left) + hitungjumlahnode(root->right);
+}
+
+int hitungtotalinfo(address root) {
+	if (root == nil) {
+		return 0;
+	}
+	return root->info + hitungtotalinfo(root->left) + hitungtotalinfo(root->right);
+}
+
+int hitungkedalaman(address root, int start) {
+	if (root == nil) {
+		return start;
+	}
+	int kiri = hitungkedalaman(root->left, start + 1);
+	int kanan = hitungkedalaman(root->right, start + 1);
+	return (kiri > kanan ? kiri : kanan);
+}
+
+void preorder(address root) {
+	if (root != nil) {
+		cout << root->info << " -> ";
+		preorder(root->left);
+		preorder(root->right);
+	}
+}
+
+void postorder(address root) {
+	if (root != nil) {
+		postorder(root->left);
+		postorder(root->right);
+		cout << root->info << " -> ";
+	}
+}
 ```
 
-<code>xxxxx</code>
+<code>main.cpp</code>
 
 ```cpp
-xxxxx
+#include <iostream>
+#include "bstree.h"
+
+using namespace std;
+
+int main() {
+	cout << "hello world" << endl;
+	address root = nil;
+	insertnode(root,1);
+	insertnode(root,2);
+	insertnode(root,6);
+	insertnode(root,4);
+	insertnode(root,5);
+	insertnode(root,3);
+	insertnode(root,6);
+	insertnode(root,7);
+	cout << "inorder: ";
+	inorder(root);
+	cout << endl;
+	cout << "preorder: ";
+	preorder(root);
+	cout << endl;
+	cout << "postorder: ";
+	postorder(root);
+	cout << endl;
+	cout << "kedalaman : " << hitungkedalaman(root,0) << endl;
+	cout << "jumlah node : " << hitungjumlahnode(root) << endl;
+	cout << "total : " << hitungtotalinfo(root) << endl;
+	return 0;
+}
 ```
 
 > Output
 > 
 > ![](output/ss_unguided_3.jpeg)
 
-xxxxx
+kelanjutan program ini bertujuan untuk menampilkan urutan penelusuran node pada sebuah binary search tree menggunakan dua jenis traversal, yaitu preorder dan postorder. kedua traversal ini dipakai untuk menampilkan isi tree dalam urutan yang berbeda sesuai dengan aturan masing-masing.
+
+fungsi preorder bekerja dengan cara menampilkan isi node terlebih dahulu, yaitu root->info, kemudian masuk ke subtree kiri dengan memanggil preorder(root->left), dan setelah itu masuk ke subtree kanan dengan memanggil preorder(root->right). jadi urutan kerjanya selalu node dulu, lalu kiri, lalu kanan. fungsi ini hanya berjalan jika node yang dicek tidak kosong.
+
+fungsi postorder bekerja dengan cara yang kebalikan dari preorder pada bagian outputnya. pertama program masuk dulu ke subtree kiri dengan memanggil postorder(root->left), setelah itu masuk ke subtree kanan dengan memanggil postorder(root->right), dan baru setelah selesai dua-duanya, barulah node yang sedang dicek ditampilkan dengan cout << root->info. jadi urutannya kiri dulu, kanan, baru node. sama seperti fungsi sebelumnya, fungsi ini juga hanya berjalan jika node tersebut tidak kosong.
+
+terakhir, di fungsi main tugasnya memanggil kedua fungsi traversal tersebut dan menampilkan hasilnya. program menuliskan “preorder:” lalu memanggil fungsi preorder untuk mencetak urutan preorder, setelah itu menuliskan “postorder:” dan memanggil fungsi postorder untuk menampilkan urutan postorder.
 
 ---
 
 ## Kesimpulan
 
-xxxxx
+dari praktikum ini, program yang dibuat bertujuan untuk memahami cara kerja binary search tree mulai dari proses pembuatan node, memasukkan data, mencari nilai, menghapus node, mengubah data, hingga menampilkan isi tree menggunakan berbagai jenis traversal.
 
 ---
 
 ## Referensi
 
-1. xxxxx
-2. xxxxx
-3. xxxxx
-4. xxxxx
+1. tpointtech. Inorder traversal. Diakses 26 November 2025, dari https://www.tpointtech.com/inorder-traversal
+2. Guru99. Binary tree. Diakses 2 Desember 2025, dari https://www.guru99.com/id/binary-tree.html
+3. CompileNRun. BST operations. Diakses 9 Desember 2025, dari https://www.compilenrun.com/docs/fundamental/algorithm/tree-algorithms/bst-operations/
+4. GeeksforGeeks. Tree Traversal Techniques. Diakses 13 Desember 2025, dari https://www.geeksforgeeks.org/dsa/tree-traversals-inorder-preorder-and-postorder/
