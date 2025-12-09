@@ -716,7 +716,7 @@ dari praktikum ini, kita bisa belajar bagaimana struktur data queue dapat diimpl
 
 alternatif kedua memperbaiki masalah tersebut dengan menggerakkan head dan tail secara linear, serta hanya melakukan pergeseran ketika benar-benar diperlukan saat tail mencapai batas array tetapi masih ada ruang kosong di depan.
 
-alternatif ketiga menjadi solusi dari dua alternatif sebelumnya melalui penggunaan circular queue, di mana head dan tail dapat berputar menggunakan operasi modulo sehingga tidak ada pergeseran sama sekali. dari ketiga implementasi tersebut dapat disimpulkan bahwa pemilihan mekanisme queue dapat mempengaruhi kinerja program, dan circular queue adalah metode terbaik.
+alternatif ketiga menjadi solusi dari dua alternatif sebelumnya melalui penggunaan circular queue, di mana head dan tail dapat berputar menggunakan operasi modulo sehingga tidak ada pergeseran sama sekali. dari ketiga implementasi tersebut dapat disimpulkan bahwa pemilihan mekanisme queue dapat mempengaruhi kinerja program, maka circular queue adalah metode terbaik.
 
 ---
 
