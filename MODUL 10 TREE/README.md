@@ -737,7 +737,7 @@ terakhir, di fungsi main tugasnya memanggil kedua fungsi traversal tersebut dan 
 
 ## Kesimpulan
 
-dari praktikum ini, program yang dibuat bertujuan untuk memahami cara kerja binary search tree mulai dari proses pembuatan node, memasukkan data, mencari nilai, menghapus node, mengubah data, hingga menampilkan isi tree menggunakan berbagai jenis traversal.
+dari praktikum ini, program yang dibuat bertujuan untuk memahami cara kerja binary search tree mulai dari proses pembuatan node, memasukkan/insert data, mencari nilai, menghapus node, mengubah data, hingga menampilkan isi tree menggunakan berbagai jenis traversal.
 
 ---
 
