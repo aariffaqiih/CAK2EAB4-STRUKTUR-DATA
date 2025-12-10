@@ -1,7 +1,10 @@
-## 📝 **Sistem Manajemen Menu Restoran**
+# 🍽️ **Manajemen Menu Fine Dining**
 
+### *Quality & Customer Preference System*
 
-# 👥 **Anggota Kelompok**
+---
+
+## 👥 **1. Anggota Kelompok**
 
 | NIM              | Nama                               |
 | ---------------- | ---------------------------------- |
@@ -10,95 +13,176 @@
 
 ---
 
-# 🍽️ **Sistem Manajemen Menu Restoran**
+## ⚙️ **2. Spesifikasi**
 
-Proyek ini mengelola data menu pada restoran dengan dua struktur utama:
+### 🔹 a. BST : menyimpan **Menu**
 
-* **BST (Binary Search Tree)**
-  Menyimpan data menu dengan key berupa `kode_menu`.
-  Cocok untuk operasi pencarian cepat dan terstruktur.
+📦 **Node (record) `Menu`:**
 
-* **MLL (Multi Linked List)**
-  Mengelola sekumpulan "tag" pada setiap menu, misalnya:
-  `"spicy"`, `"chef's favorite"`, `"limited"`, `"premium pick"`.
-  
----
+* `kode_menu` : **int** (unik, key BST)
+* `nama_menu` : **string**
+* `harga` : **int**
+* `kategori` : **string** (pilihan: **Signature**, **Premium**, **Seasonal**, **Vegan**)
+* `rating[5]` : **int array**
 
-# 📦 **Struktur Data**
-
-## **1. BST — Data Menu**
-
-Setiap node BST menyimpan record dengan atribut:
-
-| Atribut     | Tipe Data | Deskripsi                                                    |
-| ----------- | --------- | ------------------------------------------------------------ |
-| `kode_menu` | int       | **Key unik**, digunakan sebagai acuan dalam BST              |
-| `nama_menu` | string    | Nama hidangan dalam restoran                                 |
-| `harga`     | int       | Harga menu                                                   |
-| `kategori`  | string    | Salah satu dari: `Signature`, `Premium`, `Seasonal`, `Vegan` |
-| `rating[5]` | int array | Statistik jumlah vote ⭐1 sampai ⭐5                        |
+  * index 0 → jumlah vote ★1
+  * index 4 → jumlah vote ★5
 
 ---
 
-## **2. MLL — Tag Menu**
+### 🔹 b. MLL 1–N : menyimpan **Pelanggan VIP & Favorit Menu**
 
-Struktur MLL dirancang sebagai hubungan **1–N**:
+👤 **Parent list** = `Customer` (record):
 
-* **Parent:** Data menu (record)
-* **Child:** Tag (string)
+* `customer_id` : **int** (unik)
+* `nama` : **string**
+* `membership` : **string** (pilihan : *Silver*, *Gold*, *Platinum*)
 
-Setiap menu dapat memiliki banyak tag tambahan seperti:
+⭐ **Child list** = favorit/kunjungan menu → **`kode_menu` (int)**
 
-* `"recommended"`
-* `"best seller"`
-* `"spicy"`
-* `"chef's favorite"`
+* Child berupa tipe dasar (`int`) → mereferensikan kode menu dari BST.
 
 ---
 
-# 🔧 **Fungsionalitas Program**
+## 🧩 **3. Fungsionalitas (wajib + tambahan)**
 
-## **A. CRUD**
+### 🟦 A. CRUD & Search (BST : Menu)
 
-* Tambah menu (insert BST berdasarkan `kode_menu`)
-* Edit `nama`, `harga`, `kategori`
-* Tambah rating: menambah vote ⭐1–⭐5
-* Tambah tag ke menu (insert child MLL)
-* Hapus menu (delete BST node)
-* Hapus tag pada menu tertentu
+#### ✳️ **Create**
+
+* Insert menu baru (`BST_insert` by `kode_menu`)
+* Jika `kode_menu` belum ada → buat node baru
+* Jika sudah ada → user dapat mengubah `nama`, `harga`, atau `kategori`
+
+#### 🔍 **Read/Search**
+
+* Cari by `kode_menu` (unik) → return 1 menu
+* Cari by `nama_menu` → return 0..n match
+* Filter by `kategori` → return list
+
+#### 🛠️ **Update**
+
+* Ubah `nama`, `harga`, `kategori`
+* Tambah vote rating: input 1..5 → `rating[n-1]++`
+
+#### 🗑️ **Delete**
+
+* Hapus menu by `kode_menu` (BST delete)
+* Jika dihapus, **child MLL yang menyimpan kode_menu perlu di-handle**
+  (opsional: hapus referensi dari MLL)
 
 ---
 
-## **B. Search**
+### 🟩 B. CRUD (MLL : Customer & Favorites)
 
-* Cari menu berdasarkan:
-
-  * `kode_menu`
-  * `nama_menu`
-  * `kategori` (menghasilkan lebih dari satu menu)
+* **Create** : tambah customer baru
+* **Read** : list customers & list favorite menu codes
+* **Update** : tambah favorite (`kode_menu` int); hapus favorite
+* **Delete** : hapus customer beserta semua child favorite
 
 ---
 
-## **C. Traversal BST**
+### 🟧 C. Traversal BST (tampil)
 
 * In-order
 * Pre-order
 * Post-order
+* Level-order *(opsional)*
 
 ---
 
-## **D. Counting**
+### 🟨 D. Counting & Pengelolaan
 
 * Total menu
-* Total menu dalam kategori tertentu
-* Total tag pada menu tertentu
+* Total menu per kategori
+* Total customers
+* Total favorite entries per customer
 
 ---
 
-## **E. Statistik (Analisis BST + Rating)**
+### 🟥 E. Statistik (analisis di BST)
 
-* Menu dengan rating rata-rata tertinggi
-* Menu dengan rating rata-rata terendah
-* Menu dengan jumlah vote ⭐5 terbanyak
-* Menu dengan harga tertinggi
-* Menu dengan harga terendah
+* Menu dengan **rata-rata rating tertinggi** & **terendah**
+* Menu dengan **jumlah vote ★5 terbanyak**
+* Menu dengan **harga tertinggi** & **terendah**
+* Menampilkan menu yang memiliki **total vote == N**
+
+---
+
+## 📌 **4. Topik dan Detail**
+
+### 🎯 **Judul**
+
+**Manajemen Menu Fine Dining | Quality & Customer Preference System**
+
+### 📂 **Detail data yang disimpan**
+
+* `kode_menu` (**unik**), `nama_menu`, `harga`, `kategori` (**Signature**, **Premium**, **Seasonal**, **Vegan**), `rating[5]`
+
+  * jika `kode_menu` belum ada → buat node baru
+  * jika sudah ada → bisa menambahkan rating atau mengubah `harga`, `kategori`, atau `nama_menu`
+
+---
+
+### 🔗 **MLL (parent → child)**
+
+* Parent = `Customer` (`{customer_id, nama, membership}`)
+* Child = `kode_menu` (int) → list favorit/kunjungan
+
+---
+
+### 🌳 **View / Traversal (BST)**
+
+* in-order
+* pre-order
+* post-order
+* level-order
+
+---
+
+### 🔎 **Cari by**
+
+* `kode_menu`
+* `nama_menu`
+* `kategori`
+
+---
+
+### 🗑️ **Hapus**
+
+* Hapus menu by `kode_menu`
+
+---
+
+### 🧹 **Hapus (atribut) dari entitas tertentu**
+
+* Hapus favorite (child) dari `Customer` tertentu
+* Reset ratings dari satu `Menu` *(opsional)*
+
+---
+
+### 🧮 **Counting total**
+
+* total menu
+* total customers
+* total menu per kategori
+
+---
+
+### 📊 **View berdasarkan & hitung**
+
+* tampilkan menu berdasarkan kategori
+* hitung jumlah menu tiap kategori
+
+---
+
+### 📈 **Menampilkan (statistik)**
+
+* menu dengan rata-rata rating tertinggi & terendah
+* menu dengan harga tertinggi & terendah
+
+---
+
+### ⭐ **Menampilkan menu dengan jumlah vote tertentu**
+
+* contoh: semua menu dengan **total vote == N**
