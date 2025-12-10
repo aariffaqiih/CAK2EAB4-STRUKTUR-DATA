@@ -3,6 +3,104 @@
 
 ## Dasar Teori
 
+Multi Linked List adalah struktur data berbasis *linked list* yang menghubungkan dua level daftar, yaitu list induk dan list anak. Setiap elemen induk dapat memiliki sub-list sendiri, sehingga struktur yang terbentuk menyerupai hubungan *one-to-many*.
+
+---
+
+### 1. **Konsep Dasar Linked List**
+
+* Linked list adalah struktur data dinamis yang tersusun dari node-node yang saling terhubung melalui pointer, berbeda dengan array.
+* Keuntungan:
+
+  * ukuran dapat berubah-ubah,
+
+* Kekurangan:
+
+  * akses elemen bersifat sequential,
+  * membutuhkan memori tambahan untuk pointer.
+
+---
+
+### 2. **Multi Linked List**
+
+Multi Linked List memperluas konsep dasar linked list dengan menambahkan hubungan *parent–child*. Setiap node induk memiliki pointer ke:
+
+1. **node induk berikutnya**, dan
+2. **list anak**, yang berisi node anak yang juga tersusun sebagai linked list.
+
+**Struktur:**
+
+```
+Parent1 -> Parent2 -> Parent3 -> ...
+   |         |         |
+  Anak…     Anak…     Anak…
+```
+
+**Karakteristik:**
+
+* Setiap elemen induk berdiri sebagai node dalam linked list tingkat pertama.
+* Setiap elemen induk menyimpan sebuah sub-list anak.
+* List induk dan list anak dapat diimplementasikan sebagai:
+
+  * single linked list,
+  * double linked list,
+  * circular linked list.
+
+---
+
+### 3. **Operasi pada Multi Linked List**
+
+Operasi dasar terbagi menjadi dua kategori:
+
+#### A. Operasi pada List Induk
+
+* *create_list* -> inisialisasi list induk.
+* *alokasi/dalokasi* -> memesan & membebaskan memori node induk.
+* *insert_first / insert_last / insert_after* -> penyisipan node induk di berbagai posisi.
+* *delete_first / delete_last / delete_after* -> penghapusan node induk.
+* *find_elm* -> pencarian elemen induk berdasarkan nilai info.
+* *nb_list* -> menghitung jumlah node induk.
+* *print_info* -> menampilkan seluruh node induk beserta daftar anak masing-masing.
+
+#### B. Operasi pada List Anak
+
+Mirip dengan operasi induk, tetapi dilakukan pada sub-list dalam setiap node induk:
+
+* create_list_anak
+* alokasi_anak / dealokasi_anak
+* insert_first_anak / insert_last_anak / insert_after_anak
+* delete_first_anak / delete_last_anak / delete_after_anak
+* find_elm_anak
+* nb_list_anak
+* print_info_anak
+
+---
+
+### 4. **Manfaat Multi Linked List**
+
+Struktur ini cocok untuk data hierarkis, misalnya:
+
+* kategori (induk) -> produk (anak),
+* dosen (induk) -> mahasiswa bimbingan (anak),
+* kota (induk) -> kecamatan (anak),
+* mata kuliah (induk) -> daftar mahasiswa (anak).
+
+---
+
+### 5. **Circular Linked List**
+
+Circular Linked List adalah variasi linked list di mana node terakhir menunjuk kembali ke node pertama.
+
+**Ciri:**
+
+* traversal dapat berputar tanpa berhenti,
+* tidak memiliki `NULL` sebagai penanda akhir.
+
+Dalam konteks ADT circular list:
+
+* insert/delete harus memperhatikan node terakhir supaya tetap menunjuk ke node pertama,
+* pencarian harus dilakukan dengan loop `do … while`.
+
 ---
 
 ## Guided
@@ -130,25 +228,27 @@ int main()
 
 > Output
 > 
-> ![](output/ss_guided_1.jpeg)
+> ![Screenshot Output Guided 1](output/ss_guided_1.jpeg)
 
-program ini bertujuan untuk menampilkan hubungan antara parent node dan child node menggunakan struktur linked list bersarang. setiap parent bisa punya beberapa child, dan setiap child terhubung dengan child berikutnya melalui pointer next.
+program ini bertujuan untuk menampilkan struktur data yang terdiri dari node parent dan node child, di mana setiap parent bisa punya beberapa child, dan relasinya ditampilkan secara berurutan.
 
-di awal program ada dua struct utama yaitu parent_node dan child_node. struct parent_node menyimpan info dari parent, lalu pointer child_head yang menunjuk ke child pertama yang dimiliki parent tersebut, dan pointer next untuk menghubungkan parent satu dengan parent lainnya. struct child_node menyimpan info child dan pointer next untuk menghubungkan child berikutnya dalam satu parent.
+di awal program terdapat dua buah struct, yaitu child_node dan parent_node. child_node berfungsi untuk menyimpan data child berupa string dan pointer next untuk menghubungkan child berikutnya. sedangkan parent_node berfungsi untuk menyimpan data parent berupa string, kemudian pointer child_head untuk menunjuk ke child pertamanya, dan pointer next untuk menghubungkan parent berikutnya.
 
-setelah itu ada dua fungsi pembuat node yaitu create_parent dan create_child. dua fungsi ini bekerja dengan cara membuat node baru di memori dengan operator new, kemudian mengisi field info sesuai input dan mengatur pointer next menjadi NULL karena node baru belum terhubung ke node lain.
+setelah itu ada dua fungsi untuk membuat node baru, yaitu create_parent dan create_child. keduanya bekerja dengan cara mengalokasikan node baru menggunakan new, mengisi nilai info sesuai parameter, kemudian mengatur pointer next menjadi NULL. khusus parent_node ada tambahan pointer child_head yang juga diatur menjadi NULL, karena ketika parent baru dibuat, belum ada child yang dimiliki.
 
-fungsi insert_parent bekerja dengan cara menambahkan parent baru ke akhir daftar parent. jika head masih kosong maka parent pertama langsung menjadi head. tetapi jika sudah ada parent lain, maka program melakukan traversal dengan temporary sampai menemukan parent terakhir, lalu menghubungkan parent baru ke bagian akhir melalui temporary->next.
+prosedur insert_parent bekerja dengan cara menambahkan parent baru ke bagian akhir dari linked list parent. pertama dicek apakah head masih kosong, jika iya maka parent baru langsung menjadi head. jika tidak, maka dilakukan traversal menggunakan pointer temporary hingga mencapai parent terakhir, dan parent baru ditambahkan di bagian belakang dengan cara mengatur pointer next dari parent terakhir menuju parent baru.
 
-fungsi insert_child bekerja dengan cara mencari parent tertentu berdasarkan info. pertama-tama dilakukan traversal pada list parent sampai menemukan parent yang info-nya sama dengan parent_info. jika parent ditemukan maka dibuat child baru dengan fungsi create_child. jika parent tersebut belum punya child sama sekali maka child baru langsung menjadi child_head. tetapi jika sudah ada child sebelumnya maka traversal dilakukan dengan child_temp sampai child terakhir, lalu child baru ditempatkan di bagian belakang child list.
+prosedur insert_child bekerja dengan cara mencari parent tertentu berdasarkan info. caranya adalah melakukan traversal dari head hingga menemukan parent yang info-nya sama dengan parent_info. jika parent ditemukan, maka dibuat child baru menggunakan create_child. jika parent tersebut belum punya child sama sekali, maka child baru menjadi child_head. tetapi jika sudah ada child sebelumnya, maka dilakukan traversal lagi hingga child terakhir, kemudian child baru disambungkan di bagian belakang.
 
-fungsi print_all bekerja dengan cara melakukan traversal pada seluruh parent. setiap parent dicetak info-nya terlebih dahulu. setelah itu dicek apakah parent tersebut punya child. jika punya maka dilakukan traversal untuk mencetak semua child dengan format parent -> child1 -> child2 dan seterusnya. setelah selesai mencetak child, berpindah ke parent berikutnya sampai semua parent selesai dicetak.
+fungsi print_all bertugas menampilkan seluruh data parent beserta child-nya. caranya adalah melakukan traversal parent satu per satu, mencetak info parent, lalu jika parent tersebut punya child, dilakukan traversal child untuk mencetak seluruh child yang terhubung dari parent tersebut. setelah semua child dari parent itu dicetak, program berpindah ke parent berikutnya.
+
+terakhir, fungsi main bertugas untuk membuat list parent kosong, kemudian menambahkan dua parent menggunakan insert_parent. setelah itu hasilnya ditampilkan menggunakan print_all. lalu beberapa child ditambahkan ke parent tertentu menggunakan insert_child, dan hasil akhirnya ditampilkan lagi menggunakan print_all.
 
 ---
 
 ## Unguided
 
-### Soal 1 : buat  multilist.cpp  untuk  implementasi  semua  fungsi  pada multilist.h. Buat main.cpp untuk pemanggilan fungsi-fungsi tersebut.
+### Soal 1 : buat multilist.cpp untuk implementasi semua fungsi pada multilist.h. Buat main.cpp untuk pemanggilan fungsi-fungsi tersebut.
 
 <code>multilist.h</code>
 
@@ -157,81 +257,81 @@ fungsi print_all bekerja dengan cara melakukan traversal pada seluruh parent. se
 #define MULTILIST_H_INCLUDED
 #define Nil NULL
 
-typedef bool boolean;
 typedef int infotypeanak;
 typedef int infotypeinduk;
+
 typedef struct elemen_list_induk *address;
 typedef struct elemen_list_anak *address_anak;
 
-struct elemen_list_anak{
-   infotypeanak info;
-   address_anak next;
-   address_anak prev;
+struct elemen_list_anak {
+	infotypeanak info;
+	address_anak next;
+	address_anak prev;
 };
 
 struct listanak {
-   address_anak first;
-   address_anak last;
+	address_anak first;
+	address_anak last;
 };
 
-struct elemen_list_induk{
-   infotypeanak info;
-   listanak lanak;
-   address next;
-   address prev;
+struct elemen_list_induk {
+	infotypeinduk info;
+	listanak lanak;
+	address next;
+	address prev;
 };
 
 struct listinduk {
-   address first;
-   address last;
+	address first;
+	address last;
 };
 
-boolean ListEmpty(listinduk L);
-boolean ListEmptyAnak(listanak L);
+bool list_empty(listinduk L);
+bool list_empty_anak(listanak L);
 
-void CreateList(listinduk &L);
-void CreateListAnak(listanak &L);
+void create_list(listinduk &L);
+void create_list_anak(listanak &L);
 
 address alokasi(infotypeinduk P);
-address_anak alokasiAnak(infotypeanak P);
+address_anak alokasi_anak(infotypeanak P);
 
 void dealokasi(address P);
-void dealokasiAnak(address_anak P);
+void dealokasi_anak(address_anak P);
 
-address findElm(listinduk L, infotypeinduk X);
-address_anak findElm(listanak Lanak, infotypeanak X);
+address find_elm(listinduk L, infotypeinduk X);
+address_anak find_elm_anak(listanak L, infotypeanak X);
 
-boolean fFindElm(listinduk L, address P);
-boolean fFindElmanak(listanak Lanak, address_anak P);
+bool ffind_elm(listinduk L, address P);
+bool ffind_elm_anak(listanak L, address_anak P);
 
-address findBefore(listinduk L, address P);
-address_anak findBeforeAnak(listanak Lanak, infotypeinduk X, address_anak P);
+address find_before(listinduk L, address P);
+address_anak find_before_anak(listanak L, infotypeanak X, address_anak P);
 
-void insertFirst(listinduk &L, address P);
-void insertAfter(listinduk &L, address P, address Prec);
-void insertLast(listinduk &L, address P);
+void insert_first(listinduk &L, address P);
+void insert_after(listinduk &L, address P, address Prec);
+void insert_last(listinduk &L, address P);
 
-void insertFirstAnak(listanak &L, address_anak P);
-void insertAfterAnak(listanak &L, address_anak P, address_anak Prec);
-void insertLastAnak(listanak &L, address_anak P);
+void insert_first_anak(listanak &L, address_anak P);
+void insert_after_anak(listanak &L, address_anak P, address_anak Prec);
+void insert_last_anak(listanak &L, address_anak P);
 
-void delFirst(listinduk &L, address &P);
-void delLast(listinduk &L, address &P);
-void delAfter(listinduk &L, address &P, address Prec);
-void delP(listinduk &L, infotypeinduk X);
+void del_first(listinduk &L, address &P);
+void del_last(listinduk &L, address &P);
+void del_after(listinduk &L, address &P, address Prec);
+void delp(listinduk &L, infotypeinduk X);
 
-void delFirstAnak(listanak &L, address_anak &P);
-void delLastAnak(listanak &L, address_anak &P);
-void delAfterAnak(listanak &L, address_anak &P, address_anak Prec);
-void delPAnak(listanak &L, infotypeanak X);
+void del_first_anak(listanak &L, address_anak &P);
+void del_last_anak(listanak &L, address_anak &P);
+void del_after_anak(listanak &L, address_anak &P, address_anak Prec);
+void delp_anak(listanak &L, infotypeanak X);
 
-void printInfo(listinduk L);
-int nbList(listinduk L);
+void print_info(listinduk L);
+int nb_list(listinduk L);
 
-void printInfoAnak(listanak Lanak);
-int nbListAnak(listanak Lanak);
+void print_info_anak(listanak L);
+int nb_list_anak(listanak L);
 
-void delAll(listinduk &L);
+void del_all(listinduk &L);
 
 #endif
 ```
@@ -240,392 +340,589 @@ void delAll(listinduk &L);
 
 ```cpp
 #include <iostream>
-using namespace std;
 #include "multilist.h"
+using namespace std;
 
-boolean ListEmpty(listinduk L) {
-   return (L.first == Nil && L.last == Nil);
+bool list_empty(listinduk L) {
+	return L.first == Nil;
 }
 
-boolean ListEmptyAnak(listanak L) {
-   return (L.first == Nil && L.last == Nil);
+bool list_empty_anak(listanak L) {
+	return L.first == Nil;
 }
 
-void CreateList(listinduk &L) {
-   L.first = Nil;
-   L.last = Nil;
+void create_list(listinduk &L) {
+	L.first = Nil;
+	L.last = Nil;
 }
 
-void CreateListAnak(listanak &L) {
-   L.first = Nil;
-   L.last = Nil;
+void create_list_anak(listanak &L) {
+	L.first = Nil;
+	L.last = Nil;
 }
 
 address alokasi(infotypeinduk P) {
-   address Q = new elemen_list_induk;
-   if (Q != Nil) {
-      Q->info = P;
-      Q->lanak.first = Nil;
-      Q->lanak.last = Nil;
-      Q->next = Nil;
-      Q->prev = Nil;
-   }
-   return Q;
+	address Q = new elemen_list_induk;
+	Q->info = P;
+	create_list_anak(Q->lanak);
+	Q->next = Nil;
+	Q->prev = Nil;
+	return Q;
 }
 
-address_anak alokasiAnak(infotypeanak P) {
-   address_anak Q = new elemen_list_anak;
-   if (Q != Nil) {
-      Q->info = P;
-      Q->next = Nil;
-      Q->prev = Nil;
-   }
-   return Q;
+address_anak alokasi_anak(infotypeanak P) {
+	address_anak Q = new elemen_list_anak;
+	Q->info = P;
+	Q->next = Nil;
+	Q->prev = Nil;
+	return Q;
+}
+
+void dealokasi(address P) {
+	delete P;
+}
+
+void dealokasi_anak(address_anak P) {
+	delete P;
+}
+
+address find_elm(listinduk L, infotypeinduk X) {
+	address P = L.first;
+	while (P != Nil && P->info != X) {
+		P = P->next;
+	}
+	return P;
+}
+
+address_anak find_elm_anak(listanak L, infotypeanak X) {
+	address_anak P = L.first;
+	while (P != Nil && P->info != X) {
+		P = P->next;
+	}
+	return P;
+}
+
+bool ffind_elm(listinduk L, address P) {
+	address Q = L.first;
+	while (Q != Nil) {
+		if (Q == P) return true;
+		Q = Q->next;
+	}
+	return false;
+}
+
+bool ffind_elm_anak(listanak L, address_anak P) {
+	address_anak Q = L.first;
+	while (Q != Nil) {
+		if (Q == P) return true;
+		Q = Q->next;
+	}
+	return false;
+}
+
+address find_before(listinduk L, address P) {
+	if (L.first == P) return Nil;
+	address Q = L.first;
+	while (Q != Nil && Q->next != P) {
+		Q = Q->next;
+	}
+	return Q;
+}
+
+address_anak find_before_anak(listanak L, infotypeanak X, address_anak P) {
+	if (L.first == P) return Nil;
+	address_anak Q = L.first;
+	while (Q != Nil && Q->next != P) {
+		Q = Q->next;
+	}
+	return Q;
+}
+
+void insert_first(listinduk &L, address P) {
+	if (list_empty(L)) {
+		L.first = P;
+		L.last = P;
+	} else {
+		P->next = L.first;
+		L.first->prev = P;
+		L.first = P;
+	}
+}
+
+void insert_after(listinduk &L, address P, address Prec) {
+	P->next = Prec->next;
+	P->prev = Prec;
+	if (Prec->next != Nil) Prec->next->prev = P;
+	Prec->next = P;
+	if (L.last == Prec) L.last = P;
+}
+
+void insert_last(listinduk &L, address P) {
+	if (list_empty(L)) {
+		insert_first(L, P);
+	} else {
+		P->prev = L.last;
+		L.last->next = P;
+		L.last = P;
+	}
+}
+
+void insert_first_anak(listanak &L, address_anak P) {
+	if (list_empty_anak(L)) {
+		L.first = P;
+		L.last = P;
+	} else {
+		P->next = L.first;
+		L.first->prev = P;
+		L.first = P;
+	}
+}
+
+void insert_after_anak(listanak &L, address_anak P, address_anak Prec) {
+	P->next = Prec->next;
+	P->prev = Prec;
+	if (Prec->next != Nil) Prec->next->prev = P;
+	Prec->next = P;
+	if (L.last == Prec) L.last = P;
+}
+
+void insert_last_anak(listanak &L, address_anak P) {
+	if (list_empty_anak(L)) {
+		insert_first_anak(L, P);
+	} else {
+		P->prev = L.last;
+		L.last->next = P;
+		L.last = P;
+	}
+}
+
+void del_first(listinduk &L, address &P) {
+	P = L.first;
+	if (L.first == L.last) {
+		L.first = Nil;
+		L.last = Nil;
+	} else {
+		L.first = P->next;
+		L.first->prev = Nil;
+	}
+}
+
+void del_last(listinduk &L, address &P) {
+	P = L.last;
+	if (L.first == L.last) {
+		L.first = Nil;
+		L.last = Nil;
+	} else {
+		L.last = P->prev;
+		L.last->next = Nil;
+	}
+}
+
+void del_after(listinduk &L, address &P, address Prec) {
+	P = Prec->next;
+	Prec->next = P->next;
+	if (P->next != Nil) P->next->prev = Prec;
+	if (L.last == P) L.last = Prec;
+}
+
+void delp(listinduk &L, infotypeinduk X) {
+	address P = find_elm(L, X);
+	if (P != Nil) {
+		if (P == L.first) {
+			del_first(L, P);
+			dealokasi(P);
+		} else if (P == L.last) {
+			del_last(L, P);
+			dealokasi(P);
+		} else {
+			address Q;
+			del_after(L, Q, P->prev);
+			dealokasi(Q);
+		}
+	}
+}
+
+void del_first_anak(listanak &L, address_anak &P) {
+	P = L.first;
+	if (L.first == L.last) {
+		L.first = Nil;
+		L.last = Nil;
+	} else {
+		L.first = P->next;
+		L.first->prev = Nil;
+	}
+}
+
+void del_last_anak(listanak &L, address_anak &P) {
+	P = L.last;
+	if (L.first == L.last) {
+		L.first = Nil;
+		L.last = Nil;
+	} else {
+		L.last = P->prev;
+		L.last->next = Nil;
+	}
+}
+
+void del_after_anak(listanak &L, address_anak &P, address_anak Prec) {
+	P = Prec->next;
+	Prec->next = P->next;
+	if (P->next != Nil) P->next->prev = Prec;
+	if (L.last == P) L.last = Prec;
+}
+
+void delp_anak(listanak &L, infotypeanak X) {
+	address_anak P = find_elm_anak(L, X);
+	if (P != Nil) {
+		if (P == L.first) {
+			del_first_anak(L, P);
+			dealokasi_anak(P);
+		} else if (P == L.last) {
+			del_last_anak(L, P);
+			dealokasi_anak(P);
+		} else {
+			address_anak Q;
+			del_after_anak(L, Q, P->prev);
+			dealokasi_anak(Q);
+		}
+	}
+}
+
+void print_info_anak(listanak L) {
+	address_anak P = L.first;
+	while (P != Nil) {
+		cout << " -> " << P->info;
+		P = P->next;
+	}
+}
+
+void print_info(listinduk L) {
+	address P = L.first;
+	while (P != Nil) {
+		cout << P->info;
+		print_info_anak(P->lanak);
+		cout << endl;
+		P = P->next;
+	}
+}
+
+int nb_list(listinduk L) {
+	int c = 0;
+	address P = L.first;
+	while (P != Nil) {
+		c++;
+		P = P->next;
+	}
+	return c;
+}
+
+int nb_list_anak(listanak L) {
+	int c = 0;
+	address_anak P = L.first;
+	while (P != Nil) {
+		c++;
+		P = P->next;
+	}
+	return c;
+}
+
+void del_all(listinduk &L) {
+	address P;
+	while (L.first != Nil) {
+		del_first(L, P);
+		dealokasi(P);
+	}
+}
+```
+
+<code>main.cpp</code>
+
+```cpp
+#include <iostream>
+#include "multilist.h"
+using namespace std;
+
+int main() {
+	listinduk L;
+	create_list(L);
+
+	insert_last(L, alokasi(1));
+	insert_last(L, alokasi(2));
+
+	cout << "list induk:" << endl;
+	print_info(L);
+	cout << endl;
+
+	address P = find_elm(L, 1);
+	insert_last_anak(P->lanak, alokasi_anak(10));
+	insert_last_anak(P->lanak, alokasi_anak(20));
+
+	P = find_elm(L, 2);
+	insert_last_anak(P->lanak, alokasi_anak(30));
+
+	cout << "list multilist:" << endl;
+	print_info(L);
+
+	return 0;
+}
+```
+
+> Output
+> 
+> ![Screenshot Output Guided 1](output/ss_unguided_1.jpeg)
+
+program ini bertujuan untuk membuat, mengelola, dan menampilkan struktur data multilist yang terdiri dari list induk dan list anak, di mana setiap elemen induk dapat memiliki list anak masing-masing.
+
+di awal program terdapat dua buah struct utama, yaitu listinduk dan listanak. listinduk adalah list yang berisi elemen induk, sedangkan listanak adalah list yang berada di dalam setiap elemen induk. setiap elemen induk memiliki info bertipe integer, pointer next dan prev untuk membentuk double linked list, serta sebuah listanak bernama lanak yang menjadi wadah untuk anak-anaknya. elemen anak juga memiliki info integer dan pointer next serta prev seperti list induk.
+
+prosedur create_list dan create_list_anak digunakan untuk membuat list baru dengan cara mengatur first dan last menjadi Nil agar list kosong dan siap digunakan. kemudian ada fungsi alokasi dan alokasi_anak yang bekerja dengan cara membuat elemen baru di heap menggunakan operator new, mengisi info dengan nilai input, mengatur pointer next dan prev menjadi Nil, dan mengembalikan alamat elemen tersebut. pada alokasi induk, elemen yang dibuat langsung diberi list anak kosong menggunakan create_list_anak.
+
+fungsi dealokasi dan dealokasi_anak bekerja dengan cara menghapus elemen yang tidak dipakai lagi menggunakan delete. kemudian ada fungsi find_elm dan find_elm_anak yang bekerja dengan cara menelusuri list dari first hingga menemukan nilai info yang dicari, jika tidak ditemukan maka mengembalikan Nil.
+
+fungsi insert_first, insert_after, dan insert_last bekerja dengan cara memasukkan elemen baru ke posisi pertama, setelah elemen tertentu, atau terakhir dalam list induk. logika yang sama juga berlaku pada insert_first_anak, insert_after_anak, dan insert_last_anak untuk list anak. pointer next dan prev disesuaikan agar struktur double linked list tetap benar.
+
+fungsi del_first, del_after, dan del_last bekerja dengan cara menghapus elemen pertama, elemen setelah suatu elemen, atau elemen terakhir dari list induk. logika serupa juga diterapkan pada del_first_anak, del_after_anak, dan del_last_anak untuk list anak. fungsi delp dan delp_anak bekerja dengan cara mencari elemen berdasarkan info, kemudian menghapusnya dengan memanggil fungsi delete yang sesuai.
+
+fungsi print_info dan print_info_anak bekerja dengan menelusuri list dari first hingga akhir sambil menampilkan info setiap elemen. print_info menampilkan elemen induk dan memanggil print_info_anak untuk menampilkan anak-anak dari elemen tersebut. kemudian nb_list dan nb_list_anak digunakan untuk menghitung banyaknya elemen dalam list.
+
+terakhir, fungsi main bertugas untuk membuat list induk, mengisi elemen induk menggunakan insert_last, kemudian menambahkan elemen anak ke masing-masing induk dengan memanggil insert_last_anak. setelah itu program menampilkan isi list induk dan list multilist menggunakan print_info.
+
+### Soal 2 :
+
+- Terdapat 11 fungsi/prosedur untuk ADT circularlist
+  - procedure CreateList( input/output L : List )
+  - function alokasi( x : infotype ) -> address
+  - procedure dealokasi( input/output t P : address )
+  - procedure insertFirst( input/output L : List, input P : address )
+  - procedure insertAfter( input/output L : List, input Prec : address, P : address)
+  - procedure insertLast( input/output L : List, input P : address )
+  - procedure deleteFirst( input/output L : List, input/output P : address )
+  - procedure deleteAfter( input/output L : List, input Prec : address, input/output t P : address )
+  - procedure deleteLast( input/output L : List, P : address )
+  - function findElm( L : List, x : infotype ) -> address
+  - procedure printInfo( input L : List )
+
+- Keterangan
+  - fungsi findElm mencari elemen di dalam list L berdasarkan nim
+    - fungsi mengembalikan elemen dengan dengan info nim == x.nim jika ditemukan
+    - fungsi mengembalikan NIL jika tidak ditemukan
+
+- Buatlah implementasi ADT Doubly Linked list pada file “circularlist.cpp”. Tambahkan fungsi/prosedur berikut pada file “main.cpp”.
+  - fungsi create ( in nama, nim : string, jenis_kelamin : char, ipk : float)
+    - fungsi disediakan, ketik ulang code yang diberikan
+    - fungsi mengalokasikan sebuah elemen list dengan info sesuai input
+
+<code>circularlist.h</code>
+
+```cpp
+#ifndef CIRCULARLIST_H_INCLUDED
+#define CIRCULARLIST_H_INCLUDED
+#define Nil NULL
+
+#include <string>
+using namespace std;
+
+typedef struct {
+   string nama;
+   string nim;
+   char jenis_kelamin;
+   float ipk;
+} infotype;
+
+typedef struct elm_list *address;
+
+struct elm_list {
+   infotype info;
+   address next;
+};
+
+struct list {
+   address first;
+};
+
+void create_list(list &L);
+address alokasi(infotype x);
+void dealokasi(address P);
+void insert_first(list &L, address P);
+void insert_after(list &L, address prec, address P);
+void insert_last(list &L, address P);
+void delete_first(list &L, address &P);
+void delete_after(list &L, address prec, address &P);
+void delete_last(list &L, address &P);
+address find_elm(list L, infotype x);
+void print_info(list L);
+
+#endif
+```
+
+<code>circularlist.cpp</code>
+
+```cpp
+#include <iostream>
+#include "circularlist.h"
+using namespace std;
+
+void create_list(list &L) {
+   L.first = Nil;
+}
+
+address alokasi(infotype x) {
+   address P = new elm_list;
+   P->info = x;
+   P->next = P;
+   return P;
 }
 
 void dealokasi(address P) {
    delete P;
 }
 
-void dealokasiAnak(address_anak P) {
-   delete P;
+void insert_first(list &L, address P) {
+   if (L.first == Nil) {
+      L.first = P;
+   } else {
+      address Q = L.first;
+      while (Q->next != L.first) {
+         Q = Q->next;
+      }
+      P->next = L.first;
+      Q->next = P;
+      L.first = P;
+   }
 }
 
-address findElm(listinduk L, infotypeinduk X) {
-   address P = L.first;
-   while (P != Nil && P->info != X) {
-      P = P->next;
+void insert_after(list &L, address prec, address P) {
+   P->next = prec->next;
+   prec->next = P;
+}
+
+void insert_last(list &L, address P) {
+   if (L.first == Nil) {
+      L.first = P;
+   } else {
+      address Q = L.first;
+      while (Q->next != L.first) {
+         Q = Q->next;
+      }
+      Q->next = P;
+      P->next = L.first;
    }
+}
+
+void delete_first(list &L, address &P) {
+   P = L.first;
+   if (P->next == P) {
+      L.first = Nil;
+   } else {
+      address Q = L.first;
+      while (Q->next != L.first) {
+         Q = Q->next;
+      }
+      L.first = P->next;
+      Q->next = L.first;
+   }
+}
+
+void delete_after(list &L, address prec, address &P) {
+   P = prec->next;
+   prec->next = P->next;
+}
+
+void delete_last(list &L, address &P) {
+   if (L.first->next == L.first) {
+      P = L.first;
+      L.first = Nil;
+   } else {
+      address Q = L.first;
+      while (Q->next->next != L.first) {
+         Q = Q->next;
+      }
+      P = Q->next;
+      Q->next = L.first;
+   }
+}
+
+address find_elm(list L, infotype x) {
+   if (L.first == Nil) return Nil;
+   address P = L.first;
+   do {
+      if (P->info.nim == x.nim) return P;
+      P = P->next;
+   } while (P != L.first);
+   return Nil;
+}
+
+void print_info(list L) {
+   if (L.first == Nil) return;
+   address P = L.first;
+   do {
+      cout << P->info.nama << " "
+           << P->info.nim << " "
+           << P->info.jenis_kelamin << " "
+           << P->info.ipk << endl;
+      P = P->next;
+   } while (P != L.first);
+}
+```
+
+<code>main.cpp</code>
+
+```cpp
+#include <iostream>
+#include "circularlist.h"
+using namespace std;
+
+address create_data(string nama, string nim, char jenis_kelamin, float ipk) {
+   infotype x;
+   x.nama = nama;
+   x.nim = nim;
+   x.jenis_kelamin = jenis_kelamin;
+   x.ipk = ipk;
+   address P = alokasi(x);
    return P;
 }
 
-address_anak findElm(listanak L, infotypeanak X) {
-   address_anak P = L.first;
-   while (P != Nil && P->info != X) {
-      P = P->next;
-   }
-   return P;
-}
-
-boolean fFindElm(listinduk L, address P) {
-   address Q = L.first;
-   while (Q != Nil) {
-      if (Q == P) return true;
-      Q = Q->next;
-   }
-   return false;
-}
-
-boolean fFindElmanak(listanak L, address_anak P) {
-   address_anak Q = L.first;
-   while (Q != Nil) {
-      if (Q == P) return true;
-      Q = Q->next;
-   }
-   return false;
-}
-
-address findBefore(listinduk L, address P) {
-   if (P == L.first) return Nil;
-   return P->prev;
-}
-
-address_anak findBeforeAnak(listanak L, infotypeinduk X, address_anak P) {
-   if (P == L.first) return Nil;
-   return P->prev;
-}
-
-void insertFirst(listinduk &L, address P) {
-   if (ListEmpty(L)) {
-      L.first = P;
-      L.last = P;
-   } else {
-      P->next = L.first;
-      L.first->prev = P;
-      L.first = P;
-   }
-}
-
-void insertAfter(listinduk &L, address P, address Prec) {
-   P->next = Prec->next;
-   P->prev = Prec;
-   if (Prec->next != Nil)
-      Prec->next->prev = P;
-   else
-      L.last = P;
-   Prec->next = P;
-}
-
-void insertLast(listinduk &L, address P) {
-   if (ListEmpty(L)) {
-      L.first = P;
-      L.last = P;
-   } else {
-      L.last->next = P;
-      P->prev = L.last;
-      L.last = P;
-   }
-}
-
-void insertFirstAnak(listanak &L, address_anak P) {
-   if (ListEmptyAnak(L)) {
-      L.first = P;
-      L.last = P;
-   } else {
-      P->next = L.first;
-      L.first->prev = P;
-      L.first = P;
-   }
-}
-
-void insertAfterAnak(listanak &L, address_anak P, address_anak Prec) {
-   P->next = Prec->next;
-   P->prev = Prec;
-   if (Prec->next != Nil)
-      Prec->next->prev = P;
-   else
-      L.last = P;
-   Prec->next = P;
-}
-
-void insertLastAnak(listanak &L, address_anak P) {
-   if (ListEmptyAnak(L)) {
-      L.first = P;
-      L.last = P;
-   } else {
-      L.last->next = P;
-      P->prev = L.last;
-      L.last = P;
-   }
-}
-
-void delFirst(listinduk &L, address &P) {
-   P = L.first;
-   if (L.first == L.last) {
-      L.first = Nil;
-      L.last = Nil;
-   } else {
-      L.first = P->next;
-      L.first->prev = Nil;
-      P->next = Nil;
-   }
-}
-
-void delLast(listinduk &L, address &P) {
-   P = L.last;
-   if (L.first == L.last) {
-      L.first = Nil;
-      L.last = Nil;
-   } else {
-      L.last = P->prev;
-      L.last->next = Nil;
-      P->prev = Nil;
-   }
-}
-
-void delAfter(listinduk &L, address &P, address Prec) {
-   P = Prec->next;
-   if (P != Nil) {
-      Prec->next = P->next;
-      if (P->next != Nil)
-         P->next->prev = Prec;
-      else
-         L.last = Prec;
-      P->next = Nil;
-      P->prev = Nil;
-   }
-}
-
-void delP(listinduk &L, infotypeinduk X) {
-   address P = findElm(L, X);
-   if (P != Nil) {
-      if (P == L.first)
-         delFirst(L, P);
-      else if (P == L.last)
-         delLast(L, P);
-      else {
-         P->prev->next = P->next;
-         P->next->prev = P->prev;
-         P->next = Nil;
-         P->prev = Nil;
-      }
-      dealokasi(P);
-   }
-}
-
-void delFirstAnak(listanak &L, address_anak &P) {
-   P = L.first;
-   if (L.first == L.last) {
-      L.first = Nil;
-      L.last = Nil;
-   } else {
-      L.first = P->next;
-      L.first->prev = Nil;
-      P->next = Nil;
-   }
-}
-
-void delLastAnak(listanak &L, address_anak &P) {
-   P = L.last;
-   if (L.first == L.last) {
-      L.first = Nil;
-      L.last = Nil;
-   } else {
-      L.last = P->prev;
-      L.last->next = Nil;
-      P->prev = Nil;
-   }
-}
-
-void delAfterAnak(listanak &L, address_anak &P, address_anak Prec) {
-   P = Prec->next;
-   if (P != Nil) {
-      Prec->next = P->next;
-      if (P->next != Nil)
-         P->next->prev = Prec;
-      else
-         L.last = Prec;
-      P->next = Nil;
-      P->prev = Nil;
-   }
-}
-
-void delPAnak(listanak &L, infotypeanak X) {
-   address_anak P = findElm(L, X);
-   if (P != Nil) {
-      if (P == L.first)
-         delFirstAnak(L, P);
-      else if (P == L.last)
-         delLastAnak(L, P);
-      else {
-         P->prev->next = P->next;
-         P->next->prev = P->prev;
-         P->next = Nil;
-         P->prev = Nil;
-      }
-      dealokasiAnak(P);
-   }
-}
-
-void printInfo(listinduk L) {
-   address P = L.first;
-   while (P != Nil) {
-       cout << P->info << " ";
-       P = P->next;
-   }
-   cout << endl;
-}
-
-int nbList(listinduk L) {
-   int n = 0;
-   address P = L.first;
-   while (P != Nil) {
-       n++;
-       P = P->next;
-   }
-   return n;
-}
-
-void printInfoAnak(listanak L) {
-   address_anak P = L.first;
-   while (P != Nil) {
-      cout << P->info << " ";
-      P = P->next;
-   }
-   cout << endl;
-}
-
-int nbListAnak(listanak L) {
-   int n = 0;
-   address_anak P = L.first;
-   while (P != Nil) {
-      n++;
-      P = P->next;
-   }
-   return n;
-}
-
-void delAll(listinduk &L) {
-   address P;
-   while (!ListEmpty(L)) {
-      delFirst(L, P);
-      address_anak C;
-      while (!ListEmptyAnak(P->lanak)) {
-         delFirstAnak(P->lanak, C);
-         dealokasiAnak(C);
-      }
-      dealokasi(P);
-   }
-}
-```
-
-<code>main.cpp</code>
-
-```cpp
-#include <iostream>
-using namespace std;
-#include "multilist.h"
-
 int main() {
-   listinduk L;
-   CreateList(L);
+   list L, A, B, L2;
+   address P1 = Nil;
+   address P2 = Nil;
+   infotype x;
 
-   cout << "=== test insert induk ===" << endl;
-   insertLast(L, alokasi(10));
-   insertLast(L, alokasi(20));
-   insertLast(L, alokasi(30));
+   create_list(L);
 
-   cout << "isi list induk: ";
-   printInfo(L);
+   cout << "coba insert first, last, dan after" << endl;
 
-   cout << "jumlah induk: " << nbList(L) << endl << endl;
+   P1 = create_data("danu", "04", 'l', 4.0);
+   insert_first(L, P1);
 
-   cout << "=== test insert anak ===" << endl;
-   address P = findElm(L, 20);
-   if (P != Nil) {
-      insertLastAnak(P->lanak, alokasiAnak(201));
-      insertLastAnak(P->lanak, alokasiAnak(202));
-      insertLastAnak(P->lanak, alokasiAnak(203));
-   }
+   P1 = create_data("fahmi", "06", 'l', 3.45);
+   insert_last(L, P1);
 
-   cout << "anak dari induk 20: ";
-   printInfoAnak(P->lanak);
+   P1 = create_data("bobi", "02", 'l', 3.71);
+   insert_first(L, P1);
 
-   cout << "jumlah anak induk 20: " << nbListAnak(P->lanak) << endl << endl;
+   P1 = create_data("ali", "01", 'l', 3.3);
+   insert_first(L, P1);
 
-   cout << "=== test delete anak ===" << endl;
-   delPAnak(P->lanak, 202);
+   P1 = create_data("gita", "07", 'p', 3.75);
+   insert_last(L, P1);
 
-   cout << "anak dari induk 20 setelah hapus 202: ";
-   printInfoAnak(P->lanak);
+   x.nim = "07";
+   P1 = find_elm(L, x);
+   P2 = create_data("cindi", "03", 'p', 3.5);
+   insert_after(L, P1, P2);
 
-   cout << endl;
+   x.nim = "02";
+   P1 = find_elm(L, x);
+   P2 = create_data("hilmi", "08", 'p', 3.3);
+   insert_after(L, P1, P2);
 
-   cout << "=== TEST DELETE INDUK ===" << endl;
-   delP(L, 20);
+   x.nim = "04";
+   P1 = find_elm(L, x);
+   P2 = create_data("eli", "05", 'p', 3.4);
+   insert_after(L, P1, P2);
 
-   cout << "isi list induk setelah hapus induk 20: ";
-   printInfo(L);
-
-   cout << endl;
-
-   cout << "=== test insert first dan after ===" << endl;
-   insertFirst(L, alokasi(5));
-   address Q = findElm(L, 10);
-   if (Q != Nil) {
-      insertAfter(L, alokasi(15), Q);
-   }
-
-   cout << "isi induk sekarang: ";
-   printInfo(L);
-
-   cout << endl;
-
-   cout << "=== test delete all ===" << endl;
-   delAll(L);
-
-   cout << "isi list induk setelah delete all: ";
-   printInfo(L);
+   print_info(L);
 
    return 0;
 }
@@ -633,337 +930,33 @@ int main() {
 
 > Output
 > 
-> ![](output/ss_unguided_1.jpeg)
+> ![Screenshot Output Guided 1](output/ss_unguided_2.jpeg)
 
-program ini bertujuan untuk mengelola struktur data multilist, yaitu sebuah list induk yang setiap elemennya punya list anak sendiri. jadi ada dua level list, list utama atau induknya, dan list di dalam elemen induk yaitu list anak. struktur data seperti ini biasanya dipakai kalau kita butuh hubungan satu ke banyak, misalnya kategori dan item, atau kelas dan mahasiswa.
+program ini bertujuan untuk membuat, mengelola, dan menampilkan data mahasiswa menggunakan struktur data circular linked list, yaitu bentuk linked list yang node terakhirnya selalu menunjuk kembali ke node pertama sehingga membentuk lingkaran.
 
-di awal program ada beberapa tipe data yang dideklarasikan, yaitu elemen_list_induk dan elemen_list_anak. elemen_list_induk berisi info induk, pointer next dan prev untuk membentuk double linked list, dan juga sebuah listanak yang menyimpan pointer ke anak-anaknya. sedangkan elemen_list_anak hanya berisi info anak dan pointer next dan prev untuk membentuk double linked list juga. kemudian ada struct listinduk dan listanak yang masing-masing menyimpan pointer first dan last.
+di bagian awal program yaitu circularlist.h, terdapat definisi struct infotype yang menyimpan data mahasiswa seperti nama, nim, jenis kelamin, dan ipk. kemudian ada struct elm_list yang menjadi node pada linked list, setiap node menyimpan info bertipe infotype dan pointer next yang menunjuk ke node berikutnya. struct list hanya menyimpan satu pointer yaitu first yang menunjuk ke elemen pertama di circular linked list. setelah itu ada sederetan deklarasi fungsi yang dipakai untuk membuat list, menambah data, menghapus data, mencari data, dan menampilkan isi list.
 
-setelah itu ada fungsi-fungsi dasar untuk membuat list, yaitu CreateList dan CreateListAnak. dua fungsi ini bertujuan untuk mengosongkan list dengan cara mengisi first dan last menjadi Nil. kemudian ada fungsi ListEmpty dan ListEmptyAnak untuk mengecek apakah suatu list kosong atau tidak, caranya adalah memastikan first dan last bernilai Nil.
+di circularlist.cpp terdapat implementasi dari semua fungsi tersebut. fungsi create_list bekerja dengan cara mengatur pointer first menjadi kosong atau Nil, artinya list masih belum memiliki elemen. fungsi alokasi bekerja dengan cara membuat node baru memakai operator new, kemudian mengisi info di dalam node sesuai input, dan menunjuk next ke dirinya sendiri agar langsung berbentuk circular ketika masih satu node. fungsi dealokasi hanya bertugas menghapus node dari memori menggunakan delete.
 
-kemudian fungsi alokasi dan alokasiAnak berguna untuk membuat node baru baik untuk induk maupun anak. saat elemen induk dibuat, info diisi dengan parameter yang diberikan, lanak atau list anak diset kosong, dan semua pointer next prev diset Nil. hal yang sama juga terjadi pada alokasiAnak, hanya saja tidak ada list anak di dalamnya. kalau node berhasil dibuat maka pointer dikembalikan.
+fungsi insert_first bekerja dengan cara memasukkan node baru P ke posisi paling awal list. jika list kosong maka first langsung menunjuk ke P. jika tidak kosong maka program mencari node terakhir yaitu node yang next-nya menunjuk ke first. setelah ketemu, node baru P akan diarahkan next-nya ke first, node terakhir akan diarahkan next-nya ke P, lalu first diperbarui menjadi P. fungsi insert_last bekerja hampir sama tetapi menempatkan node baru di posisi paling belakang list, yaitu dengan mencari node terakhir lalu menghubungkan node terakhir ke node baru dan node baru kembali menunjuk ke first agar tetap circular. fungsi insert_after bekerja dengan cara menyisipkan node P setelah node prec, yaitu mengatur P->next ke prec->next, lalu prec->next menunjuk ke P sehingga P berada tepat setelah prec.
 
-ada juga fungsi dealokasi dan dealokasiAnak yang bertugas menghapus node dari memori. setelah itu terdapat fungsi findElm untuk mencari elemen induk ataupun anak. cara kerjanya adalah melakukan traversal dari first hingga menemukan node dengan info sesuai parameter. kalau ketemu dikembalikan, kalau tidak sampai habis akan mengembalikan Nil.
+fungsi delete_first bekerja dengan cara menghapus node paling awal list. jika list hanya memiliki satu node maka first dibuat kosong. jika lebih dari satu node maka program mencari node terakhir, lalu first digeser ke node berikutnya, dan node terakhir dihubungkan lagi ke first yang baru. fungsi delete_after bekerja dengan cara mengambil node setelah prec kemudian memutus hubungan node tersebut dengan cara menghubungkan prec langsung ke node berikutnya. fungsi delete_last bekerja dengan cara mencari node sebelum node terakhir, yaitu node yang next->next-nya menunjuk ke first. setelah ketemu, node terakhir dilepas dan node sebelum terakhir dihubungkan ke first.
 
-fungsi insertFirst, insertLast, dan insertAfter berguna untuk memasukkan node induk ke posisi pertama, terakhir, atau setelah elemen tertentu. cara kerjanya adalah mengubah pointer next dan prev agar elemen baru tersambung dengan benar. begitu juga dengan insertFirstAnak, insertLastAnak, dan insertAfterAnak yang bekerja untuk list anak. prinsipnya sama, hanya list yang berbeda.
+fungsi find_elm bekerja dengan cara mencari node berdasarkan nim. pencarian dilakukan dari first kemudian bergerak mengikuti next sampai kembali lagi ke first. jika ditemukan node dengan nim yang sama maka node tersebut dikembalikan, jika tidak ditemukan maka mengembalikan Nil. fungsi print_info bekerja dengan cara menampilkan seluruh isi list mulai dari first kemudian bergerak node demi node mengikuti next sampai kembali lagi ke first.
 
-fungsi delFirst, delLast, dan delAfter bekerja untuk menghapus node induk dari posisi pertama, terakhir, atau setelah node tertentu. cara kerjanya adalah memutus pointer dari node yang dihapus, menyambungkan pointer sekitar, dan mengembalikan node yang dihapus melalui parameter. hal yang sama juga dilakukan pada delFirstAnak, delLastAnak, dan delAfterAnak untuk list anak.
-
-fungsi delP dan delPAnak bekerja untuk menghapus elemen induk atau anak berdasarkan nilai info. caranya adalah mencari dulu elemennya memakai findElm, lalu kalau ketemu fungsi delete yang sesuai dipanggil, terakhir node tersebut didealokasi supaya memori tidak bocor.
-
-kemudian ada fungsi printInfo dan printInfoAnak untuk mencetak isi list induk dan isi list anak. keduanya bekerja dengan traversal dari first hingga pointer Nil sambil mencetak nilai info setiap node. fungsi nbList dan nbListAnak melakukan penghitungan jumlah elemen dalam list induk maupun list anak dengan prinsip yang sama.
-
-terakhir ada fungsi delAll yang bertugas menghapus seluruh isi list induk beserta semua anaknya. cara kerjanya adalah menghapus elemen induk satu per satu memakai delFirst, kemudian sebelum induk itu didealokasi, seluruh anak di dalam list anaknya juga dihapus memakai delFirstAnak. dengan cara itu semua memori baik induk maupun anak benar-benar dibersihkan.
-
----
-
-### Soal 2 : Buatlah implementasi ADT Queue pada file “queue.cpp” dengan menerapkan mekanisme queue  Alternatif 2 (head bergerak, tail bergerak).
-
-<code>queue.h</code>
-
-```cpp
-#ifndef QUEUE_H
-#define QUEUE_H
-
-#include <iostream>
-using namespace std;
-
-typedef int infotype;
-#define MAX 5
-
-struct Queue {
-   infotype info[MAX];
-   int head;
-   int tail;
-};
-
-void createQueue(Queue &Q);
-bool isEmptyQueue(Queue Q);
-bool isFullQueue(Queue Q);
-void enqueue(Queue &Q, infotype x);
-infotype dequeue(Queue &Q);
-void printInfo(Queue Q);
-
-#endif
-```
-
-<code>queue.cpp</code>
-
-```cpp
-#include "queue.h"
-
-void createQueue(Queue &Q) {
-   Q.head = -1;
-   Q.tail = -1;
-}
-
-bool isEmptyQueue(Queue Q) {
-   return (Q.head == -1 && Q.tail == -1);
-}
-
-bool isFullQueue(Queue Q) {
-   return (Q.tail == MAX - 1);
-}
-
-void enqueue(Queue &Q, infotype x) {
-   if (isFullQueue(Q) && Q.head > 0) {
-      // geser semua elemen ke depan
-      int j = 0;
-      for (int i = Q.head; i <= Q.tail; i++) {
-         Q.info[j] = Q.info[i];
-         j++;
-      }
-
-      Q.tail = j - 1;
-      Q.head = 0;
-   }
-
-   if (isFullQueue(Q)) {
-      cout << "queue penuh (beneran penuh), ga bisa nambah data" << endl;
-      return;
-   }
-
-   if (isEmptyQueue(Q)) {
-      Q.head = 0;
-      Q.tail = 0;
-      Q.info[Q.tail] = x;
-   } else {
-      Q.tail++;
-      Q.info[Q.tail] = x;
-   }
-}
-
-infotype dequeue(Queue &Q) {
-   if (isEmptyQueue(Q)) {
-      cout << "queue kosong, ga ada yang bisa dihapus" << endl;
-      return -1;
-   }
-
-   infotype hasil = Q.info[Q.head];
-
-   if (Q.head == Q.tail) {
-      Q.head = -1;
-      Q.tail = -1;
-   } else {
-      Q.head++;
-   }
-
-   return hasil;
-}
-
-void printInfo(Queue Q) {
-   if (isEmptyQueue(Q)) {
-      cout << Q.head << "  - " << Q.tail << "  | empty queue" << endl;
-   } else {
-      cout << " " << Q.head << "  -  " << Q.tail << "  | ";
-      for (int i = Q.head; i <= Q.tail; i++) {
-         cout << Q.info[i] << " ";
-      }
-      cout << endl;
-   }
-}
-```
-
-<code>main.cpp</code>
-
-```cpp
-#include "queue.h"
-
-int main() {
-   cout << "Hello world!" << endl;
-
-   cout<<"-----------------------"<<endl;
-   cout<<" H  -  T  | Queue Info"<<endl;
-   cout<<"-----------------------"<<endl;
-
-   Queue Q;
-   createQueue(Q);
-
-   printInfo(Q);
-   enqueue(Q,5); printInfo(Q);
-   enqueue(Q,2); printInfo(Q);
-   enqueue(Q,7); printInfo(Q);
-   dequeue(Q); printInfo(Q);
-   enqueue(Q,4); printInfo(Q);
-   dequeue(Q); printInfo(Q);
-   dequeue(Q); printInfo(Q);
-
-   cout<<"-1  - -1  | empty queue"<<endl;
-
-   return 0;
-}
-```
-
-> Output
-> 
-> ![](output/ss_unguided_2.jpeg)
-
-program ini bertujuan untuk menampilkan proses penambahan dan penghapusan data pada sebuah queue dengan menggunakan alternatif 2, yaitu queue dengan head dan tail yang bergerak tanpa berputar, dan hanya melakukan pergeseran elemen jika tail sudah mencapai index paling akhir pada array.
-
-fungsi enqueue bekerja dengan cara menambahkan elemen baru x ke dalam queue. pertama fungsi ini mengecek apakah tail sudah berada di ujung array tetapi head tidak berada di 0. kalau kondisi itu terjadi berarti masih ada ruang kosong di bagian depan array, jadi perlu dilakukan pergeseran elemen. pergeseran dilakukan dengan cara menyalin semua elemen mulai dari index head sampai tail ke posisi paling depan array mulai dari index 0. setelah itu tail disesuaikan menjadi posisi baru, yaitu j-1, dan head kembali menjadi 0.
-
-fungsi dequeue bekerja dengan cara mengambil dan menghapus data paling depan pada queue. pertama dicek apakah queue kosong. kalau kosong maka program menampilkan pesan bahwa tidak ada data yang bisa dihapus. kalau tidak kosong, maka data yang berada di index head disimpan sementara sebagai hasil. jika setelah penghapusan queue menjadi kosong, yaitu ketika head dan tail berada di posisi yang sama, maka keduanya diset kembali menjadi -1. jika tidak kosong, maka head cukup maju satu langkah ke depan.
-
----
-
-### Soal 3 : Buatlah implementasi ADT Queue pada file “queue.cpp” dengan menerapkan mekanisme queue  Alternatif 3 (head dan tail berputar).
-
-<code>queue.h</code>
-
-```cpp
-#ifndef QUEUE_H
-#define QUEUE_H
-
-#include <iostream>
-using namespace std;
-
-typedef int infotype;
-#define MAX 5
-
-struct Queue {
-   infotype info[MAX];
-   int head;
-   int tail;
-};
-
-void createQueue(Queue &Q);
-bool isEmptyQueue(Queue Q);
-bool isFullQueue(Queue Q);
-void enqueue(Queue &Q, infotype x);
-infotype dequeue(Queue &Q);
-void printInfo(Queue Q);
-
-#endif
-```
-
-<code>queue.cpp</code>
-
-```cpp
-#include "queue.h"
-
-void createQueue(Queue &Q) {
-   Q.head = -1;
-   Q.tail = -1;
-}
-
-bool isEmptyQueue(Queue Q) {
-   return (Q.head == -1 && Q.tail == -1);
-}
-
-bool isFullQueue(Queue Q) {
-   if (isEmptyQueue(Q)) return false;
-   return ((Q.tail + 1) % MAX) == Q.head;
-}
-
-void enqueue(Queue &Q, infotype x) {
-   if (isFullQueue(Q)) {
-      cout << "queue penuh, tidak bisa menambah data" << endl;
-      return;
-   }
-
-   if (isEmptyQueue(Q)) {
-      Q.head = 0;
-      Q.tail = 0;
-   } else {
-      Q.tail = (Q.tail + 1) % MAX;
-   }
-
-   Q.info[Q.tail] = x;
-}
-
-infotype dequeue(Queue &Q) {
-   if (isEmptyQueue(Q)) {
-      cout << "queue kosong, tidak ada yang bisa dihapus" << endl;
-      return -1;
-   }
-
-   infotype hasil = Q.info[Q.head];
-
-   if (Q.head == Q.tail) {
-      Q.head = -1;
-      Q.tail = -1;
-   } else {
-      Q.head = (Q.head + 1) % MAX;
-   }
-
-   return hasil;
-}
-
-void printInfo(Queue Q) {
-   if (isEmptyQueue(Q)) {
-      cout << Q.head << "  - " << Q.tail << "  | empty queue" << endl;
-   } else {
-      cout << " " << Q.head << "  -  " << Q.tail << "  | ";
-
-      int i = Q.head;
-      while (true) {
-         cout << Q.info[i] << " ";
-         if (i == Q.tail) break;
-         i = (i + 1) % MAX;
-      }
-
-      cout << endl;
-   }
-}
-```
-
-<code>main.cpp</code>
-
-```cpp
-#include "queue.h"
-
-int main() {
-   cout << "Hello world!" << endl;
-
-   cout<<"-----------------------"<<endl;
-   cout<<" H  -  T  | Queue Info"<<endl;
-   cout<<"-----------------------"<<endl;
-
-   Queue Q;
-   createQueue(Q);
-
-   printInfo(Q);
-   enqueue(Q,5); printInfo(Q);
-   enqueue(Q,2); printInfo(Q);
-   enqueue(Q,7); printInfo(Q);
-   dequeue(Q); printInfo(Q);
-   enqueue(Q,4); printInfo(Q);
-   dequeue(Q); printInfo(Q);
-   dequeue(Q); printInfo(Q);
-
-   cout<<"-1  - -1  | empty queue"<<endl;
-
-   return 0;
-}
-```
-
-> Output
-> 
-> ![](output/ss_unguided_3.jpeg)
-
-program ini bertujuan untuk mengimplementasikan struktur data queue menggunakan metode circular buffer sesuai dengan alternatif 3, yaitu representasi HEAD dan TAIL yang bergerak melingkar dari index awal sampai index akhir kemudian kembali ke awal tanpa perlu melakukan pergeseran elemen seperti pada alternatif sebelumnya.
-
-fungsi enqueue bekerja dengan cara menambahkan elemen baru ke dalam queue. jika queue sudah berisi, maka tail dimajukan 1 langkah dengan rumus (tail + 1) % MAX agar ketika tail mencapai index MAX-1, langkah berikutnya kembali ke index 0. setelah posisi tail diperbarui, nilai x dimasukkan ke array info pada indeks tail.
-
-fungsi dequeue bekerja dengan cara mengambil dan menghapus elemen pada posisi head. jika jumlah elemen lebih dari satu, maka head dimajukan 1 langkah menggunakan rumus (head + 1) % MAX sehingga ia berputar jika mencapai index MAX-1.
-
-fungsi printInfo bekerja dengan cara menampilkan kondisi queue, yaitu print posisi head dan tail serta seluruh elemen yang sedang ada di dalam queue. jika queue kosong maka program menampilkan tulisan empty queue. jika tidak kosong, program menampilkan semua elemen mulai dari head hingga tail dengan menggunakan pergerakan melingkar, yaitu dengan menaikkan index menggunakan (i + 1) % MAX sampai index mencapai posisi tail.
+di main.cpp terdapat fungsi create_data yang bertugas membuat data mahasiswa berdasarkan input nama, nim, jenis kelamin, dan ipk, kemudian mengalokasikan node baru dengan memanggil fungsi alokasi. di fungsi main, pertama-tama dibuat list L dan diinisialisasi memakai create_list. setelah itu ada proses memasukkan beberapa data menggunakan insert_first, insert_last, dan insert_after sesuai contoh. setiap data mahasiswa dibuat dulu memakai create_data kemudian disisipkan ke dalam list dengan posisi yang berbeda-beda. untuk penyisipan setelah node tertentu program memakai find_elm untuk mencari node berdasar nim.
 
 ---
 
 ## Kesimpulan
 
-dari praktikum ini, kita bisa belajar bagaimana struktur data queue dapat diimplementasikan dalam tiga pendekatan berbeda dengan karakteristik dan efisiensinya masing-masing. pada alternatif pertama, operasi dequeue membutuhkan pergeseran elemen sehingga kurang efisien karena kompleksitasnya meningkat seiring jumlah data.
-
-alternatif kedua memperbaiki masalah tersebut dengan menggerakkan head dan tail secara linear, serta hanya melakukan pergeseran ketika benar-benar diperlukan saat tail mencapai batas array tetapi masih ada ruang kosong di depan.
-
-alternatif ketiga menjadi solusi dari dua alternatif sebelumnya melalui penggunaan circular queue, di mana head dan tail dapat berputar menggunakan operasi modulo sehingga tidak ada pergeseran sama sekali. dari ketiga implementasi tersebut dapat disimpulkan bahwa pemilihan mekanisme queue dapat mempengaruhi kinerja program, dan circular queue adalah metode terbaik.
+implementasi fungsi pada multilist.cpp memastikan operasi dasar seperti alokasi, pencarian, penyisipan, penghapusan, dan penelusuran dapat dilakukan pada dua level list secara konsisten menggunakan double linked list. sementara itu, circular linked list menampilkan karakteristik list yang node terakhirnya selalu kembali ke node pertama, sehingga traversal bersifat melingkar tanpa titik akhir.
 
 ---
 
 ## Referensi
 
-1. GeeksforGeeks. (2025, October 30). *Implementation of Circular Queue Using Array*. Retrieved November 12, 2025, from [https://www.geeksforgeeks.org/dsa/introduction-to-circular-queue/](https://www.geeksforgeeks.org/dsa/introduction-to-circular-queue/)
-2. Mishra, H. (2024, June 3). *Queues, Data Structures*. DEV Community. Retrieved November 14, 2025, from [https://dev.to/harshm03/queues-data-structures-1dd1](https://dev.to/harshm03/queues-data-structures-1dd1)
-3. Mufada, N. *Struktur Data Queue: Pengertian, Jenis, dan Kegunaannya*. Medium. Retrieved November 15, 2025, from [https://medium.com/%40nadhifmufada09/struktur-data-queue-pengertian-jenis-dan-kegunaannya-0494fa6ccc1d](https://medium.com/%40nadhifmufada09/struktur-data-queue-pengertian-jenis-dan-kegunaannya-0494fa6ccc1d)
-4. SoftwareSeni. *Queue Adalah: Pengertian, Tipe, dan Contoh Implementasi*. Retrieved November 16, 2025, from [https://www.softwareseni.co.id/blog/queue-adalah-pengertian-tipe-dan-contoh-implementasi](https://www.softwareseni.co.id/blog/queue-adalah-pengertian-tipe-dan-contoh-implementasi)
+1. Mahir Koding. Struktur data nested linked list. Diakses 5 Desember 2025, dari https://www.mahirkoding.com/struktur-data-nested-linked-list/
+2. GeeksforGeeks. Types of linked list. Diakses 7 Desember 2025, dari https://www.geeksforgeeks.org/dsa/types-of-linked-list/
+3. GeeksforGeeks. Flatten a multilevel linked list using level order traversal. Diakses 4 Desember 2025, dari https://www.geeksforgeeks.org/dsa/flatten-a-linked-list-with-next-and-child-pointers/
+4. Mahir Koding. Struktur Data Double Linked List dengan Bahasa C. Diakses 9 Desember 2025, dari https://www.mahirkoding.com/struktur-data-double-linked-list-dengan-bahasa-c/
