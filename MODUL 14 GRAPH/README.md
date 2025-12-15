@@ -628,7 +628,6 @@ int main()
 	graph g;
 	create_graph(g);
 
-	/* insert node sesuai ilustrasi */
 	insert_node(g, 'A');
 	insert_node(g, 'B');
 	insert_node(g, 'C');
@@ -638,7 +637,6 @@ int main()
 	insert_node(g, 'G');
 	insert_node(g, 'H');
 
-	/* connect node sesuai gambar */
 	connect_node(g, 'A', 'B');
 	connect_node(g, 'A', 'C');
 
@@ -685,7 +683,7 @@ fungsi print_info_graph digunakan untuk menampilkan struktur graph, yaitu setiap
 
 untuk traversal, fungsi reset_visited digunakan untuk mengembalikan semua status visited node menjadi 0 agar traversal bisa dijalankan ulang. fungsi print_dfs melakukan traversal depth first search dengan cara rekursif, dimulai dari node awal, menandai node sebagai visited, mencetak info node, lalu mengunjungi node tetangga yang belum dikunjungi. fungsi print_bfs melakukan traversal breadth first search dengan bantuan queue, di mana node awal dimasukkan ke queue, kemudian diproses satu per satu sambil memasukkan node tetangga yang belum dikunjungi ke dalam queue.
 
-pada file main.cpp, program bertugas untuk menguji implementasi ADT graph. pertama dibuat graph kosong, lalu dilakukan insert node sesuai ilustrasi dengan node A sampai H. setelah itu node-node tersebut dihubungkan menggunakan fungsi connect_node sesuai dengan struktur graph yang diinginkan.
+pada file main.cpp, program bertugas untuk menguji implementasi ADT graph. pertama dibuat graph kosong, lalu dilakukan insert node A sampai H. setelah itu node-node tersebut dihubungkan menggunakan fungsi connect_node sesuai dengan struktur graph yang diinginkan.
 
 setelah graph terbentuk, program menampilkan struktur graph menggunakan print_info_graph. kemudian dilakukan traversal DFS dari node A dengan terlebih dahulu mereset visited, lalu dilakukan traversal BFS dari node A dengan langkah yang sama. hasil akhirnya adalah urutan node yang dikunjungi berdasarkan metode DFS dan BFS.
 
@@ -933,7 +931,6 @@ int main()
 	graph g;
 	create_graph(g);
 
-	/* insert node sesuai ilustrasi */
 	insert_node(g, 'A');
 	insert_node(g, 'B');
 	insert_node(g, 'C');
@@ -943,7 +940,6 @@ int main()
 	insert_node(g, 'G');
 	insert_node(g, 'H');
 
-	/* connect node sesuai gambar */
 	connect_node(g, 'A', 'B');
 	connect_node(g, 'A', 'C');
 
@@ -1261,7 +1257,6 @@ int main()
 	graph g;
 	create_graph(g);
 
-	/* insert node sesuai ilustrasi */
 	insert_node(g, 'A');
 	insert_node(g, 'B');
 	insert_node(g, 'C');
@@ -1271,7 +1266,6 @@ int main()
 	insert_node(g, 'G');
 	insert_node(g, 'H');
 
-	/* connect node sesuai gambar */
 	connect_node(g, 'A', 'B');
 	connect_node(g, 'A', 'C');
 
