@@ -3,6 +3,144 @@
 
 ## Dasar Teori
 
+Modul ini membahas konsep dasar **Graph** dalam struktur data, mencakup definisi, jenis-jenis graph, representasi graph menggunakan *multi linked list*, algoritma *topological sort*, serta metode penelusuran graph seperti **Breadth First Search (BFS)** dan **Depth First Search (DFS)**.
+Implementasi difokuskan pada pendekatan dinamis menggunakan pointer dalam bahasa pemrograman C/C++.
+
+## 1. Pengertian Graph
+
+Graph merupakan himpunan **tidak kosong** yang terdiri dari:
+
+* **Node (Vertex)**: simpul atau titik.
+* **Edge**: garis penghubung antar node.
+
+Contoh sederhana:
+
+* Tempat Kost dan Common Lab sebagai node.
+* Jalan penghubung di antaranya sebagai edge.
+
+## 2. Jenis-Jenis Graph
+
+### 2.1 Graph Berarah (*Directed Graph*)
+
+Graph berarah adalah graph di mana setiap edge memiliki **arah tertentu**.
+Jika terdapat edge dari node A ke node B, belum tentu terdapat edge dari B ke A.
+
+#### 2.1.1 Representasi Graph Berarah
+
+Dalam praktikum ini, graph direpresentasikan menggunakan **multi linked list** karena bersifat dinamis.
+
+Karakteristik:
+
+* Node menyimpan daftar edge keluar (successor).
+* Edge menunjuk ke node tujuan.
+
+### 2.1.2 Topological Sort
+
+#### Pengertian
+
+Topological sort adalah proses menyusun node dalam suatu graph berarah sehingga setiap node muncul **setelah semua predecessor-nya**.
+
+Contoh penerapan:
+
+* Urutan mata kuliah berdasarkan prasyarat.
+* Urutan pekerjaan dalam sebuah proyek.
+* Urutan deklarasi tabel dalam basis data.
+* Urutan peletakan prosedur dalam program.
+
+Topological sort hanya dapat dilakukan pada **Directed Acyclic Graph (DAG)**.
+
+#### Prinsip Dasar Algoritma
+
+1. Pilih node yang tidak memiliki predecessor.
+2. Masukkan node tersebut ke dalam list hasil.
+3. Hapus node dari graph.
+4. Ulangi hingga graph kosong.
+
+#### Solusi I : Pendekatan Multilist
+
+Setiap node memiliki:
+
+* Identitas node.
+* Jumlah predecessor.
+* List successor.
+
+Struktur utama:
+
+* **Leader List**: menyimpan node beserta jumlah predecessor.
+* **Trailer List**: menyimpan successor dari setiap node.
+
+Algoritma dilakukan dalam dua fase:
+
+1. Membentuk struktur Leader dan Trailer dari pasangan relasi X < Y.
+2. Melakukan pencarian node dengan predecessor = 0 untuk menghasilkan urutan linear.
+
+#### Solusi II : Pendekatan Fungsional
+
+Graph direpresentasikan sebagai list linear berisi pasangan `<Precc, Succ>`.
+
+Langkah utama:
+
+1. Membentuk list relasi predecessor–successor.
+2. Mengeluarkan node yang tidak memiliki predecessor secara bertahap.
+3. Menghasilkan urutan linear hingga list habis.
+
+## 2.2 Graph Tidak Berarah (*Undirected Graph*)
+
+Graph tidak berarah adalah graph di mana edge **tidak memiliki arah**.
+Jika node A terhubung dengan B, maka B otomatis terhubung dengan A.
+
+Karakteristik tambahan:
+
+* Edge dapat memiliki **bobot** (jarak, biaya, dll).
+* Konsep **ketetanggaan (adjacency)** sangat penting.
+
+### 2.2.1 Representasi Graph Tidak Berarah
+
+#### a. Matriks Ketetanggaan
+
+Graph direpresentasikan dalam matriks `n x n`, di mana `n` adalah jumlah node.
+
+#### b. Multi Linked List
+
+Digunakan dalam praktikum karena:
+
+* Bersifat dinamis.
+* Lebih fleksibel untuk penambahan node dan edge.
+
+## 3. Metode Penelusuran Graph
+
+### 3.1 Breadth First Search (BFS)
+
+BFS menelusuri graph **per level**, dimulai dari node awal, kemudian ke tetangga terdekat.
+
+Karakteristik:
+
+* Menggunakan **Queue**.
+* Cocok untuk pencarian jarak terpendek pada graph tak berbobot.
+
+Urutan contoh hasil BFS:
+
+```
+A B C D E F G H
+```
+
+---
+
+### 3.2 Depth First Search (DFS)
+
+DFS menelusuri graph secara **mendalam** hingga ke node terdalam sebelum kembali.
+
+Karakteristik:
+
+* Menggunakan **Stack** atau rekursi.
+* Cocok untuk eksplorasi struktur graph.
+
+Urutan contoh hasil DFS:
+
+```
+A B D H E F C G
+```
+
 ---
 
 ## Guided
@@ -1183,13 +1321,17 @@ selanjutnya, seluruh node tetangga dari node tersebut ditelusuri melalui edge. j
 
 ## Kesimpulan
 
-xxx
+graph merupakan struktur data untuk memodelkan hubungan antar entitas, baik yang bersifat berarah maupun tidak berarah. implementasi graph menggunakan representasi adjacency list berbasis multi linked list dapat menangani struktur graph yang bersifat dinamis. praktikum ini juga mengimplementasikan abstract data type (adt) graph secara modular melalui pemisahan file header (graph.h), file implementasi (graph.cpp), dan file utama (main.cpp).
+
+metode penelusuran graph menggunakan depth first search (dfs) dan breadth first search (bfs) berhasil diimplementasikan dan dijalankan dengan benar. DFS menunjukkan pola penelusuran mendalam dengan memanfaatkan stack atau rekursi, sedangkan BFS memperlihatkan penelusuran melebar secara level demi level menggunakan queue.
 
 ---
 
 ## Referensi
 
-1. xxx
-2. xxx
-3. xxx
-4. xxx
+1. Edd Yerburgh. Graph traversal. CS Notes. Diambil dari https://notes.eddyerburgh.me/data-structures-and-algorithms/algorithms/graph-traversal
+2. GeeksforGeeks. Adjacency list. GeeksforGeeks. Diambil dari https://www.geeksforgeeks.org/dsa/adjacency-list-meaning-definition-in-dsa
+3. GeeksforGeeks. Implementation of DFS using adjacency matrix. GeeksforGeeks. Diambil dari https://www.geeksforgeeks.org/dsa/implementation-of-dfs-using-adjacency-matrix
+4. GeeksforGeeks. C++ program to implement adjacency list. GeeksforGeeks. Diambil dari https://www.geeksforgeeks.org/cpp/cpp-program-to-implement-adjacency-list
+5. C++ BFS/DFS code implementation tutorial. SrcMake. Diambil dari https://www.srcmake.com/home/cpp-bfs-dfs
+6. iQuanta. Graph implementation in C++ using adjacency list and matrix. Diambil dari https://www.iquanta.in/blog/graph-implementation-in-c-using-adjacency-list-and-matrix
