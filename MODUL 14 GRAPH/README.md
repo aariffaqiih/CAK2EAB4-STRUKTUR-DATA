@@ -124,8 +124,6 @@ Urutan contoh hasil BFS:
 A B C D E F G H
 ```
 
----
-
 ### 3.2 Depth First Search (DFS)
 
 DFS menelusuri graph secara **mendalam** hingga ke node terdalam sebelum kembali.
