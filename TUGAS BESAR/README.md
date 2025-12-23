@@ -1,188 +1,165 @@
-# 🍽️ **Manajemen Menu Fine Dining**
+# 🍽️ Manajemen Menu Fine Dining
 
-### *Quality & Customer Preference System*
-
----
-
-## 👥 **1. Anggota Kelompok**
-
-| NIM              | Nama                               |
-| ---------------- | ---------------------------------- |
-| **103112430182** | 'Aarif Rahmaan Jalaluddin Faqiih   |
-| **103112430267** | Raden Aurel Aditya Kusumawaningyun |
+### *An Elite Culinary Management System*
 
 ---
 
-## ⚙️ **2. Spesifikasi**
+## 📖 Deskripsi Umum
 
-### 🔹 a. BST : menyimpan **Menu**
+Sistem **Manajemen Menu Fine Dining** adalah aplikasi terminal berbasis **C++** yang dirancang untuk merepresentasikan operasional **restoran kelas elite**, dengan fokus pada **kualitas menu** dan **manajemen pelanggan VIP**.
 
-📦 **Node (record) `Menu`:**
+Sistem ini **secara sengaja memisahkan** pengelolaan:
 
-* `kode_menu` : **int** (unik, key BST)
-* `nama_menu` : **string**
-* `harga` : **int**
-* `kategori` : **string** (pilihan: **Signature**, **Premium**, **Seasonal**, **Vegan**)
-* `rating[5]` : **int array**
+* **Menu makanan** menggunakan **Binary Search Tree (BST)**
+* **Pelanggan VIP** menggunakan **Multi Linked List (MLL) 1–N**
 
-  * index 0 → jumlah vote ★1
-  * index 4 → jumlah vote ★5
+Kedua struktur data **berdiri sendiri secara independen**, tanpa relasi apa pun, untuk menekankan **pemahaman konsep struktur data murni**, bukan sekadar hubungan antar entitas.
 
 ---
 
-### 🔹 b. MLL 1–N : menyimpan **Pelanggan VIP & Favorit Menu**
+## 🏛️ Filosofi Desain Sistem (High-End Architecture)
 
-👤 **Parent list** = `Customer` (record):
+Pada restoran fine dining kelas dunia:
 
-* `customer_id` : **int** (unik)
-* `nama` : **string**
-* `membership` : **string** (pilihan : *Silver*, *Gold*, *Platinum*)
+* **Menu** adalah entitas premium yang berdiri sendiri
+* **Pelanggan VIP** adalah aset eksklusif dengan histori tersendiri
+* Tidak semua data perlu saling terhubung — **kejelasan struktur lebih penting daripada kompleksitas semu**
 
-⭐ **Child list** = favorit/kunjungan menu → **`kode_menu` (int)**
+Pendekatan ini mencerminkan:
 
-* Child berupa tipe dasar (`int`) → mereferensikan kode menu dari BST.
-
----
-
-## 🧩 **3. Fungsionalitas (wajib + tambahan)**
-
-### 🟦 A. CRUD & Search (BST : Menu)
-
-#### ✳️ **Create**
-
-* Insert menu baru (`BST_insert` by `kode_menu`)
-* Jika `kode_menu` belum ada → buat node baru
-* Jika sudah ada → user dapat mengubah `nama`, `harga`, atau `kategori`
-
-#### 🔍 **Read/Search**
-
-* Cari by `kode_menu` (unik) → return 1 menu
-* Cari by `nama_menu` → return 0..n match
-* Filter by `kategori` → return list
-
-#### 🛠️ **Update**
-
-* Ubah `nama`, `harga`, `kategori`
-* Tambah vote rating: input 1..5 → `rating[n-1]++`
-
-#### 🗑️ **Delete**
-
-* Hapus menu by `kode_menu` (BST delete)
-* Jika dihapus, **child MLL yang menyimpan kode_menu perlu di-handle**
-  (opsional: hapus referensi dari MLL)
+* Desain sistem bersih (clean architecture)
+* Modularitas
+* Skalabilitas operasional restoran elite
 
 ---
 
-### 🟩 B. CRUD (MLL : Customer & Favorites)
+# 🌳 Modul 1 — Manajemen Menu (BST)
 
-* **Create** : tambah customer baru
-* **Read** : list customers & list favorite menu codes
-* **Update** : tambah favorite (`kode_menu` int); hapus favorite
-* **Delete** : hapus customer beserta semua child favorite
+## 🎯 Tujuan Bisnis
 
----
+Mengelola menu restoran eksklusif dengan standar tinggi:
 
-### 🟧 C. Traversal BST (tampil)
-
-* In-order
-* Pre-order
-* Post-order
-* Level-order *(opsional)*
+* Konsistensi kualitas
+* Analisis performa menu
+* Pengambilan keputusan strategis (harga, kategori, kualitas)
 
 ---
 
-### 🟨 D. Counting & Pengelolaan
+## 🧠 Struktur Data (BST)
+
+### 📦 Node Menu (Record)
+
+| Atribut         | Tipe      | Keterangan                             |
+| --------------- | --------- | -------------------------------------- |
+| `kode_menu`     | int       | ID unik menu (key BST)                 |
+| `nama_menu`     | char[]    | Nama menu                              |
+| `harga`         | int       | Harga premium                          |
+| `kategori`      | char[]    | Signature / Premium / Seasonal / Vegan |
+| `rating[5]`     | int array | Distribusi rating pelanggan            |
+| `left`, `right` | pointer   | Anak kiri & kanan BST                  |
+
+### 🔍 Perspektif Teori
+
+* BST memberikan **pencarian efisien O(log n)**
+* Data terurut otomatis
+* Cocok untuk menu dengan pertumbuhan dinamis
+
+---
+
+## ⚙️ Fungsionalitas BST
+
+### 🟦 CRUD + Search
+
+* Insert menu berdasarkan `kode_menu`
+* Update nama, harga, kategori
+* Delete menu
+* Search berdasarkan:
+
+  * kode menu
+  * nama menu
+  * kategori
+
+### 🟧 Traversal
+
+* In-order → tampilan menu terurut (standar fine dining)
+* Pre-order → struktur dapur
+* Post-order → evaluasi menu
+
+### 🟨 Pengelolaan & Statistik
 
 * Total menu
 * Total menu per kategori
-* Total customers
-* Total favorite entries per customer
+* Menu termahal & termurah
+* Menu dengan rating tertinggi & terendah
+* Menu dengan total vote tertentu
+
+### 💼 Nilai Bisnis
+
+* Menentukan menu andalan
+* Menyusun menu seasonal
+* Evaluasi kualitas chef
 
 ---
 
-### 🟥 E. Statistik (analisis di BST)
+# 👤 Modul 2 — Manajemen Pelanggan VIP (MLL 1–N)
 
-* Menu dengan **rata-rata rating tertinggi** & **terendah**
-* Menu dengan **jumlah vote ★5 terbanyak**
-* Menu dengan **harga tertinggi** & **terendah**
-* Menampilkan menu yang memiliki **total vote == N**
+## 🎯 Tujuan Bisnis
 
----
+Mengelola pelanggan eksklusif secara profesional:
 
-## 📌 **4. Topik dan Detail**
-
-### 🎯 **Judul**
-
-**Manajemen Menu Fine Dining | Quality & Customer Preference System**
-
-### 📂 **Detail data yang disimpan**
-
-* `kode_menu` (**unik**), `nama_menu`, `harga`, `kategori` (**Signature**, **Premium**, **Seasonal**, **Vegan**), `rating[5]`
-
-  * jika `kode_menu` belum ada → buat node baru
-  * jika sudah ada → bisa menambahkan rating atau mengubah `harga`, `kategori`, atau `nama_menu`
+* Loyalitas
+* Aktivitas kunjungan
+* Segmentasi VIP
 
 ---
 
-### 🔗 **MLL (parent → child)**
+## 🧠 Struktur Data (MLL 1–N)
 
-* Parent = `Customer` (`{customer_id, nama, membership}`)
-* Child = `kode_menu` (int) → list favorit/kunjungan
+### 👑 Parent: Customer (Record)
 
----
+| Atribut       | Tipe    | Keterangan               |
+| ------------- | ------- | ------------------------ |
+| `customer_id` | int     | ID unik pelanggan        |
+| `nama`        | char[]  | Nama pelanggan           |
+| `membership`  | char[]  | Silver / Gold / Platinum |
+| `firstChild`  | pointer | Awal list aktivitas      |
+| `next`        | pointer | Customer berikutnya      |
 
-### 🌳 **View / Traversal (BST)**
+### 📌 Child: Aktivitas (Tipe Dasar)
 
-* in-order
-* pre-order
-* post-order
-* level-order
+| Atribut       | Tipe    |
+| ------------- | ------- |
+| nilai numerik | int     |
+| `next`        | pointer |
 
----
+> Child **tidak merepresentasikan menu apa pun**, hanya data numerik aktivitas.
 
-### 🔎 **Cari by**
+### 🔍 Perspektif Teori
 
-* `kode_menu`
-* `nama_menu`
-* `kategori`
-
----
-
-### 🗑️ **Hapus**
-
-* Hapus menu by `kode_menu`
-
----
-
-### 🧹 **Hapus (atribut) dari entitas tertentu**
-
-* Hapus favorite (child) dari `Customer` tertentu
-* Reset ratings dari satu `Menu` *(opsional)*
+* Parent dan child **berbeda tipe** (syarat MLL terpenuhi)
+* Relasi 1–N
+* Traversal linear sederhana
 
 ---
 
-### 🧮 **Counting total**
+## ⚙️ Fungsionalitas MLL
 
-* total menu
-* total customers
-* total menu per kategori
+### 🟩 CRUD + Search
 
----
+* Insert customer
+* Tambah / hapus data aktivitas
+* Delete customer
+* Search customer berdasarkan ID / nama
 
-### 📊 **View berdasarkan & hitung**
+### 🟨 Pengelolaan
 
-* tampilkan menu berdasarkan kategori
-* hitung jumlah menu tiap kategori
+* Total pelanggan
+* Total aktivitas per pelanggan
+* Pelanggan paling aktif
+* Pelanggan paling pasif
 
----
+### 💼 Nilai Bisnis
 
-### 📈 **Menampilkan (statistik)**
-
-* menu dengan rata-rata rating tertinggi & terendah
-* menu dengan harga tertinggi & terendah
-
----
-
-### ⭐ **Menampilkan menu dengan jumlah vote tertentu**
-
-* contoh: semua menu dengan **total vote == N**
+* Analisis loyalitas pelanggan
+* Segmentasi layanan eksklusif
+* Dasar program premium & personal service
