@@ -1,195 +1,348 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
-struct node {
-   int menu_code;
-   string menu_name;
-   int price;
-   string category;
-   int rating[5];
-   node * left, * right;
+struct Menu {
+    int kode_menu;
+    char nama_menu[50];
+    int harga;
+    char kategori[20];
+    int rating[5];
+
+    Menu* left;
+    Menu* right;
 };
 
-node * bst_create(int menu_code, string menu_name, int price, string category) {
-   node * new_node = new node();
+Menu* root = NULL;
 
-   new_node -> menu_code = menu_code;
-   new_node -> menu_name = menu_name;
-   new_node -> price = price;
-   new_node -> category = category;
-   for (int i = 0; i < 5; i++) {
-      new_node -> rating[i] = 0;
-   }
-
-   new_node -> left = NULL;
-   new_node -> right = NULL;
-
-   return new_node;
+void initBST() {
+    root = NULL;
 }
 
-node * bst_insert(node * root, int menu_code, string menu_name, int price, string category) {
-   if (root == NULL) {
-      return bst_create(menu_code, menu_name, price, category);
-   }
+Menu* createMenuNode(int kode, const char nama[], int harga, const char kategori[]) {
+    Menu* newNode = new Menu;
 
-   if (menu_code < root -> menu_code) {
-      root -> left = bst_insert(root -> left, menu_code, menu_name, price, category);
-   } else if (menu_code > root -> menu_code) {
-      root -> right = bst_insert(root -> right, menu_code, menu_name, price, category);
-   } else {
-      cout << "[error] duplicate menu_code detected: " << menu_code << endl;
-   }
+    newNode->kode_menu = kode;
 
-   return root;
+    int i = 0;
+    while (nama[i] != '\0') {
+        newNode->nama_menu[i] = nama[i];
+        i++;
+    }
+    newNode->nama_menu[i] = '\0';
+
+    newNode->harga = harga;
+
+    i = 0;
+    while (kategori[i] != '\0') {
+        newNode->kategori[i] = kategori[i];
+        i++;
+    }
+    newNode->kategori[i] = '\0';
+
+    for (i = 0; i < 5; i++) {
+        newNode->rating[i] = 0;
+    }
+
+    newNode->left = NULL;
+    newNode->right = NULL;
+
+    return newNode;
 }
 
-void bst_print_ratings(int rating[]) {
-   cout << "(";
-   for (int i = 0; i < 5; i++) {
-      cout << rating[i];
-      if (i < 4) cout << ", ";
-   }
-   cout << ")";
+Menu* insertBST(Menu* current, Menu* newNode) {
+    if (current == NULL) {
+        return newNode;
+    }
+
+    if (newNode->kode_menu < current->kode_menu) {
+        current->left = insertBST(current->left, newNode);
+    }
+    else if (newNode->kode_menu > current->kode_menu) {
+        current->right = insertBST(current->right, newNode);
+    }
+    else {
+        cout << "\033[1;31m[ERROR] Kode menu sudah terdaftar! Insert dibatalkan.\033[0m\n";
+    }
+
+    return current;
 }
 
-void bst_pre_order(node * root) {
-   if (root != NULL) {
-      cout <<
-         root -> menu_code << " - " <<
-         root -> menu_name << " - " <<
-         root -> price << " - " <<
-         root -> category << " - ";
-         bst_print_ratings(root -> rating);
-      cout << endl;
+Menu* searchBST(Menu* current, int targetKode) {
+    if (current == NULL) {
+        return NULL;
+    }
 
-      bst_pre_order(root -> left);
-      bst_pre_order(root -> right);
-   }
+    if (current->kode_menu == targetKode) {
+        return current;
+    }
+
+    if (targetKode < current->kode_menu) {
+        return searchBST(current->left, targetKode);
+    }
+    else {
+        return searchBST(current->right, targetKode);
+    }
 }
 
-void bst_in_order(node * root) {
-   if (root != NULL) {
-      bst_in_order(root -> left);
-
-      cout <<
-         root -> menu_code << " - " <<
-         root -> menu_name << " - " <<
-         root -> price << " - " <<
-         root -> category << " - ";
-         bst_print_ratings(root -> rating);
-      cout << endl;
-
-      bst_in_order(root -> right);
-   }
+Menu* findMin(Menu* node) {
+    Menu* current = node;
+    while (current && current->left != NULL)
+        current = current->left;
+    return current;
 }
 
-void bst_post_order(node * root) {
-   if (root != NULL) {
-      bst_post_order(root -> left);
-      bst_post_order(root -> right);
+Menu* deleteBST(Menu* root, int kode) {
+    if (root == NULL) return root;
 
-      cout <<
-         root -> menu_code << " - " <<
-         root -> menu_name << " - " <<
-         root -> price << " - " <<
-         root -> category << " - ";
-         bst_print_ratings(root -> rating);
-      cout << endl;
-   }
+    if (kode < root->kode_menu) {
+        root->left = deleteBST(root->left, kode);
+    }
+    else if (kode > root->kode_menu) {
+        root->right = deleteBST(root->right, kode);
+    }
+    else {
+        if (root->left == NULL) {
+            Menu* temp = root->right;
+            delete root;
+            return temp;
+        }
+        else if (root->right == NULL) {
+            Menu* temp = root->left;
+            delete root;
+            return temp;
+        }
+
+        Menu* temp = findMin(root->right);
+
+        root->kode_menu = temp->kode_menu;
+        root->harga = temp->harga;
+        
+        int i = 0;
+        while (temp->nama_menu[i] != '\0') {
+            root->nama_menu[i] = temp->nama_menu[i];
+            i++;
+        }
+        root->nama_menu[i] = '\0';
+
+        i = 0;
+        while (temp->kategori[i] != '\0') {
+            root->kategori[i] = temp->kategori[i];
+            i++;
+        }
+        root->kategori[i] = '\0';
+
+        root->right = deleteBST(root->right, temp->kode_menu);
+    }
+    return root;
 }
 
-node * bst_search(node * root, int menu_code) {
-   if (root == NULL || root -> menu_code == menu_code) {
-      return root;
-   }
-
-   if (menu_code < root -> menu_code) {
-      return bst_search(root -> left, menu_code);
-   }
-
-   return bst_search(root -> right, menu_code);
+void inOrder(Menu* current) {
+    if (current != NULL) {
+        inOrder(current->left);
+        cout << "\033[1;36m+------------------------------------------+\033[0m" << endl;
+        cout << " \033[1;33mKode    : \033[1;37m" << current->kode_menu << "\033[0m" << endl;
+        cout << " \033[1;33mNama    : \033[1;37m" << current->nama_menu << "\033[0m" << endl;
+        cout << " \033[1;33mHarga   : \033[1;32mRp " << current->harga << "\033[0m" << endl;
+        cout << " \033[1;33mKategori: \033[1;35m" << current->kategori << "\033[0m" << endl;
+        cout << "\033[1;36m+------------------------------------------+\033[0m" << endl;
+        inOrder(current->right);
+    }
 }
 
-node * bst_smallest(node * root) {
-   node * current = root;
-   while (current && current -> left != NULL) {
-      current = current -> left;
-   }
-   return current;
+void preOrder(Menu* current) {
+    if (current != NULL) {
+        cout << "\033[1;36m+------------------------------------------+\033[0m" << endl;
+        cout << " \033[1;33mKode    : \033[1;37m" << current->kode_menu << "\033[0m" << endl;
+        cout << " \033[1;33mNama    : \033[1;37m" << current->nama_menu << "\033[0m" << endl;
+        cout << " \033[1;33mHarga   : \033[1;32mRp " << current->harga << "\033[0m" << endl;
+        cout << " \033[1;33mKategori: \033[1;35m" << current->kategori << "\033[0m" << endl;
+        cout << "\033[1;36m+------------------------------------------+\033[0m" << endl;
+        preOrder(current->left);
+        preOrder(current->right);
+    }
 }
 
-node * bst_delete(node * root, int menu_code) {
-   if (root == NULL) {
-      return root;
-   }
-
-   if (menu_code < root -> menu_code) {
-      root -> left = bst_delete(root -> left, menu_code);
-   } else if (menu_code > root -> menu_code) {
-      root -> right = bst_delete(root -> right, menu_code);
-   } else {
-      if (root -> left == NULL) {
-         node * temp = root -> right;
-         delete root;
-         return temp;
-      }
-      else if (root -> right == NULL) {
-         node * temp = root -> left;
-         delete root;
-         return temp;
-      }
-
-      node * temp = bst_smallest(root -> right);
-
-      root->menu_code = temp->menu_code;
-      root->menu_name = temp->menu_name;
-      root->price = temp->price;
-      root->category = temp->category;
-      for (int i = 0; i < 5; i++) {
-         root->rating[i] = temp->rating[i];
-      }
-
-      root->right = bst_delete(root->right, temp->menu_code);
-   }
-
-   return root;
+void postOrder(Menu* current) {
+    if (current != NULL) {
+        postOrder(current->left);
+        postOrder(current->right);
+        cout << "\033[1;36m+------------------------------------------+\033[0m" << endl;
+        cout << " \033[1;33mKode    : \033[1;37m" << current->kode_menu << "\033[0m" << endl;
+        cout << " \033[1;33mNama    : \033[1;37m" << current->nama_menu << "\033[0m" << endl;
+        cout << " \033[1;33mHarga   : \033[1;32mRp " << current->harga << "\033[0m" << endl;
+        cout << " \033[1;33mKategori: \033[1;35m" << current->kategori << "\033[0m" << endl;
+        cout << "\033[1;36m+------------------------------------------+\033[0m" << endl;
+    }
 }
 
 int main() {
-   node * root = NULL;
+    int pilihanUtama;
+    int pilihanBST;
 
-   root = bst_insert(root, 1001, "wagyu striploin a5", 850000, "signature");
-   root = bst_insert(root, 1002, "black truffle risotto", 420000, "premium");
-   root = bst_insert(root, 1003, "lobster bisque", 380000, "signature");
-   root = bst_insert(root, 1004, "pumpkin veloute", 210000, "seasonal");
-   root = bst_insert(root, 1005, "vegan mushroom steak", 240000, "vegan");   
+    initBST();
 
-   cout << "----- pre-order traversal" << endl;
-   bst_pre_order(root);
-   cout << endl;
+    do {
+        cout << "\n\033[1;34m============================================\033[0m\n";
+        cout << "\033[1;36m      S I S T E M   R E S T O R A N       \033[0m\n";
+        cout << "\033[1;34m============================================\033[0m\n";
+        cout << "\033[1;33m[1]\033[0m Menu Fine Dining (Database BST)\n";
+        cout << "\033[1;33m[2]\033[0m Pelanggan VIP (Linked List)\n";
+        cout << "\033[1;31m[0]\033[0m Exit Program\n";
+        cout << "\033[1;34m--------------------------------------------\033[0m\n";
+        cout << "Pilihan Anda >> ";
+        cin >> pilihanUtama;
 
-   cout << "----- in-order traversal" << endl;
-   bst_in_order(root);
-   cout << endl;
+        switch (pilihanUtama) {
 
-   cout << "----- post-order traversal" << endl;
-   bst_post_order(root);
-   cout << endl;
+        case 1:
+            do {
+                cout << "\n\n\033[1;35m:::::::::  FINE DINING MANAGER  :::::::::\033[0m\n";
+                cout << "\033[1;32m 1.\033[0m Insert Menu Baru\n";
+                cout << "\033[1;32m 2.\033[0m Cari Menu (Searching)\n";
+                cout << "\033[1;32m 3.\033[0m Update Data Menu\n";
+                cout << "\033[1;31m 4.\033[0m Hapus Menu (Delete)\n";
+                cout << "\033[1;36m 5.\033[0m Lihat Semua Menu (Traversal)\n";
+                cout << "\033[1;36m 6.\033[0m Statistik Data\n";
+                cout << "\033[1;33m 0.\033[0m Kembali\n";
+                cout << "\033[1;35m:::::::::::::::::::::::::::::::::::::::::\033[0m\n";
+                cout << "Aksi >> ";
+                cin >> pilihanBST;
 
-   cout << "----- searching 1003" << endl;
-   int search_code = 1003;
-   node * search_result = bst_search(root, search_code);
-   if (search_result != NULL) {
-      cout << "found " << search_result -> menu_code << " " << search_result -> menu_name << endl;
-   } else {
-      cout << "menu item with code " << search_code << " not found." << endl;
-   }
-   cout << endl;
+                switch (pilihanBST) {
 
-   cout << "----- deleting 1002" << endl;
-   root = bst_delete(root, 1002);
-   bst_in_order(root);
+                case 1: {
+                    int kode, harga;
+                    char nama[50];
+                    char kategori[20];
 
-   return 0;
+                    cout << "\n\033[1;32m--- TAMBAH MENU BARU ---\033[0m\n";
+                    cout << "Kode Menu (Angka) : ";
+                    cin >> kode;
+                    cin.ignore();
+
+                    cout << "Nama Hidangan     : ";
+                    cin.getline(nama, 50);
+
+                    cout << "Harga (Rp)        : ";
+                    cin >> harga;
+                    cin.ignore();
+
+                    cout << "Kategori          : ";
+                    cin.getline(kategori, 20);
+
+                    Menu* newMenu = createMenuNode(kode, nama, harga, kategori);
+                    root = insertBST(root, newMenu);
+
+                    cout << "\n\033[1;32m[SUKSES] Menu berhasil disimpan ke database.\033[0m\n";
+                    break;
+                }
+
+                case 2: {
+                    if (root == NULL) {
+                        cout << "\n\033[1;31m[INFO] Database menu masih kosong.\033[0m\n";
+                    } else {
+                        int cariKode;
+                        cout << "\n\033[1;34m--- PENCARIAN MENU ---\033[0m\n";
+                        cout << "Masukkan Kode Menu : ";
+                        cin >> cariKode;
+
+                        Menu* hasil = searchBST(root, cariKode);
+
+                        if (hasil != NULL) {
+                            cout << "\n\033[1;32m[DITEMUKAN] Data tersedia:\033[0m\n";
+                            cout << "\033[1;36m+------------------------------------------+\033[0m" << endl;
+                            cout << " \033[1;33mKode    : \033[1;37m" << hasil->kode_menu << "\033[0m" << endl;
+                            cout << " \033[1;33mNama    : \033[1;37m" << hasil->nama_menu << "\033[0m" << endl;
+                            cout << " \033[1;33mHarga   : \033[1;32mRp " << hasil->harga << "\033[0m" << endl;
+                            cout << " \033[1;33mKategori: \033[1;35m" << hasil->kategori << "\033[0m" << endl;
+                            cout << "\033[1;36m+------------------------------------------+\033[0m" << endl;
+                        } else {
+                            cout << "\n\033[1;31m[404] Menu dengan kode " << cariKode << " TIDAK DITEMUKAN.\033[0m\n";
+                        }
+                    }
+                    break;
+                }
+
+                case 3:
+                    cout << "\n\033[1;33m[DEV] Fitur Update sedang dalam pengembangan.\033[0m\n";
+                    break;
+
+                case 4: {
+                    if (root == NULL) {
+                        cout << "\n\033[1;31m[INFO] Database menu masih kosong.\033[0m\n";
+                    } else {
+                        int hapusKode;
+                        cout << "\n\033[1;31m--- HAPUS MENU ---\033[0m\n";
+                        cout << "Masukkan Kode Menu : ";
+                        cin >> hapusKode;
+
+                        Menu* cek = searchBST(root, hapusKode);
+                        if (cek == NULL) {
+                            cout << "\033[1;31m[GAGAL] Menu tidak ditemukan.\033[0m\n";
+                        } else {
+                            root = deleteBST(root, hapusKode);
+                            cout << "\033[1;32m[SUKSES] Menu dengan kode " << hapusKode << " telah dihapus.\033[0m\n";
+                        }
+                    }
+                    break;
+                }
+
+                case 5: {
+                    int pilihanTraversal;
+                    cout << "\n\033[1;36m--- METODE TAMPILAN ---\033[0m\n";
+                    cout << "[1] In-Order (Urut Kode Kecil -> Besar)\n";
+                    cout << "[2] Pre-Order\n";
+                    cout << "[3] Post-Order\n";
+                    cout << "Pilih Tampilan >> ";
+                    cin >> pilihanTraversal;
+
+                    if (root == NULL) {
+                        cout << "\n\033[1;31m[EMPTY] Belum ada data menu tersimpan!\033[0m\n";
+                    } else {
+                        cout << "\n\033[1;34m======= DAFTAR MENU =======\033[0m\n";
+                        switch (pilihanTraversal) {
+                        case 1:
+                            inOrder(root);
+                            break;
+                        case 2:
+                            preOrder(root);
+                            break;
+                        case 3:
+                            postOrder(root);
+                            break;
+                        default:
+                            cout << "\033[1;31mPilihan tidak valid!\033[0m\n";
+                        }
+                        cout << "\033[1;34m===========================\033[0m\n";
+                    }
+                    break;
+                }
+
+                case 0:
+                    cout << "\n\033[1;33mKembali ke Dashboard Utama...\033[0m\n";
+                    break;
+
+                default:
+                    cout << "\033[1;31mInput tidak valid.\033[0m\n";
+                }
+
+            } while (pilihanBST != 0);
+            break;
+
+        case 2:
+            cout << "\n\033[1;33m[MLL] Modul Pelanggan VIP belum diaktifkan.\033[0m\n";
+            break;
+
+        case 0:
+            cout << "\n\033[1;36mTerima kasih bos!\033[0m\n";
+            cout << "\033[1;36mSemoga restoran semakin sukses!\033[0m\n";
+            break;
+
+        default:
+            cout << "\033[1;31mPilihan tidak valid!\033[0m\n";
+        }
+
+    } while (pilihanUtama != 0);
+
+    return 0;
 }
