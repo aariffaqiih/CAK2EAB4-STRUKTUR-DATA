@@ -64,7 +64,7 @@ Kedua struktur data **berdiri sendiri secara independen**, tanpa relasi apa pun,
 
 ---
 
-## 👤 Modul 2: Manajemen Pelanggan VIP (MLL 1–N)
+## 🧩 Modul 2: Manajemen Pelanggan VIP (MLL 1–N)
 
 ### 👑 Parent: Customer (Record)
 
