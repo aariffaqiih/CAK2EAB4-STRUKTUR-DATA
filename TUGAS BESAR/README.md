@@ -1,6 +1,4 @@
-# 🍽️ Manajemen Menu Fine Dining
-
-### *An Elite Culinary Management System*
+# 🍽️ Manajemen Fine Dining
 
 ---
 
@@ -17,44 +15,16 @@ Kedua struktur data **berdiri sendiri secara independen**, tanpa relasi apa pun,
 
 ---
 
-## 🏛️ Filosofi Desain Sistem (High-End Architecture)
-
-Pada restoran fine dining kelas dunia:
-
-* **Menu** adalah entitas premium yang berdiri sendiri
-* **Pelanggan VIP** adalah aset eksklusif dengan histori tersendiri
-* Tidak semua data perlu saling terhubung — **kejelasan struktur lebih penting daripada kompleksitas semu**
-
-Pendekatan ini mencerminkan:
-
-* Desain sistem bersih (clean architecture)
-* Modularitas
-* Skalabilitas operasional restoran elite
-
----
-
-# 🌳 Modul 1 — Manajemen Menu (BST)
-
-## 🎯 Tujuan Bisnis
-
-Mengelola menu restoran eksklusif dengan standar tinggi:
-
-* Konsistensi kualitas
-* Analisis performa menu
-* Pengambilan keputusan strategis (harga, kategori, kualitas)
-
----
-
-## 🧠 Struktur Data (BST)
+## 🌳 Modul 1: Manajemen Menu (BST)
 
 ### 📦 Node Menu (Record)
 
 | Atribut         | Tipe      | Keterangan                             |
 | --------------- | --------- | -------------------------------------- |
 | `kode_menu`     | int       | ID unik menu (key BST)                 |
-| `nama_menu`     | char[]    | Nama menu                              |
+| `nama_menu`     | string    | Nama menu                              |
 | `harga`         | int       | Harga premium                          |
-| `kategori`      | char[]    | Signature / Premium / Seasonal / Vegan |
+| `kategori`      | string    | Signature / Premium / Seasonal / Vegan |
 | `rating[5]`     | int array | Distribusi rating pelanggan            |
 | `left`, `right` | pointer   | Anak kiri & kanan BST                  |
 
@@ -68,7 +38,7 @@ Mengelola menu restoran eksklusif dengan standar tinggi:
 
 ## ⚙️ Fungsionalitas BST
 
-### 🟦 CRUD + Search
+### 🔴 CRUD + Search
 
 * Insert menu berdasarkan `kode_menu`
 * Update nama, harga, kategori
@@ -79,49 +49,30 @@ Mengelola menu restoran eksklusif dengan standar tinggi:
   * nama menu
   * kategori
 
-### 🟧 Traversal
+### 🟡 Traversal
 
-* In-order → tampilan menu terurut (standar fine dining)
-* Pre-order → struktur dapur
-* Post-order → evaluasi menu
+* In-order -> tampilan menu terurut
+* Pre-order -> struktur dapur
+* Post-order -> evaluasi menu
 
-### 🟨 Pengelolaan & Statistik
+### 🟢 Pengelolaan & Statistik
 
 * Total menu
 * Total menu per kategori
 * Menu termahal & termurah
 * Menu dengan rating tertinggi & terendah
-* Menu dengan total vote tertentu
-
-### 💼 Nilai Bisnis
-
-* Menentukan menu andalan
-* Menyusun menu seasonal
-* Evaluasi kualitas chef
 
 ---
 
-# 👤 Modul 2 — Manajemen Pelanggan VIP (MLL 1–N)
-
-## 🎯 Tujuan Bisnis
-
-Mengelola pelanggan eksklusif secara profesional:
-
-* Loyalitas
-* Aktivitas kunjungan
-* Segmentasi VIP
-
----
-
-## 🧠 Struktur Data (MLL 1–N)
+## 👤 Modul 2: Manajemen Pelanggan VIP (MLL 1–N)
 
 ### 👑 Parent: Customer (Record)
 
 | Atribut       | Tipe    | Keterangan               |
 | ------------- | ------- | ------------------------ |
 | `customer_id` | int     | ID unik pelanggan        |
-| `nama`        | char[]  | Nama pelanggan           |
-| `membership`  | char[]  | Silver / Gold / Platinum |
+| `nama`        | string  | Nama pelanggan           |
+| `membership`  | string  | Silver / Gold / Platinum |
 | `firstChild`  | pointer | Awal list aktivitas      |
 | `next`        | pointer | Customer berikutnya      |
 
@@ -129,14 +80,12 @@ Mengelola pelanggan eksklusif secara profesional:
 
 | Atribut       | Tipe    |
 | ------------- | ------- |
-| nilai numerik | int     |
+| id_reservasi  | int     |
 | `next`        | pointer |
-
-> Child **tidak merepresentasikan menu apa pun**, hanya data numerik aktivitas.
 
 ### 🔍 Perspektif Teori
 
-* Parent dan child **berbeda tipe** (syarat MLL terpenuhi)
+* Parent dan child **berbeda tipe**
 * Relasi 1–N
 * Traversal linear sederhana
 
@@ -144,22 +93,16 @@ Mengelola pelanggan eksklusif secara profesional:
 
 ## ⚙️ Fungsionalitas MLL
 
-### 🟩 CRUD + Search
+### 🔵 CRUD + Search
 
 * Insert customer
 * Tambah / hapus data aktivitas
 * Delete customer
 * Search customer berdasarkan ID / nama
 
-### 🟨 Pengelolaan
+### 🟣 Pengelolaan
 
 * Total pelanggan
 * Total aktivitas per pelanggan
 * Pelanggan paling aktif
 * Pelanggan paling pasif
-
-### 💼 Nilai Bisnis
-
-* Analisis loyalitas pelanggan
-* Segmentasi layanan eksklusif
-* Dasar program premium & personal service
