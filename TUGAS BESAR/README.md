@@ -9,7 +9,7 @@ Sistem **Manajemen Menu Fine Dining** adalah aplikasi terminal berbasis **C++** 
 Sistem ini **secara sengaja memisahkan** pengelolaan:
 
 * **Menu makanan** menggunakan **Binary Search Tree (BST)**
-* **Pelanggan VIP** menggunakan **Multi Linked List (MLL) 1–N**
+* **Pelanggan VIP** menggunakan **Multi Linked List (MLL) 1-N**
 
 Kedua struktur data **berdiri sendiri secara independen**, tanpa relasi apa pun, untuk menekankan **pemahaman konsep struktur data murni**, bukan sekadar hubungan antar entitas.
 
